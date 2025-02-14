@@ -1,0 +1,18 @@
+---
+description: 
+globs: 
+---
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+
+Project Context: This is a dev tool built for evaluating open source projects allowing people to better understand the maintainability, activity and longevity of a given project to allow devs to better decide whether they should include or use the given open source repositories after the analysis 
+
+Code Style and Structure
+- Write concise, technical TypeScript code with accurate examples.
+- Use functional and declarative programming patterns; avoid classes.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+- Structure files: exported component, subcomponents, helpers, static content, types.
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to
