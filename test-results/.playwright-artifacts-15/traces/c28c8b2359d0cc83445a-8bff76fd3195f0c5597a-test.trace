@@ -1,0 +1,17 @@
+{"version":7,"type":"context-options","origin":"testRunner","browserName":"","options":{},"platform":"darwin","wallTime":1739659949835,"monotonicTime":3809.809,"sdkLanguage":"javascript"}
+{"type":"before","callId":"hook@1","startTime":3827.807,"class":"Test","method":"hook","apiName":"Before Hooks","params":{},"stack":[]}
+{"type":"before","callId":"hook@2","parentId":"hook@1","startTime":3830.548,"class":"Test","method":"hook","apiName":"beforeEach hook","params":{},"stack":[{"file":"/Users/haydendrew/tailwind-landing-page-template/tests/e2e/hero.spec.ts","line":4,"column":8}]}
+{"type":"before","callId":"fixture@3","parentId":"hook@2","startTime":3981.236,"class":"Test","method":"fixture","apiName":"fixture: browser","params":{},"stack":[]}
+{"type":"before","callId":"pw:api@4","parentId":"fixture@3","startTime":4088.643,"class":"Test","method":"pw:api","apiName":"browserType.launch","params":{"handleSIGINT":"false","headless":"true","tracesDir":"/Users/haydendrew/tailwind-landing-page-template/test-results/.playwright-artifacts-15/traces","ignoreDefaultArgs":"undefined","ignoreAllDefaultArgs":"false","env":"undefined"},"stack":[]}
+{"type":"after","callId":"fixture@3","endTime":7250.236,"attachments":[],"error":{"name":"","message":"\u001b[31mFixture \"browser\" timeout of 0ms exceeded during setup.\u001b[39m","stack":"\u001b[31mFixture \"browser\" timeout of 0ms exceeded during setup.\u001b[39m"}}
+{"type":"after","callId":"hook@2","endTime":7408.444,"attachments":[],"error":{"name":"","message":"\u001b[31mFixture \"browser\" timeout of 0ms exceeded during setup.\u001b[39m","stack":"\u001b[31mFixture \"browser\" timeout of 0ms exceeded during setup.\u001b[39m"}}
+{"type":"after","callId":"hook@1","endTime":7436.265,"attachments":[],"error":{"name":"","message":"\u001b[31mFixture \"browser\" timeout of 0ms exceeded during setup.\u001b[39m","stack":"\u001b[31mFixture \"browser\" timeout of 0ms exceeded during setup.\u001b[39m"}}
+{"type":"before","callId":"hook@5","startTime":7486.3369999999995,"class":"Test","method":"hook","apiName":"After Hooks","params":{},"stack":[]}
+{"type":"after","callId":"hook@5","endTime":7779.494,"attachments":[]}
+{"type":"before","callId":"hook@6","startTime":7780.218,"class":"Test","method":"hook","apiName":"Worker Cleanup","params":{},"stack":[]}
+{"type":"before","callId":"fixture@7","parentId":"hook@6","startTime":7781.6,"class":"Test","method":"fixture","apiName":"fixture: browser","params":{},"stack":[]}
+{"type":"after","callId":"fixture@7","endTime":7782.034,"attachments":[]}
+{"type":"after","callId":"hook@6","endTime":7783.021,"attachments":[]}
+{"type":"error","message":"Error: Channel closed","stack":[]}
+{"type":"before","callId":"attach@8","startTime":8059.729,"class":"Test","method":"attach","apiName":"attach \"trace\"","params":{},"stack":[]}
+{"type":"after","callId":"attach@8","endTime":8060.593,"attachments":[]}

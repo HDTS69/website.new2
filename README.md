@@ -1,139 +1,91 @@
-![image](https://github.com/michaeltroya/supa-next-starter/assets/38507347/2ea40874-98de-49ec-ab6a-74c816e6ca22)
+# Free Tailwind landing page template
 
-<h1 align="center">⚡ SupaNext Starter Kit ⚡</h1>
+![Simple TailwindCSS template preview](https://github.com/cruip/tailwind-landing-page-template/assets/2683512/f9a98fab-a1bc-4fb5-8572-4de0b6bd932a)
 
-<p align="center">
- The Last Next.js and Supabase Starter You Will Ever Need
-</p>
+**Simple Light** is a free landing page template built on top of **TailwindCSS** and fully coded in **React** / **Next.js**. Simple light is designed to provide all the basic components a developer need to create a landing page for SaaS products, online services, and more.
 
-<div align="center">
+**UPDATE 2025-02-04** Added Tailwind v4 support!
 
-<img alt="GitHub License" src="https://img.shields.io/github/license/michaeltroya/supa-next-starter">
+Use it for whatever you want, and be sure to reach us out on X if you build anything cool/useful with it.
+Created and maintained with ❤️ by [Cruip.com](https://cruip.com/).
 
-  <a href="https://twitter.com/intent/follow?screen_name=michaeltroya_">
-   <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/michaeltroya_">
-  </a>
-</div>
+_Version 1.3.3 built with Tailwind CSS and React + Vite is available [here](https://github.com/cruip/tailwind-landing-page-template/releases/tag/1.3.3)._
 
-<div align="center">
-  <sub>Created by <a href="https://twitter.com/michaeltroya_">Michael Troya</a>
-</div>
+## Live demo
 
-<br/>
+Check the live demo here 👉️ [https://simple.cruip.com/](https://simple.cruip.com/)
 
-<p align="center">
-  <a href="#features"><strong>Features</strong></a> ·
-  <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#documentation"><strong>Documentation</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
-</p>
-<br/>
+## Simple Pro
 
-## Features
+[![Simple Pro](https://github.com/cruip/tailwind-landing-page-template/assets/2683512/992be2ba-3de7-4838-be41-12e85686c193)](https://cruip.com/)
 
-- ⚡️ Next.js 14 (App Router)
-- 💚 Supabase w/ supabase-ssr - Works across the entire [Next.js](https://nextjs.org) stack (App Router, Pages Router, Client, Server, Middleware, It just works!)
-- ⚛️ React 18
-- ⛑ TypeScript
-- 📦 [pnpm](https://pnpm.io/) - Fast, disk space efficient package manager
-- 🎨 [Tailwind](https://tailwindcss.com/)
-- 🔌 [shadcn/ui](https://ui.shadcn.com/) - Beautifully designed components that you can copy and paste into your apps.
-- 🧪 Jest w/SWC + React Testing Library - Unit tests for all of your code.
-- 🎛️ [MSW](https://mswjs.io/)v2 - Intercept requests inside your tests (set up for testing only)
-- 🪝[TanStackQuery](https://tanstack.com/query/v5)v5 - The best way to fetch data on the client
-- 📏 ESLint — To find and fix problems in your code
-- 💖 Prettier — Code Formatter for consistent style
-- 🐶 Husky — For running scripts before committing
-- 🚫 lint-staged — Run ESLint and Prettier against staged Git files
-- 👷 Github Actions — Run Type Checks, Tests, and Linters on Pull Requests
-- 🗂 Path Mapping — Import components or images using the `@` prefix
-- ⚪⚫ Dark mode - Toggle theme modes with [next-themes](https://github.com/pacocoursey/next-themes)
-- ✨ Next Top Loader - Render a pleasent top loader on navigation with [nextjs-toploader](https://github.com/TheSGJ/nextjs-toploader)
-- 🔋 Lots Extras - Next Bundle Analyzer, Vercel Analytics, Vercel Geist Font
+## Design files
 
-## Clone and run locally
+If you need the design files, you can download them from Figma's Community 👉 https://bit.ly/3HOZMpf
 
-1. You'll first need a Supabase project which can be made [via the Supabase dashboard](https://database.new)
+## Usage
 
-2. Create a Next.js app using the Supabase Starter template npx command
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-   ```bash
-   pnpm create next-app -e https://github.com/michaeltroya/supa-next-starter
-   # or
-   npx create-next-app -e https://github.com/michaeltroya/supa-next-starter
-   ```
+### Getting Started
 
-3. Use `cd` to change into the app's directory
+First, run the development server:
 
-   ```bash
-   cd name-of-new-app
-   ```
-
-4. Rename `.env.local.example` to `.env.local` and update the following:
-
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=[INSERT SUPABASE PROJECT API ANON KEY]
-   ```
-
-   Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` can be found in [your Supabase project's API settings](https://app.supabase.com/project/_/settings/api)
-
-5. You can now run the Next.js local development server:
-
-   ```bash
-   pnpm run dev
-   ```
-
-   The starter kit should now be running on [localhost:3000](http://localhost:3000/).
-
-> Check out [the docs for Local Development](https://supabase.com/docs/guides/getting-started/local-development) to also run Supabase locally.
-
-## Showcase
-
-Websites started using this template:
-
-- [mainspring.pro](https://www.mainspring.pro/)
-- [Add yours](https://github.com/michaeltroya/supa-next-starter/edit/main/README.md)
-
-# Documentation
-
-### Requirements
-
-- Node.js >= 18.17.0
-- pnpm 8
-
-### Scripts
-
-- `pnpm dev` — Starts the application in development mode at `http://localhost:3000`.
-- `pnpm build` — Creates an optimized production build of your application.
-- `pnpm start` — Starts the application in production mode.
-- `pnpm type-check` — Validate code using TypeScript compiler.
-- `pnpm lint` — Runs ESLint for all files in the `src` directory.
-- `pnpm format-check` — Runs Prettier and checks if any files have formatting issues.
-- `pnpm format` — Runs Prettier and formats files.
-- `pnpm test` — Runs all the jest tests in the project.
-- `pnpm test:ci` — Runs all the jest tests in the project, Jest will assume it is running in a CI environment.
-- `pnpm analyze` — Builds the project and opens the bundle analyzer.
-
-### Paths
-
-TypeScript is pre-configured with custom path mappings. To import components or files, use the `@` prefix.
-
-```tsx
-import { Button } from '@/components/ui/Button'
-
-// To import images or other files from the public folder
-import avatar from '@/public/avatar.png'
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
-### Switch to Yarn/npm
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-This starter uses pnpm by default, but this choice is yours. If you'd like to switch to Yarn/npm, delete the `pnpm-lock.yaml` file, install the dependencies with Yarn/npm, change the CI workflow, and Husky Git hooks to use Yarn/npm commands.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## License
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Feedback and issues
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-Please file feedback and issues [here](https://github.com/michaeltroya/supa-next-starter/issues).
+### Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+### Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### Support notes
+
+This template has been developed with the App Router (`app`) and React Server Components. If you’re unfamiliar with these beta features, you can find more information about them on the Next.js beta documentation page. So, please note that any request dealing with React (e.g. extra features, customisations, et cetera) is to be considered out of the support scope.
+
+For more information about what support covers, please see our (FAQs)[https://cruip.com/faq/].
+
+## Credits
+
+- [Nucleo](https://nucleoapp.com/)
+
+## Terms and License
+
+- Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html).
+- Copyright 2024 [Cruip](https://cruip.com/).
+- Use it for personal and commercial projects, but please don’t republish, redistribute, or resell the template.
+- Attribution is not required, although it is really appreciated.
+
+## About Us
+
+We're an Italian developer/designer duo creating high-quality design/code resources for developers, makers, and startups.
+
+## Stay in the loop
+
+If you would like to know when we release new resources, you can follow [@pacovitiello](https://x.com/pacovitiello) and [@DavidePacilio](https://x.com/DavidePacilio) on X, or you can subscribe to our [newsletter](https://cruip.com/newsletter/).
+

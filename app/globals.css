@@ -1,0 +1,652 @@
+@import './styles/form-animations.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Theme Configuration */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --theme-color: #00E6CA;
+    --theme-color-rgb: 0, 230, 202;
+    --input-border: #515151;
+    --label-color: #999;
+  }
+
+  body {
+    background-color: black;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+  /* Allow text selection in form inputs and textareas */
+  input, textarea {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+  }
+
+  /* Standardized Headers */
+  h1.standard-header {
+    @apply text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#1CD4A7] via-white to-[#1CD4A7] bg-[length:200%_auto] animate-gradient;
+  }
+
+  h2.standard-header {
+    @apply text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4;
+  }
+
+  h3.standard-header {
+    @apply text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-3;
+  }
+
+  .standard-subheader {
+    @apply text-xl text-gray-300 max-w-3xl mx-auto;
+  }
+}
+
+/* Form Elements Base Styles */
+@layer components {
+  /* Input Base Styles */
+  input, textarea, select {
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+    background-color: rgb(0, 0, 0) !important;
+    -webkit-text-fill-color: #f3f4f6 !important;
+    color: #f3f4f6 !important;
+  }
+
+  /* Wave Animation Group */
+  .wave-group {
+    position: relative;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Unified input and textarea styles */
+  .wave-group input[type="text"],
+  .wave-group input[type="email"],
+  .wave-group input[type="tel"],
+  .wave-group .input {
+    font-size: 1rem;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #515151;
+    background: transparent;
+    margin: 0;
+  }
+
+  /* Specific styling for textarea to match other inputs */
+  .wave-group textarea.input {
+    padding: 10px 10px 10px 5px;
+    line-height: 1.5;
+    min-height: 40px;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .wave-group input:focus,
+  .wave-group .input:focus {
+    outline: none;
+  }
+
+  .wave-group .label {
+    color: #999;
+    font-size: 1rem;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    display: flex;
+    transition: 0.2s ease all;
+    margin: 0;
+  }
+
+  /* Ensure textarea labels are positioned consistently */
+  .wave-group textarea.input ~ .label {
+    top: 10px;
+  }
+
+  .wave-group .label-char {
+    transition: 0.2s cubic-bezier(0.72, 0.01, 0.58, 1) all;
+    transition-delay: calc(33ms * var(--index));
+  }
+
+  /* Unified label animation for all input types */
+  .wave-group input:focus ~ .label .label-char,
+  .wave-group .input:focus ~ .label .label-char,
+  .wave-group .input:not(:placeholder-shown) ~ .label .label-char {
+    transform: translateY(-20px) translateX(0px) scale(0.75);
+    color: #00E6CA;
+  }
+
+  /* Bar element styling */
+  .wave-group .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .wave-group .bar:before {
+    content: '';
+    height: 2px;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    background: #00E6CA;
+    transform: scaleX(0);
+    transition: 0.3s ease;
+    transform-origin: left;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wave-group .input:focus ~ .bar:before,
+  .wave-group .input:not(:placeholder-shown) ~ .bar:before {
+    transform: scaleX(1);
+  }
+
+  .validation-message {
+    position: absolute;
+    bottom: -1.25rem;
+    left: 0;
+    font-size: 0.75rem;
+    color: #00E6CA;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Checkbox and Radio Styles */
+  input[type="checkbox"], input[type="radio"] {
+    color: #1CD4A7;
+    border: 1px solid rgb(55, 65, 81);
+    accent-color: var(--theme-color);
+    background-color: transparent !important;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+
+  input[type="checkbox"]:hover, input[type="radio"]:hover {
+    transform: scale(1.05);
+    border-color: var(--theme-color);
+    box-shadow: 0 0 5px rgba(var(--theme-color-rgb), 0.3);
+  }
+
+  input[type="checkbox"]:checked,
+  input[type="radio"]:checked {
+    background-color: var(--theme-color) !important;
+    border-color: var(--theme-color);
+    animation: checkbox-pop 0.3s ease-in-out;
+    box-shadow: 0 0 8px rgba(var(--theme-color-rgb), 0.5);
+  }
+
+  input[type="checkbox"]:focus,
+  input[type="radio"]:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(var(--theme-color-rgb), 0.5);
+  }
+
+  input[type="checkbox"]:checked:hover,
+  input[type="radio"]:checked:hover {
+    box-shadow: 0 0 12px rgba(var(--theme-color-rgb), 0.7);
+  }
+
+  input[type="radio"] {
+    border-radius: 50%;
+  }
+
+  input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    animation: checkmark 0.2s ease-in-out forwards;
+  }
+
+  input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    animation: radio-dot 0.2s ease-in-out forwards;
+    opacity: 0;
+  }
+}
+
+/* Autofill Styles */
+@layer utilities {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  textarea:-webkit-autofill:active {
+    -webkit-text-fill-color: #f3f4f6 !important;
+    -webkit-box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
+    box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
+    background-color: rgb(0, 0, 0) !important;
+    caret-color: #f3f4f6 !important;
+    -webkit-background-clip: text !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Dark Mode */
+  .dark {
+    color-scheme: dark;
+  }
+
+  /* FOUC Prevention */
+  html {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .animate-gradient {
+    animation: gradient 8s linear infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(0, 230, 202, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(0, 230, 202, 0.6);
+    }
+  }
+}
+
+/* Animation Utilities */
+@layer utilities {
+  .animate-fade-in-up { 
+    animation: fadeInUp 0.4s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    will-change: transform, opacity;
+  }
+  .animate-fade-in { 
+    animation: fadeIn 0.4s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    will-change: opacity;
+  }
+  .animate-scale-up { 
+    animation: scaleUp 0.4s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    will-change: transform, opacity;
+  }
+  .animate-slide-in-down { 
+    animation: slideInDown 0.4s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    will-change: transform, opacity;
+  }
+  .animate-float {
+    animation: float 2s ease-in-out infinite;
+  }
+
+  /* Animation Durations */
+  .animation-duration-300 { animation-duration: 300ms; }
+  .animation-duration-500 { animation-duration: 500ms; }
+  .animation-duration-700 { animation-duration: 700ms; }
+
+  /* Animation Delays */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
+  .animation-delay-700 { animation-delay: 700ms; }
+  .animation-delay-800 { animation-delay: 800ms; }
+}
+
+/* Dropdown Styles and Animations */
+@layer components {
+  .dropdown-content {
+    animation: slideDownAndFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: top;
+    will-change: transform, opacity;
+  }
+
+  .dropdown-content[data-state='closed'] {
+    animation: slideUpAndFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dropdown-backdrop {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .dropdown-trigger {
+    transition: transform 0.2s ease;
+  }
+
+  .dropdown-trigger:hover {
+    transform: scale(1.01);
+  }
+
+  .dropdown-trigger:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Button Styles and Animations */
+@layer components {
+  .btn-sparkle {
+    --h-button: 48px;
+    --w-button: 102px;
+    --round: 0.75rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    animation: glow 2s ease-in-out infinite;
+    background: radial-gradient(
+        65.28% 65.28% at 50% 100%,
+        rgba(var(--theme-color-rgb), 0.8) 0%,
+        rgba(var(--theme-color-rgb), 0) 100%
+      ),
+      linear-gradient(0deg, var(--theme-color), var(--theme-color));
+  }
+
+  .btn-sparkle::before,
+  .btn-sparkle::after {
+    content: "";
+    position: absolute;
+    inset: var(--space);
+    transition: all 0.5s ease-in-out;
+    border-radius: calc(var(--round) - var(--space));
+    z-index: 0;
+  }
+
+  .btn-sparkle::before {
+    --space: 1px;
+    background: linear-gradient(
+      177.95deg,
+      rgba(255, 255, 255, 0.19) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .btn-sparkle::after {
+    --space: 2px;
+    background: radial-gradient(
+        65.28% 65.28% at 50% 100%,
+        rgba(var(--theme-color-rgb), 0.8) 0%,
+        rgba(var(--theme-color-rgb), 0) 100%
+      ),
+      linear-gradient(0deg, var(--theme-color), var(--theme-color));
+  }
+
+  .btn-sparkle:active {
+    transform: scale(0.95);
+  }
+
+  .points_wrapper {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .points_wrapper .point {
+    bottom: -10px;
+    position: absolute;
+    animation: floating-points infinite ease-in-out;
+    pointer-events: none;
+    width: 2px;
+    height: 2px;
+    background-color: #fff;
+    border-radius: 9999px;
+  }
+
+  .points_wrapper .point:nth-child(1) { left: 10%; opacity: 1; animation-duration: 2.35s; animation-delay: 0.2s; }
+  .points_wrapper .point:nth-child(2) { left: 30%; opacity: 0.7; animation-duration: 2.5s; animation-delay: 0.5s; }
+  .points_wrapper .point:nth-child(3) { left: 25%; opacity: 0.8; animation-duration: 2.2s; animation-delay: 0.1s; }
+  .points_wrapper .point:nth-child(4) { left: 44%; opacity: 0.6; animation-duration: 2.05s; }
+  .points_wrapper .point:nth-child(5) { left: 50%; opacity: 1; animation-duration: 1.9s; }
+  .points_wrapper .point:nth-child(6) { left: 75%; opacity: 0.5; animation-duration: 1.5s; animation-delay: 1.5s; }
+  .points_wrapper .point:nth-child(7) { left: 88%; opacity: 0.9; animation-duration: 2.2s; animation-delay: 0.2s; }
+  .points_wrapper .point:nth-child(8) { left: 58%; opacity: 0.8; animation-duration: 2.25s; animation-delay: 0.2s; }
+  .points_wrapper .point:nth-child(9) { left: 98%; opacity: 0.6; animation-duration: 2.6s; animation-delay: 0.1s; }
+  .points_wrapper .point:nth-child(10) { left: 65%; opacity: 1; animation-duration: 2.5s; animation-delay: 0.2s; }
+}
+
+/* Keyframe Animations */
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translate3d(0, 20px, 0);
+  }
+  to { 
+    opacity: 1; 
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { 
+    transform: scale3d(0.95, 0.95, 1); 
+    opacity: 0; 
+  }
+  to { 
+    transform: scale3d(1, 1, 1); 
+    opacity: 1; 
+  }
+}
+
+@keyframes slideInDown {
+  from { 
+    transform: translate3d(0, -20px, 0); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translate3d(0, 0, 0); 
+    opacity: 1; 
+  }
+}
+
+@keyframes slideDownAndFade {
+  from { 
+    opacity: 0; 
+    transform: translate3d(0, -4px, 0) scale3d(0.95, 0.95, 1); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1); 
+  }
+}
+
+@keyframes slideUpAndFade {
+  from { 
+    opacity: 1; 
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1); 
+  }
+  to { 
+    opacity: 0; 
+    transform: translate3d(0, -4px, 0) scale3d(0.95, 0.95, 1); 
+  }
+}
+
+@keyframes checkbox-pop {
+  0% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(var(--theme-color-rgb), 0);
+  }
+  50% { 
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(var(--theme-color-rgb), 0.7);
+  }
+  100% { 
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(var(--theme-color-rgb), 0.5);
+  }
+}
+
+@keyframes checkmark {
+  0% { opacity: 0; transform: rotate(45deg) scale(0.8); }
+  100% { opacity: 1; transform: rotate(45deg) scale(1); }
+}
+
+@keyframes radio-dot {
+  0% { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes floating-points {
+  0% { transform: translateY(0); }
+  85% { opacity: 0; }
+  100% { transform: translateY(-55px); opacity: 0; }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 230, 202, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 230, 202, 0.6);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes star-movement-bottom {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+@keyframes star-movement-top {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.hover\:animate-float:hover {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* Add Slick carousel styles */
+.slick-slider {
+  margin: 0 -10px;
+}
+
+.slick-slide {
+  padding: 0 10px;
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+}
+
+.slick-prev {
+  left: -10px;
+}
+
+.slick-next {
+  right: -10px;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 40px;
+  color: #1CD4A7;
+  opacity: 0.75;
+}
+
+.slick-dots {
+  bottom: -40px;
+}
+
+.slick-dots li button:before {
+  color: #1CD4A7;
+  opacity: 0.25;
+  font-size: 12px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #1CD4A7;
+  opacity: 0.75;
+}
+
+/* Ensure the submit button is properly styled when disabled */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

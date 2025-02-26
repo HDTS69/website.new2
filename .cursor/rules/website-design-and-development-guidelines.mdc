@@ -1,0 +1,374 @@
+---
+description: this a guidelines for cursor to follow to help it guide its Decisions for the outcome of the website.
+globs: 
+alwaysApply: true
+---
+## Website Design & Development Guidelines for HD Trade Services
+
+---
+
+### 1. General Design Principles
+- **Mobile-First Design**  
+  Ensure the layout and interactions work seamlessly on mobile devices before scaling to larger screens.
+- **Minimalist & Modern Aesthetic**  
+  Clean, professional, and uncluttered UI with straightforward, readable typography.
+- **Branding & Color Scheme**  
+- Use black (#000000) as a primary accent or background color for a bold, modern feel.  
+- Pair it with your established brand colors (e.g., teal #28DF99, white #FFFFFF, and gray #F5F5F5)  to maintain consistency.  
+- Ensure headers, buttons, and highlight elements follow the same palette to reinforce brand cohesion.
+- **Fast Load Times**  
+  - Use lightweight assets, optimized images (WebP/AVIF), and lazy loading.
+  - Aim for a performance budget (e.g., main content in under 3 seconds).
+- **Intuitive Navigation**  
+  - Simple menu structure (≤ 3 levels deep).
+  - Sticky header with a logo and a hamburger navigation on mobile.
+- **Accessibility (WCAG 2.1)**  
+  - Use semantic HTML, ARIA labels, and ensure proper keyboard navigation.
+  - Ensure adequate color contrast for text and backgrounds.
+- **Images Unsaveable & Unclickable**  
+  - Disable right-click and drag events on images to discourage easy downloading.
+
+---
+
+### 2. Tech Stack
+- **Frontend:** React (Tailwind CSS, shadcn UI components)
+- **Backend:** Supabase (authentication, database, REST/GraphQL APIs)
+- **Hosting:** Netlify (fast CDN, Edge Functions)
+- **Email Notifications:** Resend API (automated transactional/marketing emails)
+- **Google Address API:** Autocomplete integration within booking forms
+- **Containerization:** Docker for consistent development and production environments
+- **Testing:** Playwright for automated end-to-end, cross-browser, and mobile/desktop tests
+- **Security & Compliance:** SSL, role-based access, encryption, dependency audits
+- **Performance Monitoring:** Lighthouse audits, Google PageSpeed Insights
+- **Logging & Error Handling:** Sentry or LogRocket for real-time error tracking
+
+---
+
+### 3. Project Folder Structure
+
+    /project-root
+    ├── /src
+    │   ├── /components
+    │   │   ├── Button.tsx
+    │   │   ├── Navbar.tsx          # Sticky header; includes hamburger nav
+    │   │   ├── Footer.tsx
+    │   │   ├── ServicePageLayout.tsx
+    │   │   ├── TestimonialCarousel.tsx
+    │   │   ├── SocialFeed.tsx
+    │   │   ├── StatsSection.tsx
+    │   │   ├── HeroSection.tsx
+    │   │   ├── WhyChooseUs.tsx
+    │   │   ├── TrustedBrands.tsx
+    │   │   ├── BookingFormLayout.tsx
+    │   │   ├── BookingForm.tsx
+    │   │   ├── BookingFormFields.tsx
+    │   │   ├── BookingFormSubmit.tsx
+    │   │   └── ...                 # Additional shared components
+    │   ├── /pages                  # Full pages/views
+    │   │   ├── Home.tsx
+    │   │   ├── About.tsx
+    │   │   ├── Contact.tsx
+    │   │   ├── TermsAndConditions.tsx
+    │   │   ├── PrivacyPolicy.tsx
+    │   │   ├── AttendanceFee.tsx
+    │   │   ├── Suburbs.tsx
+    │   │   ├── /plumbing
+    │   │   │   ├── Plumbing.tsx
+    │   │   │   ├── HotWaterSystems.tsx
+    │   │   │   ├── HotWaterSystemBuyersGuide.tsx
+    │   │   │   ├── FixturesTaps.tsx
+    │   │   │   ├── PipeRepairs.tsx
+    │   │   │   ├── BathroomRenovations.tsx
+    │   │   │   ├── DrainCleaning.tsx
+    │   │   │   ├── ToiletRepairs.tsx
+    │   │   │   ├── SewerStormwater.tsx
+    │   │   │   ├── WaterPressure.tsx
+    │   │   │   └── ...             # Additional plumbing-related pages
+    │   │   ├── /gas-fitting
+    │   │   │   ├── GasFitting.tsx
+    │   │   │   ├── GasLineInstallation.tsx
+    │   │   │   ├── GasHeaterServices.tsx
+    │   │   │   ├── GasLeakDetection.tsx
+    │   │   │   ├── GasComplianceCertificates.tsx
+    │   │   │   ├── GasApplianceInstallation.tsx
+    │   │   │   ├── GasCooktopInstallation.tsx
+    │   │   │   ├── GasSafetyInspections.tsx
+    │   │   │   ├── EmergencyGasRepairs.tsx
+    │   │   │   └── ...             # Additional gas-fitting-related pages
+    │   │   ├── /roof-repairs
+    │   │   │   ├── RoofRepairs.tsx
+    │   │   │   ├── LeakInvestigation.tsx
+    │   │   │   ├── RoofReport.tsx
+    │   │   │   ├── GutterDownpipes.tsx
+    │   │   │   ├── RoofTileRepair.tsx
+    │   │   │   ├── LeakDetection.tsx
+    │   │   │   ├── RoofMaintenance.tsx
+    │   │   │   ├── MetalRoofing.tsx
+    │   │   │   ├── RoofVentilation.tsx
+    │   │   │   ├── GutterGuard.tsx
+    │   │   │   ├── RoofSizingCalculator.tsx
+    │   │   │   └── ...             # Additional roofing-related pages
+    │   │   ├── /air-conditioning
+    │   │   │   ├── AirConditioning.tsx
+    │   │   │   ├── AirConSizingCalculator.tsx
+    │   │   │   ├── SplitSystemInstallation.tsx
+    │   │   │   ├── ACRepairs.tsx
+    │   │   │   ├── ACDiagnostics.tsx
+    │   │   │   ├── Maintenance.tsx
+    │   │   │   ├── DuctedSystems.tsx
+    │   │   │   ├── EmergencyServices.tsx
+    │   │   │   ├── SystemOptimization.tsx
+    │   │   │   ├── SystemUpgrades.tsx
+    │   │   │   └── ...             # Additional aircon-related pages
+    │   │   └── ...                 # Any additional pages not in the four main service folders
+    │   ├── /features               # Feature-based modules (e.g., services)
+    │   ├── /hooks                  # Custom React hooks
+    │   │   ├── useAuth.ts
+    │   │   ├── useBooking.ts
+    │   │   ├── useSuburb.ts
+    │   │   ├── useGoogleMaps.ts
+    │   │   └── ...
+    │   ├── /utils                  # Helper functions & utilities
+    │   │   ├── date-utils.ts
+    │   │   ├── api-helper.ts
+    │   │   └── ...
+    │   ├── /config                 # Configuration files
+    │   │   ├── supabase-client.ts
+    │   │   ├── app-config.ts
+    │   │   └── ...
+    │   ├── /docs                   # Documentation
+    │   │   └── website-design-guidelines.md
+    │   ├── /public                 # Static assets
+    │   │   ├── logo.png
+    │   │   ├── favicon.ico
+    │   │   └── ...
+    │   ├── /styles                 # Global styles
+    │   │   ├── globals.css
+    │   │   ├── theme.css
+    │   │   └── ...
+    │   ├── /tests                  # Unit/integration/e2e tests
+    │   │   ├── services.test.ts
+    │   │   └── ...
+    ├── Dockerfile
+    ├── docker-compose.yml
+    ├── .dockerignore
+    ├── .env
+    ├── .gitignore
+    ├── README.md
+    ├── package.json
+    └── tsconfig.json
+
+---
+
+### 4. Home Page Structure
+1. **Sticky Header**  
+   - Logo (click → scroll to top on Home; navigate to Home if on another page)  
+   - Hamburger menu on mobile
+2. **Hero Section**  
+   - Main headline, subheadline, primary CTAs ("Book Now," "Get a Quote")
+3. **Service Cards**  
+   - Quick overview of Plumbing, Gas, Roofing, Aircon
+4. **Why Choose Us**  
+   - 24/7 Service, Licensed & Insured, Satisfaction Guaranteed, Finance Options
+5. **Statistics Section**  
+   - e.g., "10,000+ Happy Customers," "20 Years of Experience"
+6. **Testimonials (3-Grid Layout)**  
+   - Displays three testimonials at once with a toggle ("Show More")
+7. **Trusted Brands & Instagram Feed**  
+   - Carousel of brand logos with an Instagram 3-grid layout below
+8. **Mini Booking Form / CTA**  
+   - Simplified booking prompt or call-to-action
+9. **Expanded Footer**  
+   - Contact Info, Hours, Quick Links, Social Media, Newsletter Signup, Certifications & Licenses
+
+---
+
+### 5. Service Pages & Layout
+- **ServicePageLayout.tsx**  
+  - **2-Column Layout:**  
+    - **Left Column:** Short service description, bullet points, prominent "Book Now" button  
+    - **Right Column:** Three images with individual "Book Now" buttons
+- **Individual Service Pages:**  
+  - Organized into folders:
+    - **/plumbing:**  
+      - Plumbing.tsx, HotWaterSystems.tsx, HotWaterSystemBuyersGuide.tsx, FixturesTaps.tsx, PipeRepairs.tsx, BathroomRenovations.tsx, DrainCleaning.tsx, ToiletRepairs.tsx, SewerStormwater.tsx, WaterPressure.tsx, etc.
+    - **/gas-fitting:**  
+      - GasFitting.tsx, GasLineInstallation.tsx, GasHeaterServices.tsx, GasLeakDetection.tsx, GasComplianceCertificates.tsx, GasApplianceInstallation.tsx, GasCooktopInstallation.tsx, GasSafetyInspections.tsx, EmergencyGasRepairs.tsx, etc.
+    - **/roof-repairs:**  
+      - RoofRepairs.tsx, LeakInvestigation.tsx, RoofReport.tsx, GutterDownpipes.tsx, RoofTileRepair.tsx, LeakDetection.tsx, RoofMaintenance.tsx, MetalRoofing.tsx, RoofVentilation.tsx, GutterGuard.tsx, RoofSizingCalculator.tsx, etc.
+    - **/air-conditioning:**  
+      - AirConditioning.tsx, AirConSizingCalculator.tsx, SplitSystemInstallation.tsx, ACRepairs.tsx, ACDiagnostics.tsx, Maintenance.tsx, DuctedSystems.tsx, EmergencyServices.tsx, SystemOptimization.tsx, SystemUpgrades.tsx, etc.
+- **Additional Tools:**  
+  - Calculators and guides (e.g., HotWaterSystemBuyersGuide.tsx, RoofSizingCalculator.tsx) can be moved to the appropriate service folder if needed.
+
+---
+
+### 6. Suburbs Page
+- **Dynamic Suburb Listing:**  
+  - Pulled from Supabase with optional search/filter.
+  - Shows local services, reviews, and a Google Map snippet.
+- **Local SEO:**  
+  - Each suburb page is optimized for location-specific queries.
+
+---
+
+### 7. Booking Form Fields
+1. **Full Name** (First & Last)
+2. **Email**
+3. **Phone**
+4. **Address** (Google Maps API autocomplete)
+5. **Preferred Time** (Morning, Afternoon, After Hours, Weekend)
+6. **Required Service** (Plumbing, Gas, Roofing, Aircon)
+7. **Message** (optional)
+8. **Checkbox:** Accept Terms & Conditions
+9. **Checkbox:** Stay Up to Date with Offers
+10. **Book Appointment** (button)
+
+**Submission Logic & Validation:**  
+- Real-time validation (e.g., email format, required fields)  
+- Data stored via Supabase  
+- Confirmation email via Resend API
+
+---
+
+### 8. Animations & UX Enhancements
+- **Loading Screens:**  
+  - Custom spinner or animated icon while data is fetched.
+- **Animated Component Loading:**  
+  - Fade-in or slide-in transitions for components.
+- **CSS Button Animations:**  
+  - Hover states (scale, color shift) and click feedback (ripple or highlight).
+- **Input Field Animations:**  
+  - Focus transitions (border glow, label float).
+- **Scroll-to-Top Button:**  
+  - Appears after user scroll; smooth scroll transition.
+- **Logo Scroll Behavior:**  
+  - On Home page → scrolls to top; on other pages → navigates home.
+- **Prevent Right-Click on Images:**  
+  - Basic JS/CSS to discourage image downloading.
+
+---
+
+### 9. Docker & DevOps
+- **Dockerfile:**  
+  - Containerize the React frontend (Vite build) + optional Supabase backend.
+- **docker-compose.yml:**  
+  - Orchestrate multiple services (React, Postgres, etc.).
+- **.dockerignore:**  
+  - Exclude node_modules, build artifacts, logs, etc.
+- **CI/CD Pipelines:**  
+  - Use GitHub Actions or Netlify Build Hooks to run unit, integration, and Playwright e2e tests on each push/PR.
+- **Auto-Scaling Backend:**  
+  - Configure Supabase or database hosting for scaling with traffic.
+- **Load Testing:**  
+  - Use tools like k6 or Artillery for stress tests.
+
+---
+
+### 10. Security, Compliance & Performance
+- **Data Privacy Compliance:**  
+  - GDPR/CCPA as applicable, with a cookie consent banner.
+- **Bot Protection & Anti-Spam:**  
+  - Use Cloudflare Turnstile or hCaptcha.
+- **Content Security Policy (CSP):**  
+  - Restrict script, style, and image sources to mitigate XSS.
+- **OAuth2 / JWT:**  
+  - Use token-based authentication for user accounts if implemented.
+- **Dependency Audits:**  
+  - Regular checks on npm packages and Docker images.
+- **Caching Strategy:**  
+  - Client-side: service workers, React Query/SWR  
+  - Server-side: Redis or database caching  
+  - Use a CDN (e.g., Cloudflare, Netlify CDN) for static assets.
+- **Backup & Disaster Recovery:**  
+  - Automatic database backups with documented restore procedures.
+
+---
+
+### 11. Playwright Automated Testing
+- **End-to-End Tests:**  
+  - Validate booking flow, key pages, and navigation.
+- **Cross-Browser & Device Coverage:**  
+  - Test on Chrome, Firefox, Safari, Edge, and mobile devices.
+- **CI/CD Integration:**  
+  - Automatically run tests on every push/PR; fail fast on critical issues.
+
+---
+
+### 12. Enhanced Performance & UX
+- **SSR / SSG:**  
+  - Consider Next.js or Vite SSR for improved speed and SEO.
+- **Edge Functions:**  
+  - Use Netlify Edge or Vercel Edge Middleware for lower latency.
+- **Accessibility Enhancements:**  
+  - Keyboard navigation, proper ARIA roles, and adequate color contrast.
+- **Dark Mode Toggle:**  
+  - Respect user preference and persist the setting locally.
+
+---
+
+### 13. Business & Marketing Integrations
+- **Google Reviews & Social Proof:**  
+  - Live fetch and display Google Reviews.
+  - Show dynamic service stats (e.g., "30+ jobs completed today").
+- **Email Drip Campaigns:**  
+  - Automated follow-ups post-booking with seasonal promotions.
+- **Referral Program:**  
+  - Unique referral links with discount/commission incentives.
+- **Loyalty & Rewards Program:**  
+  - Points-based system for repeat customers; offer free upgrades/discounts.
+- **Strategic Partner Referrals:**  
+  - Partnerships with real estate agencies, property managers, or construction firms.
+- **Influencer & Content Creator Affiliates:**  
+  - Commission-based incentives for local home-improvement influencers.
+- **Local Business Cross-Promotion:**  
+  - Collaborate with complementary services (cleaning, pest control, landscaping).
+- **Subscription-Based Maintenance Plans:**  
+  - Monthly/yearly VIP service plans with recurring affiliate commissions.
+
+---
+
+### 14. Additional Affiliate Marketing Ideas
+1. **Partnered Service Discounts:**  
+   - Tie-ups with hardware stores (e.g., Bunnings, Reece).
+2. **Influencer Partnerships:**  
+   - Collaborations with YouTube, TikTok, and Instagram creators in the home improvement niche.
+3. **Lead Sharing & Co-Branded Marketing:**  
+   - Joint offers with complementary service providers.
+4. **Affiliate Promo Codes:**  
+   - Unique discount codes for tracking cross-promotions.
+
+---
+
+### 15. Future Enhancements
+- **Progressive Web App (PWA):**  
+  - Offline capabilities, background sync, home screen icon.
+- **Customer Dashboard:**  
+  - Allow users to track bookings, pay invoices, and manage profiles.
+- **AI Chatbot / Live Chat:**  
+  - Automate FAQs or integrate third-party chat solutions (e.g., Tidio, Crisp).
+- **2FA:**  
+  - Enhance login security with two-factor authentication.
+- **Expanded Calculators:**  
+  - Additional sizing or cost-estimation tools.
+- **Deeper SSR/SSG:**  
+  - Consider migrating to Next.js for advanced routing and SEO if needed.
+
+---
+
+### 16. Final Reminders
+- **Keep Animations Subtle & Efficient:**  
+  - Avoid performance hindrances or overwhelming users.
+- **Monitor & Maintain:**  
+  - Regularly run Lighthouse, Playwright, and security audits.
+  - Use Sentry/LogRocket for real-time error tracking.
+- **Security Patches:**  
+  - Keep dependencies, Docker images, and APIs updated.
+- **Document Everything:**  
+  - Maintain the `/docs` folder with current guidelines and updates.
+- **No Unasked Removals:**  
+  - This document aggregates all previously requested features for your complete blueprint.
+
+---
+
+_Use this final reference as your single source of truth. Happy coding!_
