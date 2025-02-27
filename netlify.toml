@@ -13,8 +13,9 @@
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder-anon-key"
   NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "placeholder-google-maps-key"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+# Remove Next.js plugin since we're using static export
+# [[plugins]]
+#   package = "@netlify/plugin-nextjs"
 
 # Enable HTTP/2 and HTTP/3
 [build.processing]
@@ -87,11 +88,50 @@
   to = "/optimized/:splat"
   status = 200
 
+# Handle static HTML files for routes
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/book"
+  to = "/book.html"
+  status = 200
+
+[[redirects]]
+  from = "/brands"
+  to = "/brands.html"
+  status = 200
+
+[[redirects]]
+  from = "/careers"
+  to = "/careers.html"
+  status = 200
+
+[[redirects]]
+  from = "/locations"
+  to = "/locations.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/services"
+  to = "/services.html"
+  status = 200
+
+[[redirects]]
+  from = "/terms"
+  to = "/terms.html"
+  status = 200
+
 # Fallback redirect for SPA - only apply to routes that don't match files
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = false
-  # Don't redirect actual files
-  conditions = {Role = ["anonymous"]}
