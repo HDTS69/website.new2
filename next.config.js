@@ -13,6 +13,10 @@ const nextConfig = {
   },
   reactStrictMode: true,
   output: 'export',
+  distDir: '.next',
+  experimental: {
+    appDocumentPreloading: false,
+  },
 }
 
 module.exports = nextConfig;
