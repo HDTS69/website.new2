@@ -61,7 +61,8 @@ export const SparklesCore = (props: ParticlesProps) => {
   useEffect(() => {
     let mounted = true;
     
-    const initialize = async () => {
+    // Delay initialization to improve initial page load
+    const timer = setTimeout(async () => {
       try {
         await initializeParticlesEngine();
         if (mounted) {
@@ -71,12 +72,11 @@ export const SparklesCore = (props: ParticlesProps) => {
       } catch (error) {
         console.error("Failed to initialize particles:", error);
       }
-    };
-
-    initialize();
+    }, 300); // Delay initialization by 300ms
     
     return () => {
       mounted = false;
+      clearTimeout(timer);
       // Clean up particles when component unmounts
       if (containerRef.current) {
         containerRef.current.destroy();
@@ -112,7 +112,7 @@ export const SparklesCore = (props: ParticlesProps) => {
     interactivity: {
       events: {
         onClick: {
-          enable: true,
+          enable: false, // Disabled click for better performance
           mode: "push",
         },
         onHover: {
@@ -145,7 +145,7 @@ export const SparklesCore = (props: ParticlesProps) => {
         warp: false,
       },
       number: {
-        value: particleDensity || 40, // Reduced from 80 to 40
+        value: particleDensity || 30, // Reduced from 40 to 30
         density: {
           enable: true,
           area: 800
@@ -174,6 +174,11 @@ export const SparklesCore = (props: ParticlesProps) => {
     detectRetina: false, // Disabled for better performance
   }), [background, minSize, maxSize, speed, particleColor, particleDensity]);
   
+  // Don't render anything if not initialized
+  if (!init) {
+    return <div className={cn("opacity-0", className)} />;
+  }
+  
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -184,14 +189,12 @@ export const SparklesCore = (props: ParticlesProps) => {
         backfaceVisibility: 'hidden'
       }}
     >
-      {init && (
-        <Particles
-          id={id || generatedId}
-          className={cn("h-full w-full")}
-          particlesLoaded={particlesLoaded}
-          options={options}
-        />
-      )}
+      <Particles
+        id={id || generatedId}
+        className={cn("h-full w-full")}
+        particlesLoaded={particlesLoaded}
+        options={options}
+      />
     </motion.div>
   );
 };

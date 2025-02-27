@@ -55,7 +55,7 @@ export function Hero() {
               background="transparent"
               minSize={0.8}
               maxSize={2}
-              particleDensity={50} /* Reduced from 100 to 50 */
+              particleDensity={30} /* Reduced from 50 to 30 for better performance */
               className="w-full h-full"
               particleColor="#1CD4A7"
               speed={0.3}
@@ -105,6 +105,11 @@ export function Hero() {
                     className="select-none"
                     loading="eager"
                     fetchPriority="high"
+                    onError={(e) => {
+                      console.error('Image failed to load:', e);
+                      // Fallback to a placeholder if the image fails to load
+                      (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23000000"/%3E%3Ctext x="50" y="50" font-family="Arial" font-size="12" text-anchor="middle" fill="%23ffffff"%3EImage not found%3C/text%3E%3C/svg%3E';
+                    }}
                   />
                 </div>
               </motion.div>
