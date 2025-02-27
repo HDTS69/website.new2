@@ -104,9 +104,16 @@ if [ ! -d "out" ]; then
   echo "This is a placeholder file. The build process failed to generate proper output files." > out/index.html
 fi
 
-# Optimize HTML files
+# Optimize HTML files - Fix for macOS sed compatibility
 echo "Optimizing HTML files..."
-find out -name "*.html" -exec sed -i 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
+# Check if we're on macOS (BSD sed) or Linux (GNU sed)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS/BSD version
+  find out -name "*.html" -exec sed -i '' 's/<script/<script defer/g' {} \; 2>/dev/null || echo "HTML optimization failed, continuing"
+else
+  # Linux/GNU version
+  find out -name "*.html" -exec sed -i 's/<script/<script defer/g' {} \; 2>/dev/null || echo "HTML optimization failed, continuing"
+fi
 
 # Compress static assets
 echo "Compressing static assets..."
@@ -124,6 +131,8 @@ else
   echo "Brotli not available, skipping Brotli compression"
 fi
 
+# List the contents of the out directory for debugging
+echo "Listing contents of the out directory:"
 ls -la out/ || echo "Warning: Could not list contents of out directory"
 
 echo "Build completed successfully!" 

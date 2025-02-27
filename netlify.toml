@@ -71,10 +71,27 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Redirects
+# Redirects for static assets - ensure these are served correctly
+[[redirects]]
+  from = "/_next/*"
+  to = "/_next/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/images/*"
+  to = "/images/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/optimized/*"
+  to = "/optimized/:splat"
+  status = 200
+
+# Fallback redirect for SPA - only apply to routes that don't match files
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
   force = false
+  # Don't redirect actual files
   conditions = {Role = ["anonymous"]}
