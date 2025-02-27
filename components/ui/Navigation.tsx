@@ -1,8 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { NavBar } from '@/components/navigation/DesktopNavigation';
-import { Navigation as MobileNavigation } from '@/components/navigation/MobileNavigation';
+import { Navigation as MobileNavigation } from '@/components/mobile/MobileNavigation';
 import { Building2, Home, MapPin, Wrench, Calendar, Phone } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -233,7 +237,36 @@ const defaultActionItems: NavItem[] = [
 export function Navigation({ items = defaultNavigationItems, actionItems = defaultActionItems }: BaseNavigationProps) {
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
-  
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Delayed animation for the navigation to appear last
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2500); // Delay navigation appearance by 2.5 seconds
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const toggleDropdown = (title: string) => {
+    setActiveDropdown(activeDropdown === title ? null : title);
+  };
+
   // Separate navigation items from action items
   const mainNavItems = items.filter(item => 
     item.name !== 'Call Now' && item.name !== 'Book Online' && (pathname === '/' ? item.name !== 'Home' : true)
@@ -249,14 +282,112 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden md:block">
-        <NavBar items={mainNavItems} actionItems={actionButtons} />
-      </div>
+      <motion.nav 
+        className="hidden md:flex items-center justify-between py-4 px-6 bg-black/80 backdrop-blur-sm fixed bottom-0 left-0 right-0 z-40 border-t border-white/10"
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ 
+          opacity: isVisible ? 1 : 0, 
+          y: isVisible ? 0 : 100,
+          transition: {
+            type: "spring",
+            stiffness: 50,
+            damping: 20,
+            duration: 1.2,
+            ease: [0.22, 1, 0.36, 1]
+          }
+        }}
+      >
+        <div className="flex items-center space-x-8" ref={dropdownRef}>
+          {items.map((item) => (
+            <div key={item.name} className="relative">
+              {item.dropdownItems ? (
+                <button
+                  onClick={() => toggleDropdown(item.name)}
+                  className={cn(
+                    "flex items-center text-sm font-medium text-white/80 hover:text-white transition-colors",
+                    activeDropdown === item.name ? "text-white" : ""
+                  )}
+                >
+                  {item.name}
+                  <ChevronDown
+                    className={cn(
+                      "ml-1 h-4 w-4 transition-transform",
+                      activeDropdown === item.name ? "rotate-180" : ""
+                    )}
+                  />
+                </button>
+              ) : (
+                <Link
+                  href={item.url}
+                  className="text-sm font-medium text-white/80 hover:text-white transition-colors"
+                >
+                  {item.name}
+                </Link>
+              )}
+
+              <AnimatePresence>
+                {item.dropdownItems && activeDropdown === item.name && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute bottom-full mb-2 left-0 w-48 bg-black/95 backdrop-blur-sm border border-white/10 rounded-lg shadow-xl p-2 z-50"
+                  >
+                    <div className="grid gap-1">
+                      {item.dropdownItems.map((child) => (
+                        <Link
+                          key={child.name}
+                          href={child.url}
+                          className="block px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-center space-x-4">
+          {actionItems.map((item) => (
+            <Link
+              key={item.name}
+              href={item.url}
+              onClick={item.onClick}
+              className={cn(
+                "inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md transition-colors",
+                item.isHighlighted ? "bg-white text-black" : ""
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+      </motion.nav>
       
       {/* Mobile Navigation */}
-      <div className="block md:hidden">
+      <motion.div 
+        className="md:hidden"
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ 
+          opacity: isVisible ? 1 : 0, 
+          y: isVisible ? 0 : 100,
+          transition: {
+            type: "spring",
+            stiffness: 50,
+            damping: 20,
+            duration: 1.2,
+            ease: [0.22, 1, 0.36, 1]
+          }
+        }}
+      >
         <MobileNavigation items={mobileNavItems} actionItems={actionButtons} />
-      </div>
+      </motion.div>
     </>
   );
 } 

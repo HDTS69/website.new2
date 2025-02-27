@@ -70,13 +70,26 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
+  
+  /* Fix for DevTools mobile scrolling */
+  html {
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
     overscroll-behavior: none;
-    touch-action: pan-x pan-y;
   }
   
-  /* Disable pinch zoom */
+  body {
+    @apply bg-background text-foreground;
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Disable pinch zoom - comprehensive approach */
   html, body {
     touch-action: pan-x pan-y;
     -ms-touch-action: pan-x pan-y;
@@ -85,6 +98,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    max-height: 100%;
   }
   
   /* Allow text selection in specific elements */
@@ -97,6 +111,23 @@
   
   /* Improve scrolling on mobile */
   .touch-auto {
-    touch-action: auto;
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix for Chrome DevTools mobile view */
+  @media screen and (max-width: 767px) {
+    body {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+    }
+    
+    #__next, .min-h-screen, .flex.min-h-screen.flex-col {
+      height: 100%;
+      min-height: 100%;
+      overflow-y: auto;
+    }
   }
 } 

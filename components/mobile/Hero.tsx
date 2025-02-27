@@ -7,13 +7,24 @@ import { AnimatedButton } from '../ui/AnimatedButton';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [showContent, setShowContent] = React.useState(false);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => {
+    // Sequence the animations
+    // 1. Header loads first (handled in MobileHeader component)
+    // 2. After a delay, show the hero image
+    const imageTimer = setTimeout(() => {
       setIsLoaded(true);
-    }, 100);
+      
+      // 3. After hero image appears, show the text content
+      const contentTimer = setTimeout(() => {
+        setShowContent(true);
+      }, 1000); // Delay text content by 1 second after hero image starts animating
+      
+      return () => clearTimeout(contentTimer);
+    }, 800); // Delay hero image by 800ms to let header animate first
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(imageTimer);
   }, []);
 
   return (
@@ -45,10 +56,10 @@ export function Hero() {
                   opacity: 1,
                   transition: {
                     type: "spring",
-                    damping: 20,
-                    mass: 0.75,
-                    stiffness: 100,
-                    delay: 0.2
+                    damping: 25,
+                    mass: 0.8,
+                    stiffness: 80,
+                    duration: 1.5
                   }
                 }}
                 key="hero-image"
@@ -81,52 +92,126 @@ export function Hero() {
       </div>
       
       <div className="relative z-[4] container mx-auto px-4 py-0 flex-1">
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-6 mb-20">
-          {/* Mobile Text Content */}
-          <div className="flex flex-col items-center mt-2 space-y-4">
-            <h1 className="flex flex-col gap-1 text-[2rem] leading-[1.15] font-bold text-white tracking-tight">
-              <span className="opacity-0 animate-fade-in-up animation-delay-300">Brisbane</span>
-              <span className="opacity-0 animate-fade-in-up animation-delay-400 bg-gradient-to-r from-[#00E6CA] to-[#00E6CA]/80 bg-clip-text text-transparent">24/7 Emergency</span>
-              <span className="opacity-0 animate-fade-in-up animation-delay-500">Repairs &amp; Installations</span>
-            </h1>
-            
-            <p className="text-base leading-relaxed opacity-0 animate-fade-in-up animation-delay-600 font-medium bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto">
-              <span className="text-[#00E6CA]">Professional services</span>
-              <span className="block text-white/90 mt-1">Plumbing • Gas • Roofing • Air Con</span>
-            </p>
+        <AnimatePresence>
+          {showContent && (
+            <motion.div 
+              className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-6 mb-20"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: 1,
+                transition: { 
+                  duration: 1,
+                  ease: [0.22, 1, 0.36, 1]
+                }
+              }}
+            >
+              {/* Mobile Text Content */}
+              <div className="flex flex-col items-center mt-2 space-y-4">
+                <motion.h1 
+                  className="flex flex-col gap-1 text-[2rem] leading-[1.15] font-bold text-white tracking-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      delay: 0.2,
+                      ease: [0.22, 1, 0.36, 1]
+                    }
+                  }}
+                >
+                  <span className="opacity-0 animate-fade-in-up animation-delay-300">Brisbane</span>
+                  <span className="opacity-0 animate-fade-in-up animation-delay-400 bg-gradient-to-r from-[#00E6CA] to-[#00E6CA]/80 bg-clip-text text-transparent">24/7 Emergency</span>
+                  <span className="opacity-0 animate-fade-in-up animation-delay-500">Repairs &amp; Installations</span>
+                </motion.h1>
+                
+                <motion.p 
+                  className="text-base leading-relaxed font-medium bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      delay: 0.4,
+                      ease: [0.22, 1, 0.36, 1]
+                    }
+                  }}
+                >
+                  <span className="text-[#00E6CA]">Professional services</span>
+                  <span className="block text-white/90 mt-1">Plumbing • Gas • Roofing • Air Con</span>
+                </motion.p>
 
-            <div className="opacity-0 animate-fade-in-up animation-delay-700 bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto">
-              <p className="text-white/90 text-sm leading-relaxed">
-                Fast response. Fair pricing.
-                <span className="block font-medium text-[#00E6CA]">Guaranteed satisfaction.</span>
-              </p>
-            </div>
+                <motion.div 
+                  className="bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      delay: 0.6,
+                      ease: [0.22, 1, 0.36, 1]
+                    }
+                  }}
+                >
+                  <p className="text-white/90 text-sm leading-relaxed">
+                    Fast response. Fair pricing.
+                    <span className="block font-medium text-[#00E6CA]">Guaranteed satisfaction.</span>
+                  </p>
+                </motion.div>
 
-            <div className="opacity-0 animate-fade-in-up animation-delay-800 bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto">
-              <div className="flex flex-col items-center gap-1">
-                <span className="text-white/90 text-sm">Technician to your home at</span>
-                <Cover className="text-[#00E6CA] font-semibold text-base">warp speed</Cover>
+                <motion.div 
+                  className="bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      delay: 0.8,
+                      ease: [0.22, 1, 0.36, 1]
+                    }
+                  }}
+                >
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-white/90 text-sm">Technician to your home at</span>
+                    <Cover className="text-[#00E6CA] font-semibold text-base">warp speed</Cover>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="transform-gpu mt-4"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: 1,
+                    transition: {
+                      duration: 0.8,
+                      delay: 1,
+                      ease: [0.22, 1, 0.36, 1]
+                    }
+                  }}
+                >
+                  <AnimatedButton 
+                    href="#book"
+                    variant="primary"
+                    className="shadow-lg hover:shadow-xl hover:shadow-[#00E6CA]/20 text-white"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const bookingForm = document.getElementById('book');
+                      if (bookingForm) {
+                        bookingForm.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                  >
+                    Book Online
+                  </AnimatedButton>
+                </motion.div>
               </div>
-            </div>
-            
-            <div className="opacity-0 animate-scale-up animation-delay-900 transform-gpu mt-4">
-              <AnimatedButton 
-                href="#book"
-                variant="primary"
-                className="shadow-lg hover:shadow-xl hover:shadow-[#00E6CA]/20 text-white"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const bookingForm = document.getElementById('book');
-                  if (bookingForm) {
-                    bookingForm.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                Book Online
-              </AnimatedButton>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

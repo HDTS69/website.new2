@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 const inter = Inter({
@@ -10,13 +10,6 @@ const inter = Inter({
   preload: true,
   adjustFontFallback: true,
 });
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-};
 
 export const metadata: Metadata = {
   title: "Brisbane 24/7 Emergency Repairs",
@@ -72,6 +65,17 @@ export default function RootLayout({
             background-color: rgb(0, 0, 0) !important;
             caret-color: #f3f4f6 !important;
             transition: none !important;
+          }
+          
+          /* Fix for DevTools mobile scrolling */
+          @media (max-width: 767px) {
+            html, body {
+              position: relative;
+              height: 100%;
+              overflow-y: auto;
+              overflow-x: hidden;
+              overscroll-behavior: none;
+            }
           }
         `}</style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
