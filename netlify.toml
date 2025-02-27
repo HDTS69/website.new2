@@ -5,9 +5,12 @@
   command = "./netlify-build.sh"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
   NETLIFY_USE_YARN = "false"
+  # Add placeholder values for required environment variables
+  NEXT_PUBLIC_SUPABASE_URL = "https://placeholder-supabase-url.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder-anon-key"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

@@ -21,6 +21,11 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  // Add environment variables with default values for build time
+  env: {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-supabase-url.supabase.co',
+    NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key',
+  },
   webpack: (config, { isServer }) => {
     // If client-side, don't polyfill fs
     if (!isServer) {
