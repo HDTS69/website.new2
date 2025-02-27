@@ -1,218 +1,178 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { SparklesCore } from '../ui/SparklesCore';
-import { Cover } from '../ui/cover';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AnimatedButton } from '../ui/AnimatedButton';
+import { cn } from '@/lib/utils';
 
-export function Hero() {
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  const [showContent, setShowContent] = React.useState(false);
+export default function Hero() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [textLoaded, setTextLoaded] = useState(false);
 
-  React.useEffect(() => {
-    // Sequence the animations
-    // 1. Header loads first (handled in MobileHeader component - completes around 0.8s)
-    // 2. After header animation, show the hero image
+  useEffect(() => {
+    // Staggered loading sequence
     const imageTimer = setTimeout(() => {
-      setIsLoaded(true);
-      
-      // 3. After hero image appears and starts animating, show the text content
-      const contentTimer = setTimeout(() => {
-        setShowContent(true);
-      }, 1200); // Delay text content by 1.2 seconds after hero image starts animating
-      
-      return () => clearTimeout(contentTimer);
-    }, 600); // Delay hero image by 600ms to let header animate first
+      setImageLoaded(true);
+    }, 800); // Load image after header (which loads at 300ms)
 
-    return () => clearTimeout(imageTimer);
+    const textTimer = setTimeout(() => {
+      setTextLoaded(true);
+    }, 1200); // Load text after image
+
+    const mainTimer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(imageTimer);
+      clearTimeout(textTimer);
+      clearTimeout(mainTimer);
+    };
   }, []);
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20,
+        duration: 1.2
+      }
+    }
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20,
+        duration: 1
+      }
+    }
+  };
+
   return (
-    <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24 pt-16 touch-auto">
-      {/* Sparkles Animation */}
-      <div className="absolute inset-0 z-[2] pointer-events-none">
-        <SparklesCore
-          background="transparent"
-          minSize={0.8}
-          maxSize={2}
-          particleDensity={150}
-          className="w-full h-full"
-          particleColor="#00E6CA"
-          speed={0.4}
-        />
-      </div>
-
-      {/* Hero Images Container - Absolute position (fixed to hero section) */}
-      <div className="absolute inset-0 bottom-0 z-[3] transform-gpu pointer-events-none">
-        <div className="relative h-full w-full">
-          {/* Main Hero Image */}
-          <AnimatePresence mode="wait">
-            {isLoaded && (
-              <motion.div 
-                className="absolute bottom-0 left-0 w-[55%] h-[70%]"
-                initial={{ y: '100vh', opacity: 0 }}
-                animate={{ 
-                  y: 0,
-                  opacity: 1,
-                  transition: {
-                    type: "spring",
-                    damping: 22,
-                    mass: 0.9,
-                    stiffness: 70,
-                    duration: 1.8
-                  }
-                }}
-                key="hero-image"
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/images/hayden-hero-1.webp"
-                    alt="Professional Technician"
-                    fill
-                    sizes="55vw"
-                    style={{ 
-                      objectFit: 'contain', 
-                      objectPosition: 'left bottom',
-                      transform: 'translateZ(0)',
-                      willChange: 'transform',
-                      filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
-                    }}
-                    className="select-none"
-                    priority
-                    draggable="false"
-                  />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          
-          {/* Bottom fade gradient only */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent transform-gpu" />
-        </div>
-      </div>
+    <section className="relative w-full h-screen overflow-hidden touch-auto">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black/70 z-10" />
       
-      <div className="relative z-[4] container mx-auto px-4 py-0 flex-1">
+      {/* Hero content container */}
+      <motion.div 
+        className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <AnimatePresence>
-          {showContent && (
+          {/* Hero image - loads second */}
+          {imageLoaded && (
             <motion.div 
-              className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-6 mb-20"
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: 1,
-                transition: { 
-                  duration: 1,
-                  ease: [0.22, 1, 0.36, 1]
-                }
-              }}
+              className="relative w-full max-w-[280px] h-[280px] mb-6"
+              variants={imageVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, scale: 0.8, y: -20 }}
             >
-              {/* Mobile Text Content */}
-              <div className="flex flex-col items-center mt-2 space-y-4">
-                <motion.h1 
-                  className="flex flex-col gap-1 text-[2rem] leading-[1.15] font-bold text-white tracking-tight"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      duration: 0.8,
-                      delay: 0.2,
-                      ease: [0.22, 1, 0.36, 1]
-                    }
-                  }}
+              <Image
+                src="/images/hayden-hero.png"
+                alt="Hayden Drew"
+                fill
+                priority
+                className="object-contain"
+                sizes="(max-width: 768px) 280px, 400px"
+                draggable="false"
+              />
+            </motion.div>
+          )}
+          
+          {/* Hero text - loads last */}
+          {textLoaded && (
+            <motion.div 
+              className="space-y-4"
+              variants={textVariants}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, y: 20 }}
+            >
+              <h1 className="text-3xl font-bold text-white">
+                <span className="block">Your Local</span>
+                <span className="block text-[#00E6CA]">Plumbing Experts</span>
+              </h1>
+              
+              <p className="text-gray-300 text-sm max-w-xs mx-auto">
+                Professional plumbing, gas fitting, and hot water services in Brisbane and surrounding areas.
+              </p>
+              
+              <div className="flex flex-col gap-3 mt-6">
+                <motion.a
+                  href="tel:1300420911"
+                  className={cn(
+                    "flex items-center justify-center gap-2 px-6 py-3 rounded-full",
+                    "bg-white text-black font-medium text-sm",
+                    "hover:bg-gray-200 transition-colors"
+                  )}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <span className="opacity-0 animate-fade-in-up animation-delay-300">Brisbane</span>
-                  <span className="opacity-0 animate-fade-in-up animation-delay-400 bg-gradient-to-r from-[#00E6CA] to-[#00E6CA]/80 bg-clip-text text-transparent">24/7 Emergency</span>
-                  <span className="opacity-0 animate-fade-in-up animation-delay-500">Repairs &amp; Installations</span>
-                </motion.h1>
+                  Call Now: 1300 420 911
+                </motion.a>
                 
-                <motion.p 
-                  className="text-base leading-relaxed font-medium bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      duration: 0.8,
-                      delay: 0.4,
-                      ease: [0.22, 1, 0.36, 1]
+                <motion.a
+                  href="#book"
+                  className={cn(
+                    "flex items-center justify-center gap-2 px-6 py-3 rounded-full",
+                    "bg-gradient-to-r from-[#00E6CA] to-[#00A2FF] text-black font-medium text-sm",
+                    "hover:from-[#00A2FF] hover:to-[#00E6CA] transition-all"
+                  )}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const bookingForm = document.getElementById('book');
+                    if (bookingForm) {
+                      bookingForm.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
                 >
-                  <span className="text-[#00E6CA]">Professional services</span>
-                  <span className="block text-white/90 mt-1">Plumbing • Gas • Roofing • Air Con</span>
-                </motion.p>
-
-                <motion.div 
-                  className="bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      duration: 0.8,
-                      delay: 0.6,
-                      ease: [0.22, 1, 0.36, 1]
-                    }
-                  }}
-                >
-                  <p className="text-white/90 text-sm leading-relaxed">
-                    Fast response. Fair pricing.
-                    <span className="block font-medium text-[#00E6CA]">Guaranteed satisfaction.</span>
-                  </p>
-                </motion.div>
-
-                <motion.div 
-                  className="bg-black/40 backdrop-blur-sm px-4 py-3 rounded-2xl max-w-[280px] mx-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    transition: {
-                      duration: 0.8,
-                      delay: 0.8,
-                      ease: [0.22, 1, 0.36, 1]
-                    }
-                  }}
-                >
-                  <div className="flex flex-col items-center gap-1">
-                    <span className="text-white/90 text-sm">Technician to your home at</span>
-                    <Cover className="text-[#00E6CA] font-semibold text-base">warp speed</Cover>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="transform-gpu mt-4"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: 1,
-                    transition: {
-                      duration: 0.8,
-                      delay: 1,
-                      ease: [0.22, 1, 0.36, 1]
-                    }
-                  }}
-                >
-                  <AnimatedButton 
-                    href="#book"
-                    variant="primary"
-                    className="shadow-lg hover:shadow-xl hover:shadow-[#00E6CA]/20 text-white"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const bookingForm = document.getElementById('book');
-                      if (bookingForm) {
-                        bookingForm.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }}
-                  >
-                    Book Online
-                  </AnimatedButton>
-                </motion.div>
+                  Book Online
+                </motion.a>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
+      </motion.div>
+      
+      {/* Background image with blur effect */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/plumbing-bg-mobile.jpg"
+          alt="Background"
+          fill
+          priority
+          className="object-cover opacity-30 blur-sm"
+          draggable="false"
+        />
       </div>
-    </div>
+    </section>
   );
 } 

@@ -94,6 +94,33 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
   const linkActiveClasses = "text-[#00E6CA]"
   const linkHighlightedClasses = "text-gray-400 hover:text-[#00E6CA]"
 
+  // Animation variants for the navbar container
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.05,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  // Animation variants for individual nav items
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 20
+      }
+    }
+  };
+
   return (
     <div 
       className={cn(
@@ -117,80 +144,71 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
           isMobile ? "rounded-2xl mx-auto max-w-md mb-0" : "rounded-full",
           "transition-none" // No transitions for natural movement
         )}
-        initial={{ opacity: 0, scale: 0, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{
           type: "spring",
-          stiffness: 260,
+          stiffness: 200,
           damping: 20,
-          duration: 0.8
+          duration: 1
         }}
+        variants={containerVariants}
       >
-        <div className={cn(
-          "flex items-center justify-center py-2",
-          isMobile ? "px-2 gap-1" : "px-2"
-        )}>
+        <motion.div 
+          className={cn(
+            "flex items-center justify-center py-2",
+            isMobile ? "px-2 gap-1" : "px-2"
+          )}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {/* All Navigation Items (Main Items with Dropdowns) */}
-          <div className={cn(
-            "flex items-center",
-            isMobile ? "gap-1" : "gap-4"
-          )}>
-            {items.map((item) => (
+          {items.map((item, index) => (
+            <motion.div key={`${item.name}-${index}`} variants={itemVariants}>
               <NavItem
-                key={item.name}
                 item={item}
-                isActive={activeTab === item.name}
-                openDropdown={openDropdown}
-                openSubDropdown={openSubDropdown}
-                isMobile={isMobile}
-                onItemClick={handleItemClick}
-                onSubItemClick={handleSubItemClick}
-                setOpenDropdown={setOpenDropdown}
-                setOpenSubDropdown={setOpenSubDropdown}
-                linkBaseClasses={linkBaseClasses}
-                linkActiveClasses={linkActiveClasses}
-                linkHighlightedClasses={linkHighlightedClasses}
+                isActive={isItemActive(item)}
+                className={cn(
+                  linkBaseClasses,
+                  isItemActive(item) ? linkActiveClasses : "",
+                  item.isHighlighted ? linkHighlightedClasses : "",
+                  "px-3 py-2 rounded-full hover:bg-white/5"
+                )}
+                onClick={item.onClick}
               />
-            ))}
-          </div>
+            </motion.div>
+          ))}
 
-          {/* Action Buttons (Call Now and Book Online) Restored with Consistent Styling and Debugging */}
-          {actionItems.length > 0 && ( // Debugging: Check if actionItems is empty
-            <div className={cn(
-              "flex items-center",
-              isMobile ? "gap-1" : "gap-4 ml-4 pl-4 border-l border-[#00E6CA]/20", // Increased gap to match main items, added border
-              "debug" // Optional: Add a debug class to inspect visibility
-            )}>
-              {actionItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.url}
-                  onClick={(e) => {
-                    if (item.name === "Book Online") {
-                      handleBookingClick(e, item.url)
-                    } else if (item.onClick) {
-                      item.onClick(e)
-                    }
-                  }}
+          {/* Action Items (Call Now, Book Online) */}
+          {actionItems.map((item, index) => (
+            <motion.div key={`action-${item.name}-${index}`} variants={itemVariants}>
+              {item.name === 'Book Online' ? (
+                <button
+                  onClick={(e) => handleBookingClick(e, item.url)}
                   className={cn(
-                    linkBaseClasses, // Use the same base classes as main nav items
-                    isMobile 
-                      ? "flex-col items-center gap-0.5 px-2 py-1" 
-                      : "gap-1.5 px-3 py-1.5", // Match padding and gap of main items
-                    "text-gray-400 hover:text-[#00E6CA]", // Match hover behavior
-                    "[text-shadow:0_0_10px_rgba(0,230,202,0.5)] hover:[text-shadow:0_0_20px_rgba(0,230,202,0.8)]" // Match hover shadow
+                    "flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-full",
+                    "bg-gradient-to-r from-[#00E6CA] to-[#00A2FF] text-black",
+                    "hover:from-[#00A2FF] hover:to-[#00E6CA] transition-all duration-300"
                   )}
                 >
-                  <item.icon size={isMobile ? 20 : 16} strokeWidth={2} className="flex-shrink-0" /> {/* Match icon size and stroke of main items */}
-                  <span className={cn(
-                    isMobile ? "text-[10px] leading-tight" : "hidden md:inline whitespace-nowrap", // Match text visibility and size
-                    "text-center font-medium" // Match font weight
-                  )}>{item.name}</span>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
+                  {item.icon && <item.icon className="w-4 h-4" />}
+                  {item.name}
+                </button>
+              ) : (
+                <NavItem
+                  item={item}
+                  isActive={false}
+                  className={cn(
+                    linkBaseClasses,
+                    "px-3 py-2 rounded-full hover:bg-white/5"
+                  )}
+                  onClick={item.onClick}
+                />
+              )}
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </div>
   )

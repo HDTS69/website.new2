@@ -7,7 +7,7 @@ import { Building2, Home, MapPin, Wrench, Calendar, Phone } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { NavItem, BaseNavigationProps } from '@/types/navigation/types';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Default navigation items if none are provided
 const defaultNavigationItems: NavItem[] = [
@@ -240,7 +240,7 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
     // Set navigation visible after a short delay for entrance animation
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 800); // Longer delay after header animation
+    }, 1000); // Longer delay after header animation
     
     return () => {
       clearTimeout(timer);
@@ -259,26 +259,40 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
     item.name !== 'Call Now' && item.name !== 'Book Online'
   );
   
+  const navVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+  
   return (
     <>
       {/* Desktop Navigation */}
       <div className="hidden md:block">
-        {isVisible ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-              duration: 0.8
-            }}
-          >
-            <NavBar items={mainNavItems} actionItems={actionButtons} />
-          </motion.div>
-        ) : (
-          <div className="h-16 opacity-0"></div>
-        )}
+        <AnimatePresence>
+          {isVisible && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 20,
+                duration: 1
+              }}
+              variants={navVariants}
+            >
+              <NavBar items={mainNavItems} actionItems={actionButtons} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       
       {/* Mobile Navigation */}
