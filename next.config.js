@@ -31,8 +31,6 @@ const nextConfig = {
     unoptimized: process.env.NODE_ENV === 'development',
     // Use modern image formats when supported
     formats: ['image/avif', 'image/webp'],
-    // Improved image quality settings
-    quality: 80,
     // Minimize image size in memory
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
@@ -42,10 +40,6 @@ const nextConfig = {
   distDir: 'out',
   // Improve performance with better compression
   compress: true,
-  // Improve performance with better minification
-  swcMinify: true,
-  // Improve performance with better code splitting
-  poweredByHeader: false,
   experimental: {
     // Enable optimizations
     appDocumentPreloading: true,
@@ -70,12 +64,6 @@ const nextConfig = {
       'simplex-noise',
       'tailwind-merge'
     ],
-    // Optimize CSS
-    optimizeCss: true,
-    // Improve code splitting
-    optimizeServerReact: true,
-    // Improve bundle size
-    optimizePackageOverrides: true,
   },
   compiler: {
     styledComponents: true,
@@ -151,56 +139,6 @@ const nextConfig = {
     }
     
     return config;
-  },
-  // Configure headers for better caching
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/:path*.js',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/:path*.css',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/images/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/optimized/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
   },
 }
 
