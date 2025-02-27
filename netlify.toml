@@ -2,7 +2,7 @@
 [build]
   base = "/"
   publish = "out"
-  command = "npm run build"
+  command = "./netlify-build.sh"
 
 [build.environment]
   NODE_VERSION = "18"
