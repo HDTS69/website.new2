@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// For static exports, we can't use dynamic routes
-// export const dynamic = 'force-dynamic';
-// export const revalidate = 3600; // Revalidate every hour
+// For static exports, we need to explicitly set these
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export async function GET() {
   try {
