@@ -8,3 +8,6 @@
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
   NETLIFY_USE_YARN = "false"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
