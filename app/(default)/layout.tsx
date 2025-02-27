@@ -9,6 +9,7 @@ import "aos/dist/aos.css";
 
 // Import header and footer normally as they're critical for initial render
 import Header from "@/components/ui/header";
+import { MobileHeader } from "@/components/ui/MobileHeader";
 import Footer from "@/components/ui/footer";
 import { Navigation } from "@/components/ui/Navigation";
 import { navigationItems, actionItems } from "@/lib/navigation";
@@ -104,6 +105,7 @@ function DefaultLayoutInner({
         }`}
       >
         <Header />
+        <MobileHeader />
         <Navigation items={navigationItems} actionItems={actionItems} />
         <main className="pb-[72px] md:pb-0">{children}</main>
         <Footer />

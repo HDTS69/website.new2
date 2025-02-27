@@ -17,7 +17,7 @@ export function MobileHero() {
   }, []);
 
   return (
-    <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24">
+    <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24 pt-16">
       {/* Sparkles Animation */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
         <SparklesCore
@@ -80,33 +80,7 @@ export function MobileHero() {
       </div>
       
       <div className="relative z-[4] container mx-auto px-4 py-0 flex-1">
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-0 mb-20">
-          {/* Mobile Logo - Centered with text */}
-          <div className="w-full mt-6 mb-4 opacity-0 animate-fade-in animation-delay-200 flex justify-center">
-            <div className="flex items-center justify-center">
-              <div className="relative w-12 h-12">
-                <Image
-                  src="/images/icon-logo.png"
-                  alt="HD Trade Services Logo"
-                  fill
-                  sizes="48px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              <div className="relative w-44 h-12 ml-2">
-                <Image
-                  src="/images/text logo.png"
-                  alt="HD Trade Services"
-                  fill
-                  sizes="176px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </div>
-          </div>
-
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-6 mb-20">
           {/* Mobile Text Content */}
           <div className="flex flex-col items-center mt-2 space-y-4">
             <h1 className="flex flex-col gap-1 text-[2rem] leading-[1.15] font-bold text-white tracking-tight">
