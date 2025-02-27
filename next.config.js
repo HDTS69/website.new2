@@ -58,11 +58,6 @@ const nextConfig = {
       exclude: ['error', 'warn'],
     } : false,
   },
-  // Disable the Next.js development mode indicator (the "N" button)
-  devIndicators: {
-    buildActivity: true,
-    buildActivityPosition: 'bottom-right',
-  },
   // Add environment variables with default values for build time
   env: {
     // Supabase configuration
@@ -96,46 +91,6 @@ const nextConfig = {
     }
     
     return config;
-  },
-  // Configure headers for better security and caching
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-        ],
-      },
-      {
-        source: '/images/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
   },
 }
 
