@@ -19,6 +19,7 @@ export function Hero() {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [isLoaded, setIsLoaded] = useState(false);
   const [shouldLoadSparkles, setShouldLoadSparkles] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     // Small delay to ensure proper animation on initial load
@@ -90,7 +91,7 @@ export function Hero() {
               >
                 <div className="relative w-full h-full">
                   <Image
-                    src="/images/hayden-hero-1.webp"
+                    src={imageError ? "https://via.placeholder.com/800x1200?text=HD+Trade+Services" : "/images/hayden-hero-1.webp"}
                     alt="Professional Technician"
                     fill
                     sizes="(max-width: 768px) 100vw, 45vw"
@@ -106,9 +107,8 @@ export function Hero() {
                     loading="eager"
                     fetchPriority="high"
                     onError={(e) => {
-                      console.error('Image failed to load:', e);
-                      // Fallback to a placeholder if the image fails to load
-                      (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23000000"/%3E%3Ctext x="50" y="50" font-family="Arial" font-size="12" text-anchor="middle" fill="%23ffffff"%3EImage not found%3C/text%3E%3C/svg%3E';
+                      console.error("Failed to load hero image:", e);
+                      setImageError(true);
                     }}
                   />
                 </div>

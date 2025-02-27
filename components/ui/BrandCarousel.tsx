@@ -45,6 +45,7 @@ const supplierLogos = allLogos.slice(12); // Remaining logos (Suppliers and Cert
 const BrandLogoSlide: React.FC<BrandLogo & { isMobile: boolean }> = ({ src, alt, isMobile }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
+  const [imageError, setImageError] = React.useState(false);
 
   const preventInteraction = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -68,12 +69,12 @@ const BrandLogoSlide: React.FC<BrandLogo & { isMobile: boolean }> = ({ src, alt,
         `}
       >
         <Image
-          src={src}
+          src={imageError ? `https://via.placeholder.com/200x120?text=${alt.replace(/\s+/g, '+')}` : src}
           alt={alt}
           fill
           sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 200px"
           quality={90}
-          priority={true}
+          priority={false}
           className={`
             object-contain
             transition-[filter,opacity] duration-300
@@ -85,7 +86,12 @@ const BrandLogoSlide: React.FC<BrandLogo & { isMobile: boolean }> = ({ src, alt,
             pointer-events-none
           `}
           onLoad={() => setIsLoaded(true)}
-          onError={() => console.error(`Failed to load ${src}`)}
+          onError={(e) => {
+            console.error(`Failed to load ${src}`);
+            setImageError(true);
+            // Try to load anyway to show the placeholder
+            setIsLoaded(true);
+          }}
           draggable={false}
           style={{ 
             userSelect: 'none', 
@@ -134,7 +140,7 @@ export function BrandCarousel() {
           background="transparent"
           minSize={1}
           maxSize={2}
-          particleDensity={100}
+          particleDensity={30}
           className="w-full h-full"
           particleColor="#1CD4A7"
           speed={0.3}

@@ -181,6 +181,12 @@ export function InstagramFeed() {
                         fill
                         sizes="(max-width: 768px) 33vw, 25vw"
                         className="object-cover"
+                        onError={(e) => {
+                          console.error(`Failed to load Instagram image: ${post.media_url}`);
+                          // Replace with placeholder if image fails to load
+                          const imgElement = e.currentTarget as HTMLImageElement;
+                          imgElement.src = "https://via.placeholder.com/640x640?text=Instagram+Post";
+                        }}
                       />
                     </div>
                   </Link>
@@ -205,6 +211,12 @@ export function InstagramFeed() {
                         fill
                         sizes="(max-width: 768px) 33vw, 25vw"
                         className="object-cover"
+                        onError={(e) => {
+                          console.error(`Failed to load Instagram image: ${post.media_url}`);
+                          // Replace with placeholder if image fails to load
+                          const imgElement = e.currentTarget as HTMLImageElement;
+                          imgElement.src = "https://via.placeholder.com/640x640?text=Instagram+Post";
+                        }}
                       />
                     </div>
                   </Link>

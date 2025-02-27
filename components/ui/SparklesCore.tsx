@@ -15,6 +15,9 @@ const initializeParticlesEngine = async (): Promise<void> => {
   if (engineInitialized) return;
   
   if (!initializationPromise) {
+    // Add a small delay before initializing to improve initial page load
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
     initializationPromise = initParticlesEngine(async (engine: Engine) => {
       await loadSlim(engine);
     }).then(() => {
@@ -61,8 +64,7 @@ export const SparklesCore = (props: ParticlesProps) => {
   useEffect(() => {
     let mounted = true;
     
-    // Delay initialization to improve initial page load
-    const timer = setTimeout(async () => {
+    const initialize = async () => {
       try {
         await initializeParticlesEngine();
         if (mounted) {
@@ -72,11 +74,12 @@ export const SparklesCore = (props: ParticlesProps) => {
       } catch (error) {
         console.error("Failed to initialize particles:", error);
       }
-    }, 300); // Delay initialization by 300ms
+    };
+
+    initialize();
     
     return () => {
       mounted = false;
-      clearTimeout(timer);
       // Clean up particles when component unmounts
       if (containerRef.current) {
         containerRef.current.destroy();
@@ -112,7 +115,7 @@ export const SparklesCore = (props: ParticlesProps) => {
     interactivity: {
       events: {
         onClick: {
-          enable: false, // Disabled click for better performance
+          enable: false, // Disabled for better performance
           mode: "push",
         },
         onHover: {
@@ -176,7 +179,7 @@ export const SparklesCore = (props: ParticlesProps) => {
   
   // Don't render anything if not initialized
   if (!init) {
-    return <div className={cn("opacity-0", className)} />;
+    return null;
   }
   
   return (

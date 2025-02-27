@@ -72,8 +72,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
       <head>
-        <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: *.cdninstagram.com via.placeholder.com *.google-analytics.com; font-src 'self' fonts.gstatic.com fonts.googleapis.com; connect-src 'self' *.google-analytics.com *.analytics.google.com *.googletagmanager.com; frame-src 'self'" />
-        
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         

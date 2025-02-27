@@ -104,44 +104,9 @@ if [ ! -d "out" ]; then
   echo "This is a placeholder file. The build process failed to generate proper output files." > out/index.html
 fi
 
-# Optimize HTML files - Fix for script loading issues
+# Optimize HTML files
 echo "Optimizing HTML files..."
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # macOS version (BSD sed)
-  find out -name "*.html" -exec sed -i '' 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
-else
-  # Linux version (GNU sed)
-  find out -name "*.html" -exec sed -i 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
-fi
-
-# Create a _redirects file to ensure proper asset routing
-echo "Creating _redirects file..."
-cat > out/_redirects << EOF
-# Netlify redirects file
-# Ensure static assets are properly served
-/_next/*  /_next/:splat  200
-/images/*  /images/:splat  200
-/optimized/*  /optimized/:splat  200
-/static/*  /static/:splat  200
-/*  /index.html  200
-EOF
-
-# Ensure proper MIME types for assets
-echo "Creating _headers file..."
-cat > out/_headers << EOF
-# Netlify headers file
-# Proper MIME types for assets
-/*.css
-  Content-Type: text/css
-/*.js
-  Content-Type: application/javascript
-/*.woff2
-  Content-Type: font/woff2
-/*.webp
-  Content-Type: image/webp
-/*.avif
-  Content-Type: image/avif
-EOF
+find out -name "*.html" -exec sed -i 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
 
 # Compress static assets
 echo "Compressing static assets..."
@@ -157,15 +122,6 @@ if command -v brotli &> /dev/null; then
   find out -type f -name "*.html" -exec brotli -q 11 {} \; 2>/dev/null || echo "Brotli compression failed, continuing"
 else
   echo "Brotli not available, skipping Brotli compression"
-fi
-
-# Verify _next directory exists and has content
-echo "Verifying _next directory..."
-if [ ! -d "out/_next" ]; then
-  echo "Warning: _next directory not found in output. This may cause asset loading issues."
-else
-  echo "Found _next directory with the following structure:"
-  find out/_next -type d | head -n 10
 fi
 
 ls -la out/ || echo "Warning: Could not list contents of out directory"

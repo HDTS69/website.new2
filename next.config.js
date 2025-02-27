@@ -43,6 +43,10 @@ const nextConfig = {
   experimental: {
     // Enable optimizations
     appDocumentPreloading: true,
+    // Enable modern JavaScript features
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
     // Optimize page loading
     optimizePackageImports: [
       'framer-motion', 
@@ -143,9 +147,6 @@ const nextConfig = {
     
     return config;
   },
-  // Ensure assets are properly handled in static export
-  assetPrefix: process.env.NODE_ENV === 'production' ? undefined : undefined,
-  trailingSlash: false,
 }
 
 // Add bundle analyzer in analyze mode

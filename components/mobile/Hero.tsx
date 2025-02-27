@@ -7,6 +7,7 @@ import { AnimatedButton } from '../ui/AnimatedButton';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = React.useState(false);
+  const [imageError, setImageError] = React.useState(false);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,7 +25,7 @@ export function Hero() {
           background="transparent"
           minSize={0.8}
           maxSize={2}
-          particleDensity={100}
+          particleDensity={30} /* Reduced from 100 to 30 for better performance */
           className="w-full h-full"
           particleColor="#1CD4A7"
           speed={0.3}
@@ -55,7 +56,7 @@ export function Hero() {
               >
                 <div className="relative w-full h-full">
                   <Image
-                    src="/images/hayden-hero-1.webp"
+                    src={imageError ? "https://via.placeholder.com/800x1200?text=HD+Trade+Services" : "/images/hayden-hero-1.webp"}
                     alt="Professional Technician"
                     fill
                     sizes="55vw"
@@ -69,6 +70,10 @@ export function Hero() {
                     className="select-none"
                     priority
                     draggable="false"
+                    onError={(e) => {
+                      console.error("Failed to load mobile hero image:", e);
+                      setImageError(true);
+                    }}
                   />
                 </div>
               </motion.div>
