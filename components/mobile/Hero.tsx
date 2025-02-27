@@ -136,12 +136,12 @@ export function MobileHero() {
             
             <div className="opacity-0 animate-scale-up animation-delay-900 transform-gpu mt-4">
               <AnimatedButton 
-                href="#booking-form"
+                href="#book"
                 variant="primary"
                 className="shadow-lg hover:shadow-xl hover:shadow-[#00E6CA]/20 text-white"
                 onClick={(e) => {
                   e.preventDefault();
-                  const bookingForm = document.getElementById('booking-form');
+                  const bookingForm = document.getElementById('book');
                   if (bookingForm) {
                     bookingForm.scrollIntoView({ behavior: 'smooth' });
                   }

@@ -195,12 +195,12 @@ const defaultNavigationItems: NavItem[] = [
   },
   {
     name: 'Book Online',
-    url: '#booking-form',
+    url: '#book',
     icon: Calendar,
     isHighlighted: true,
     onClick: (e: React.MouseEvent) => {
       e.preventDefault();
-      const bookingForm = document.getElementById('booking-form');
+      const bookingForm = document.getElementById('book');
       if (bookingForm) {
         bookingForm.scrollIntoView({ behavior: 'smooth' });
       }
@@ -217,12 +217,12 @@ const defaultActionItems: NavItem[] = [
   },
   {
     name: 'Book Online',
-    url: '#booking-form',
+    url: '#book',
     icon: Calendar,
     isHighlighted: true,
     onClick: (e: React.MouseEvent) => {
       e.preventDefault();
-      const bookingForm = document.getElementById('booking-form');
+      const bookingForm = document.getElementById('book');
       if (bookingForm) {
         bookingForm.scrollIntoView({ behavior: 'smooth' });
       }
