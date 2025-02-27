@@ -29,6 +29,7 @@ export default function Header() {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="flex items-center gap-3"
           aria-label="Return to top"
+          style={{ touchAction: 'pan-x pan-y' }}
         >
           <div className="relative w-12 h-12 md:w-16 md:h-16">
             <Image
@@ -38,6 +39,7 @@ export default function Header() {
               sizes="(max-width: 768px) 48px, 64px"
               className="object-contain"
               priority
+              draggable="false"
             />
           </div>
           <div className="relative h-8 w-[160px] md:h-10 md:w-[200px]">
@@ -48,6 +50,7 @@ export default function Header() {
               sizes="(max-width: 768px) 160px, 200px"
               className="object-contain"
               priority
+              draggable="false"
             />
           </div>
         </button>
@@ -59,6 +62,7 @@ export default function Header() {
         href="/"
         className="flex items-center gap-3"
         aria-label="Return to homepage"
+        style={{ touchAction: 'pan-x pan-y' }}
       >
         <div className="relative w-12 h-12 md:w-16 md:h-16">
           <Image
@@ -68,6 +72,7 @@ export default function Header() {
             sizes="(max-width: 768px) 48px, 64px"
             className="object-contain"
             priority
+            draggable="false"
           />
         </div>
         <div className="relative h-8 w-[160px] md:h-10 md:w-[200px]">
@@ -78,6 +83,7 @@ export default function Header() {
             sizes="(max-width: 768px) 160px, 200px"
             className="object-contain"
             priority
+            draggable="false"
           />
         </div>
       </Link>
@@ -95,6 +101,7 @@ export default function Header() {
         // Hide on mobile
         "hidden md:block"
       )}
+      style={{ touchAction: 'pan-x pan-y' }}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-24">

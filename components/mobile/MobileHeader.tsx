@@ -45,12 +45,14 @@ export function MobileHeader() {
             ease: "easeOut"
           }
         }}
+        style={{ touchAction: 'pan-x pan-y' }}
       >
         {/* Icon logo aligned to the left - increased size */}
         <motion.div 
           className="relative w-12 h-12 flex-shrink-0"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          style={{ touchAction: 'none' }}
         >
           <Image
             src="/images/icon-logo.png"
@@ -135,6 +137,7 @@ export function MobileHeader() {
           delay: 0.1
         }
       }}
+      style={{ touchAction: 'pan-x pan-y' }}
     >
       <div className="px-4 py-3">
         <LogoButton />

@@ -27,12 +27,16 @@ export default function RootLayout({
         <style>{`
           :root {
             color-scheme: dark;
+            touch-action: pan-x pan-y;
           }
           
           html {
             height: 100%;
             margin: 0;
             padding: 0;
+            touch-action: pan-x pan-y;
+            -ms-content-zooming: none;
+            -ms-touch-action: pan-x pan-y;
           }
 
           body {
@@ -41,6 +45,7 @@ export default function RootLayout({
             margin: 0;
             padding: 0;
             -webkit-overflow-scrolling: touch;
+            touch-action: pan-x pan-y;
           }
 
           * {
@@ -78,7 +83,7 @@ export default function RootLayout({
             }
           }
         `}</style>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0, viewport-fit=cover" />
       </head>
       <body
         className="font-inter antialiased bg-black"
