@@ -1,27 +1,28 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-export default function MobileHeader() {
+export function MobileHeader() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
   useEffect(() => {
-    // Set header visible immediately for entrance animation
+    // Set header visible after a short delay for entrance animation
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 100);
+    }, 300);
 
     const handleScroll = () => {
       const currentScroll = window.scrollY;
-      setIsScrolled(currentScroll > 0);
+      // Update background opacity
+      setIsScrolled(currentScroll > 20);
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -31,152 +32,116 @@ export default function MobileHeader() {
     };
   }, []);
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 25,
-        duration: 0.8,
-        when: "beforeChildren",
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const logoVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 260,
-        damping: 20
-      }
-    }
-  };
-
   const LogoButton = () => {
-    if (isHomePage) {
-      return (
-        <motion.button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="flex items-center gap-2"
-          aria-label="Return to top"
-          style={{ touchAction: 'pan-x pan-y' }}
+    const buttonContent = (
+      <motion.div 
+        className="flex items-center w-full"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ 
+          opacity: isVisible ? 1 : 0, 
+          y: isVisible ? 0 : -20,
+          transition: {
+            duration: 0.5,
+            ease: "easeOut"
+          }
+        }}
+        style={{ touchAction: 'pan-x pan-y' }}
+      >
+        {/* Icon logo aligned to the left - increased size */}
+        <motion.div 
+          className="relative w-12 h-12 flex-shrink-0"
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+          style={{ touchAction: 'none' }}
         >
-          <motion.div 
-            className="relative w-12 h-12"
-            variants={logoVariants}
-          >
-            <Image
-              src="/images/icon-logo.png"
-              alt="Return to top"
-              fill
-              sizes="48px"
-              className="object-contain"
-              priority
-              draggable="false"
-            />
-          </motion.div>
-          <motion.div 
-            className="relative h-10 w-[160px]"
-            variants={logoVariants}
-          >
+          <Image
+            src="/images/icon-logo.png"
+            alt={isHomePage ? "Return to top" : "Return to homepage"}
+            fill
+            sizes="48px"
+            className="object-contain"
+            priority
+            draggable="false"
+          />
+        </motion.div>
+        
+        {/* Text logo centered - increased size */}
+        <motion.div 
+          className="flex-grow flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: isVisible ? 1 : 0,
+            transition: { delay: 0.2, duration: 0.5 }
+          }}
+        >
+          <div className="relative h-10 w-[180px]">
             <Image
               src="/images/text-logo.png"
-              alt="Company Name"
+              alt="HD Trade Services"
               fill
-              sizes="160px"
+              sizes="180px"
               className="object-contain"
               priority
               draggable="false"
             />
-          </motion.div>
-        </motion.button>
+          </div>
+        </motion.div>
+        
+        {/* Empty div to balance the layout - increased size to match icon logo */}
+        <div className="w-12 h-12 flex-shrink-0"></div>
+      </motion.div>
+    );
+
+    if (isHomePage) {
+      return (
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="w-full"
+          aria-label="Return to top"
+        >
+          {buttonContent}
+        </button>
       );
     }
 
     return (
-      <motion.div
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+      <Link 
+        href="/"
+        className="w-full"
+        aria-label="Return to homepage"
       >
-        <Link 
-          href="/"
-          className="flex items-center gap-2"
-          aria-label="Return to homepage"
-          style={{ touchAction: 'pan-x pan-y' }}
-        >
-          <motion.div 
-            className="relative w-12 h-12"
-            variants={logoVariants}
-          >
-            <Image
-              src="/images/icon-logo.png"
-              alt="Return to homepage"
-              fill
-              sizes="48px"
-              className="object-contain"
-              priority
-              draggable="false"
-            />
-          </motion.div>
-          <motion.div 
-            className="relative h-10 w-[160px]"
-            variants={logoVariants}
-          >
-            <Image
-              src="/images/text-logo.png"
-              alt="Company Name"
-              fill
-              sizes="160px"
-              className="object-contain"
-              priority
-              draggable="false"
-            />
-          </motion.div>
-        </Link>
-      </motion.div>
+        {buttonContent}
+      </Link>
     );
   };
 
   return (
-    <header 
+    <motion.header 
       className={cn(
         // Base styles
         "fixed top-0 left-0 right-0 w-full z-50",
         // Background and transition
         "transition-all duration-300 ease-in-out",
-        isScrolled ? 'bg-black/90 backdrop-blur-sm' : 'bg-transparent',
+        isScrolled ? 'bg-black/90 backdrop-blur-sm shadow-md' : 'bg-transparent',
         // Show only on mobile
         "block md:hidden"
       )}
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ 
+        opacity: isVisible ? 1 : 0, 
+        y: isVisible ? 0 : -100,
+        transition: {
+          type: "spring",
+          stiffness: 100,
+          damping: 15,
+          delay: 0.1
+        }
+      }}
       style={{ touchAction: 'pan-x pan-y' }}
     >
-      <AnimatePresence>
-        {isVisible && (
-          <motion.div 
-            className="container mx-auto px-4"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0, y: -20 }}
-          >
-            <div className="flex items-center justify-between h-16">
-              {/* Logo Section */}
-              <LogoButton />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+      <div className="px-4 py-3">
+        <LogoButton />
+      </div>
+    </motion.header>
   );
 } 

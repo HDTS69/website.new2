@@ -17,7 +17,7 @@ export function Hero() {
   }, []);
 
   return (
-    <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24 pt-16 touch-auto">
+    <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24 pt-16">
       {/* Sparkles Animation */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
         <SparklesCore
@@ -68,7 +68,6 @@ export function Hero() {
                     }}
                     className="select-none"
                     priority
-                    draggable="false"
                   />
                 </div>
               </motion.div>

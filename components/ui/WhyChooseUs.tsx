@@ -1,38 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Clock, Shield, Award, CreditCard, Zap, Wrench, Recycle, Users, Gift, Truck, HeartHandshake } from "lucide-react";
 import { SparklesCore } from "./SparklesCore";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import dynamic from "next/dynamic";
-
-// Dynamically import the mobile version with no SSR
-const MobileWhyChooseUs = dynamic(
-  () => import('@/components/mobile/WhyChooseUs').then(mod => mod.default),
-  { ssr: false, loading: () => <WhyChooseUsLoading /> }
-);
-
-// Loading component that matches the structure of the real component
-function WhyChooseUsLoading() {
-  return (
-    <section className="relative py-10 px-4 bg-black overflow-hidden md:hidden">
-      <div className="absolute inset-0 w-full h-full opacity-5">
-        <div className="w-full h-full" style={{
-          backgroundImage: "repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)",
-          backgroundSize: "20px 20px"
-        }} />
-      </div>
-      <div className="relative container mx-auto px-2">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-white mb-2">Why Choose Us</h2>
-          <p className="text-sm text-gray-300">Excellence in every service</p>
-        </div>
-        <div className="grid grid-cols-2 gap-2 min-h-[300px] opacity-50"></div>
-      </div>
-    </section>
-  );
-}
 
 const fadeInUpVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -138,84 +109,7 @@ const bottomFeatures = [
   }
 ];
 
-// Static version of the component for initial render
-function StaticWhyChooseUs() {
-  return (
-    <section className="relative py-16 px-4 md:px-6 lg:px-8 bg-black overflow-hidden">
-      <div className="absolute inset-0 w-full h-full opacity-5">
-        <div className="w-full h-full" style={{
-          backgroundImage: "repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)",
-          backgroundSize: "20px 20px"
-        }} />
-      </div>
-
-      <div className="relative container mx-auto px-4">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="standard-header">
-            Why Choose Us
-          </h2>
-          <p className="standard-subheader">
-            Experience excellence with our comprehensive service offerings
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-16 opacity-50">
-          {features.slice(0, 4).map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <div key={index} className="relative">
-                <div className="group relative p-4 sm:p-6 rounded-2xl bg-gray-900/50">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 sm:w-16 sm:h-16 bg-[#00E6CA]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 sm:w-8 sm:h-8 text-[#00E6CA]" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-base sm:text-xl font-semibold text-white">{feature.title}</h3>
-                      <p className="text-[#00E6CA] font-semibold text-xs sm:text-sm line-clamp-1">{feature.highlight}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function WhyChooseUs() {
-  const [mounted, setMounted] = useState(false);
-  const [isMobileView, setIsMobileView] = useState(false);
-  
-  // Set mounted to true after component mounts
-  useEffect(() => {
-    setMounted(true);
-    // Check initial screen size
-    const checkMobile = window.matchMedia('(max-width: 768px)').matches;
-    setIsMobileView(checkMobile);
-    
-    // Add listener for screen size changes
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    const handleResize = (e: MediaQueryListEvent) => {
-      setIsMobileView(e.matches);
-    };
-    
-    mediaQuery.addEventListener('change', handleResize);
-    return () => mediaQuery.removeEventListener('change', handleResize);
-  }, []);
-  
-  // If not mounted yet, render a static version that matches server rendering
-  if (!mounted) {
-    return <StaticWhyChooseUs />;
-  }
-  
-  // After mounting, use the determined view
-  if (isMobileView) {
-    return <MobileWhyChooseUs />;
-  }
-  
-  // Desktop version
   return (
     <section className="relative py-16 px-4 md:px-6 lg:px-8 bg-black overflow-hidden">
       {/* Background Pattern */}

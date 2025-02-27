@@ -142,7 +142,7 @@ export const navigationItems: NavItem[] = [
 export const actionItems: NavItem[] = [
   {
     name: "Call Now",
-    url: "tel:1300889451",
+    url: "tel:1300420911",
     icon: Phone,
   },
   {
