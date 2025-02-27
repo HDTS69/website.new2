@@ -6,8 +6,10 @@ import { Navigation as MobileNavigation } from '@/components/navigation/MobileNa
 import { Building2, Home, MapPin, Wrench, Calendar, Phone } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { NavItem, BaseNavigationProps } from '@/types/navigation/types';
 
-const navigationItems = [
+// Default navigation items if none are provided
+const defaultNavigationItems: NavItem[] = [
   {
     name: 'Home',
     url: '/',
@@ -206,22 +208,42 @@ const navigationItems = [
   },
 ];
 
-export function Navigation() {
+// Default action items if none are provided
+const defaultActionItems: NavItem[] = [
+  {
+    name: 'Call Now',
+    url: 'tel:1300000000',
+    icon: Phone,
+  },
+  {
+    name: 'Book Online',
+    url: '#booking-form',
+    icon: Calendar,
+    isHighlighted: true,
+    onClick: (e: React.MouseEvent) => {
+      e.preventDefault();
+      const bookingForm = document.getElementById('booking-form');
+      if (bookingForm) {
+        bookingForm.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+  },
+];
+
+export function Navigation({ items = defaultNavigationItems, actionItems = defaultActionItems }: BaseNavigationProps) {
   const pathname = usePathname();
   const isMobile = useMediaQuery('(max-width: 768px)');
   
   // Separate navigation items from action items
-  const mainNavItems = navigationItems.filter(item => 
+  const mainNavItems = items.filter(item => 
     item.name !== 'Call Now' && item.name !== 'Book Online' && (pathname === '/' ? item.name !== 'Home' : true)
   );
   
-  const actionButtons = navigationItems.filter(item => 
-    item.name === 'Call Now' || item.name === 'Book Online'
-  );
+  const actionButtons = actionItems;
   
   // For mobile, we want to show a simplified set of navigation items
   const mobileNavItems = isMobile ? 
-    navigationItems.filter(item => 
+    items.filter(item => 
       item.name !== 'Home' && 
       item.name !== 'About Us' && 
       item.name !== 'Brands'
