@@ -14,8 +14,10 @@ export function MobileHeader() {
   const isHomePage = pathname === '/';
 
   useEffect(() => {
-    // Set header visible immediately as the first element in the animation sequence
-    setIsVisible(true);
+    // Set header visible after a short delay for entrance animation
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 300);
 
     const handleScroll = () => {
       const currentScroll = window.scrollY;
@@ -26,6 +28,7 @@ export function MobileHeader() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -38,24 +41,14 @@ export function MobileHeader() {
           opacity: isVisible ? 1 : 0, 
           y: isVisible ? 0 : -20,
           transition: {
-            duration: 0.6, // Slightly faster to start the sequence
-            ease: [0.22, 1, 0.36, 1]
+            duration: 0.5,
+            ease: "easeOut"
           }
         }}
       >
         {/* Icon logo aligned to the left - increased size */}
         <motion.div 
           className="relative w-12 h-12 flex-shrink-0"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ 
-            opacity: 1, 
-            scale: 1,
-            transition: {
-              delay: 0.1, // Reduced delay to start sequence faster
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1]
-            }
-          }}
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
@@ -76,16 +69,12 @@ export function MobileHeader() {
           initial={{ opacity: 0 }}
           animate={{ 
             opacity: isVisible ? 1 : 0,
-            transition: { 
-              delay: 0.2, // Reduced delay to start sequence faster
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1]
-            }
+            transition: { delay: 0.2, duration: 0.5 }
           }}
         >
           <div className="relative h-10 w-[180px]">
             <Image
-              src="/images/text logo.png"
+              src="/images/text-logo.png"
               alt="HD Trade Services"
               fill
               sizes="180px"
@@ -141,9 +130,9 @@ export function MobileHeader() {
         y: isVisible ? 0 : -100,
         transition: {
           type: "spring",
-          stiffness: 60,
+          stiffness: 100,
           damping: 15,
-          duration: 0.8 // Slightly faster to start the sequence
+          delay: 0.1
         }
       }}
     >

@@ -42,7 +42,7 @@ export default function Header() {
           </div>
           <div className="relative h-8 w-[160px] md:h-10 md:w-[200px]">
             <Image
-              src="/images/text logo.png"
+              src="/images/text-logo.png"
               alt="Company Name"
               fill
               sizes="(max-width: 768px) 160px, 200px"
@@ -72,7 +72,7 @@ export default function Header() {
         </div>
         <div className="relative h-8 w-[160px] md:h-10 md:w-[200px]">
           <Image
-            src="/images/text logo.png"
+            src="/images/text-logo.png"
             alt="Company Name"
             fill
             sizes="(max-width: 768px) 160px, 200px"
