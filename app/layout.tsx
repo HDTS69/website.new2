@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -87,6 +88,7 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen flex-col overflow-x-hidden overscroll-behavior-x-none supports-[overflow:clip]:overflow-clip bg-black">
           {children}
+          <ScrollToTop />
         </div>
       </body>
     </html>

@@ -31,8 +31,8 @@ export function MobileHero() {
         />
       </div>
 
-      {/* Hero Images Container - Fixed position */}
-      <div className="fixed inset-0 bottom-0 z-[3] transform-gpu pointer-events-none">
+      {/* Hero Images Container - Absolute position (fixed to hero section) */}
+      <div className="absolute inset-0 bottom-0 z-[3] transform-gpu pointer-events-none">
         <div className="relative h-full w-full">
           {/* Main Hero Image */}
           <AnimatePresence mode="wait">
@@ -81,9 +81,9 @@ export function MobileHero() {
       
       <div className="relative z-[4] container mx-auto px-4 py-0 flex-1">
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-0 mb-20">
-          {/* Mobile Logo - Horizontal and Centered */}
+          {/* Mobile Logo - Centered with text */}
           <div className="w-full mt-6 mb-4 opacity-0 animate-fade-in animation-delay-200 flex justify-center">
-            <div className="flex items-center">
+            <div className="flex items-center justify-center">
               <div className="relative w-12 h-12">
                 <Image
                   src="/images/icon-logo.png"
