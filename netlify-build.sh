@@ -18,6 +18,17 @@ if [ -z "$NEXT_PUBLIC_SUPABASE_ANON_KEY" ]; then
   export NEXT_PUBLIC_SUPABASE_ANON_KEY="placeholder-anon-key"
 fi
 
+if [ -z "$NEXT_PUBLIC_GOOGLE_MAPS_API_KEY" ]; then
+  echo "Warning: NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is not set. Using placeholder value."
+  export NEXT_PUBLIC_GOOGLE_MAPS_API_KEY="placeholder-google-maps-key"
+fi
+
+# Print environment variables for debugging (without exposing sensitive values)
+echo "Environment variables set:"
+echo "NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL:0:10}... (truncated)"
+echo "NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY:0:5}... (truncated)"
+echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY:0:5}... (truncated)"
+
 # Install dependencies
 echo "Installing dependencies..."
 npm install
