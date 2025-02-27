@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 
 interface ClientOnlyProps {
-  children: () => React.ReactNode;
+  children: ReactNode | (() => ReactNode);
 }
 
 export function ClientOnly({ children }: ClientOnlyProps) {
@@ -17,5 +17,5 @@ export function ClientOnly({ children }: ClientOnlyProps) {
     return null;
   }
 
-  return <>{children()}</>;
+  return <>{typeof children === 'function' ? (children as () => ReactNode)() : children}</>;
 } 

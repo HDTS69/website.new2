@@ -84,6 +84,11 @@ export default function RootLayout({
           }
         `}</style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0, viewport-fit=cover" />
+        
+        {/* Preload logo images to prevent warnings */}
+        <link rel="preload" href="/images/text-logo.png" as="image" />
+        <link rel="preload" href="/images/icon-logo.png" as="image" />
+        <link rel="preload" href="/images/hayden-hero-1.webp" as="image" />
       </head>
       <body
         className="font-inter antialiased bg-black"
