@@ -26,16 +26,14 @@ export default function Home() {
 
       {/* Why Choose Us Section - Conditionally rendered for mobile/desktop */}
       <ClientOnly>
-        {() => (
-          <>
-            <div className="hidden md:block">
-              <WhyChooseUs />
-            </div>
-            <div className="block md:hidden">
-              <WhyChooseUsMobile />
-            </div>
-          </>
-        )}
+        <>
+          <div className="hidden md:block">
+            <WhyChooseUs />
+          </div>
+          <div className="block md:hidden">
+            <WhyChooseUsMobile />
+          </div>
+        </>
       </ClientOnly>
       
       {/* Testimonials Section */}
