@@ -29,8 +29,6 @@ const nextConfig = {
     ],
     // Enable image optimization for production
     unoptimized: process.env.NODE_ENV === 'development',
-    // Set quality to 80% for a good balance between quality and file size
-    quality: 80,
     // Use modern image formats when supported
     formats: ['image/avif', 'image/webp'],
   },
@@ -40,8 +38,6 @@ const nextConfig = {
   experimental: {
     // Enable optimizations
     appDocumentPreloading: true,
-    // Enable optimized font loading
-    optimizeFonts: true,
     // Enable modern JavaScript features
     serverActions: {
       bodySizeLimit: '2mb',
@@ -79,8 +75,6 @@ const nextConfig = {
     // Add any other required environment variables here with fallbacks
     // NODE_ENV is managed by Next.js and should not be set here
   },
-  // Improve performance with SWC minification
-  swcMinify: true,
   // Configure webpack for better performance
   webpack: (config, { isServer }) => {
     // If client-side, don't polyfill fs
