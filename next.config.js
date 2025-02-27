@@ -12,7 +12,6 @@ const nextConfig = {
     unoptimized: true,
   },
   reactStrictMode: true,
-  swcMinify: true,
   output: 'export',
   distDir: 'out',
   experimental: {

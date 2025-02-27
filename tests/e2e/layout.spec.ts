@@ -1,5 +1,12 @@
 import { test, expect } from '@playwright/test';
 
+// Add this type declaration at the top of the file
+declare global {
+  interface Window {
+    AOS: any;
+  }
+}
+
 test.describe('Layout Components', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
