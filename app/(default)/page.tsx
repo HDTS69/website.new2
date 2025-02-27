@@ -49,6 +49,7 @@ export default function Home() {
         {/* Background Effects */}
         <div className="absolute inset-0">
           <SparklesCore
+            id="tsparticlesfullpage-booking"
             background="transparent"
             minSize={0.4}
             maxSize={1}

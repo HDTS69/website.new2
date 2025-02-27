@@ -152,7 +152,6 @@ export function WhyChooseUs() {
                 key={feature.title}
                 className="relative"
                 variants={fadeInUpVariant}
-                custom={index}
               >
                 <div className="group relative p-4 sm:p-6 rounded-2xl bg-gray-900/50 hover:bg-gray-900/70 transition-all duration-300">
                   <div className="flex items-center gap-3">

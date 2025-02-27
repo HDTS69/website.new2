@@ -94,7 +94,7 @@ export function WhyChooseUsMobile() {
       {/* Sparkles Background */}
       <div className="absolute inset-0 w-full h-full">
         <SparklesCore
-          id="tsparticlesfullpage"
+          id="tsparticlesfullpage-mobile"
           background="transparent"
           minSize={0.6}
           maxSize={1.4}
@@ -136,7 +136,6 @@ export function WhyChooseUsMobile() {
               <motion.div
                 key={feature.title}
                 variants={fadeInUpVariant}
-                custom={index}
                 className="flex flex-col items-center"
               >
                 <div className="w-full aspect-square flex flex-col items-center justify-center p-2 rounded-lg bg-gray-900/50 hover:bg-gray-900/70 transition-all duration-300 text-center">
