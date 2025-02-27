@@ -5,13 +5,20 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
   useEffect(() => {
+    // Set header visible after a short delay for entrance animation
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 300);
+
     const handleScroll = () => {
       const currentScroll = window.scrollY;
       // Update background opacity
@@ -19,7 +26,10 @@ export default function Header() {
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+    };
   }, []);
 
   const LogoButton = () => {
@@ -104,10 +114,26 @@ export default function Header() {
       style={{ touchAction: 'pan-x pan-y' }}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-24">
-          {/* Logo Section */}
-          <LogoButton />
-        </div>
+        <AnimatePresence initial={true}>
+          {isVisible && (
+            <motion.div 
+              className="flex items-center justify-between h-24"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                duration: 0.6
+              }}
+              key="desktop-header"
+            >
+              {/* Logo Section */}
+              <LogoButton />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
