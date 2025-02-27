@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/fetch-instagram.js",
+    "prebuild": "node scripts/fetch-instagram.js || echo 'Instagram fetch failed, continuing build'",
     "build": "npm run optimize-images && rm -rf .next && rm -rf out && next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,9 +12,10 @@
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "test:headed": "playwright test --headed",
-    "fetch-instagram": "node scripts/fetch-instagram.js",
-    "optimize-images": "node scripts/optimize-images.js",
-    "analyze": "ANALYZE=true next build"
+    "fetch-instagram": "node scripts/fetch-instagram.js || echo 'Instagram fetch failed, continuing'",
+    "optimize-images": "node scripts/optimize-images.js || echo 'Image optimization failed, continuing'",
+    "analyze": "ANALYZE=true next build",
+    "test-deploy": "netlify deploy --build --dir=out"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.6",

@@ -37,9 +37,48 @@ npm install
 echo "Installing ESLint..."
 npm install --save-dev eslint
 
+# Create data directory if it doesn't exist
+echo "Creating data directory..."
+mkdir -p public/data
+
+# Create placeholder Instagram data if the script doesn't exist
+if [ ! -f "scripts/fetch-instagram.js" ]; then
+  echo "Warning: fetch-instagram.js script not found. Creating placeholder data."
+  mkdir -p public/data
+  cat > public/data/instagram.json << EOF
+{
+  "data": [
+    {
+      "id": "placeholder1",
+      "media_url": "https://via.placeholder.com/640x640?text=Instagram+Placeholder",
+      "permalink": "https://instagram.com"
+    },
+    {
+      "id": "placeholder2",
+      "media_url": "https://via.placeholder.com/640x640?text=Instagram+Placeholder",
+      "permalink": "https://instagram.com"
+    },
+    {
+      "id": "placeholder3",
+      "media_url": "https://via.placeholder.com/640x640?text=Instagram+Placeholder",
+      "permalink": "https://instagram.com"
+    }
+  ]
+}
+EOF
+fi
+
 # Build the Next.js application
 echo "Building Next.js application..."
-npm run build
+# Skip prebuild if fetch-instagram.js doesn't exist
+if [ -f "scripts/fetch-instagram.js" ]; then
+  npm run build
+else
+  # Run build without prebuild hook
+  npm run optimize-images || echo "Image optimization failed, continuing"
+  rm -rf .next && rm -rf out
+  next build
+fi
 
 # Verify the output directory
 echo "Verifying output directory..."
