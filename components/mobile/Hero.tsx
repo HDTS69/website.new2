@@ -139,6 +139,13 @@ export function MobileHero() {
                 href="#booking-form"
                 variant="primary"
                 className="shadow-lg hover:shadow-xl hover:shadow-[#00E6CA]/20 text-white"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const bookingForm = document.getElementById('booking-form');
+                  if (bookingForm) {
+                    bookingForm.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 Book Online
               </AnimatedButton>

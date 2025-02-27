@@ -10,6 +10,7 @@ interface AnimatedButtonProps {
   variant?: 'primary' | 'secondary';
   href: string;
   disabled?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 // Predefined animation configurations
@@ -32,6 +33,7 @@ export function AnimatedButton({
   variant = "primary",
   href,
   disabled,
+  onClick,
   ...props 
 }: AnimatedButtonProps) {
   const baseStyles = `
@@ -96,6 +98,7 @@ export function AnimatedButton({
           : "after:bg-white",
         !disabled && 'active:scale-95'
       )}
+      onClick={onClick}
       {...props}
     >
       <ButtonContent />

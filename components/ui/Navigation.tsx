@@ -190,7 +190,7 @@ const defaultNavigationItems: NavItem[] = [
   },
   {
     name: 'Call Now',
-    url: 'tel:1300000000',
+    url: 'tel:1300420911',
     icon: Phone,
   },
   {
@@ -212,7 +212,7 @@ const defaultNavigationItems: NavItem[] = [
 const defaultActionItems: NavItem[] = [
   {
     name: 'Call Now',
-    url: 'tel:1300000000',
+    url: 'tel:1300420911',
     icon: Phone,
   },
   {
