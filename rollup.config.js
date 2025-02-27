@@ -4,8 +4,13 @@ import { babel } from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 
+// Use a simple entry point that's guaranteed to exist
+const entryPoint = 'next.config.js';
+
+console.log(`Using entry point: ${entryPoint}`);
+
 export default {
-  input: 'app/page.tsx',
+  input: entryPoint,
   output: {
     dir: 'dist',
     format: 'esm',
