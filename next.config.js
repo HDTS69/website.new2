@@ -111,10 +111,17 @@ const nextConfig = {
               name(module) {
                 // Get the name. E.g. node_modules/packageName/not/this/part.js
                 // or node_modules/packageName
-                const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+                if (!module.context) {
+                  return 'npm.unknown';
+                }
+                
+                const match = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/);
+                if (!match || !match[1]) {
+                  return 'npm.unknown';
+                }
                 
                 // Create a clean package name for better readability in bundles
-                return `npm.${packageName.replace('@', '')}`;
+                return `npm.${match[1].replace('@', '')}`;
               },
             },
             // Separate chunks for large libraries
