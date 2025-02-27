@@ -1,9 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Shield, Award, CreditCard, Zap, Wrench, Recycle, Users, Gift, Truck, HeartHandshake } from "lucide-react";
 import { SparklesCore } from "./SparklesCore";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import dynamic from "next/dynamic";
+
+// Dynamically import the mobile version with no SSR to avoid hydration issues
+const MobileWhyChooseUs = dynamic(
+  () => import('@/components/mobile/WhyChooseUs').then(mod => ({ default: mod.WhyChooseUs })),
+  { ssr: false }
+);
 
 const fadeInUpVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -110,6 +118,23 @@ const bottomFeatures = [
 ];
 
 export function WhyChooseUs() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [mounted, setMounted] = useState(false);
+  
+  // Set mounted to true after component mounts to avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  // If not mounted yet, render nothing to avoid hydration issues
+  if (!mounted) return null;
+  
+  // Render mobile version on small screens
+  if (isMobile) {
+    return <MobileWhyChooseUs />;
+  }
+  
+  // Desktop version
   return (
     <section className="relative py-16 px-4 md:px-6 lg:px-8 bg-black overflow-hidden">
       {/* Background Pattern */}
