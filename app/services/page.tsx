@@ -93,11 +93,11 @@ export default function ServicesPage() {
         <SparklesCore
           background="transparent"
           minSize={0.4}
-          maxSize={1}
+          maxSize={2}
           particleDensity={100}
           className="w-full h-full"
-          particleColor="#00E6CA"
-          speed={0.2}
+          particleColor="#1CD4A7"
+          speed={0.3}
         />
       </div>
 

@@ -68,17 +68,33 @@ if [ ! -f "scripts/fetch-instagram.js" ]; then
 EOF
 fi
 
-# Build the Next.js application
-echo "Building Next.js application..."
-# Skip prebuild if fetch-instagram.js doesn't exist
-if [ -f "scripts/fetch-instagram.js" ]; then
-  npm run build
-else
-  # Run build without prebuild hook
-  npm run optimize-images || echo "Image optimization failed, continuing"
-  rm -rf .next && rm -rf out
-  next build
-fi
+# Fetch Instagram data
+echo "Fetching Instagram data..."
+npm run fetch-instagram || echo "Instagram fetch failed, continuing build"
+
+# Optimize images
+echo "Optimizing images..."
+npm run optimize-images || echo "Image optimization failed, continuing build"
+
+# Generate sitemap
+echo "Generating sitemap..."
+npm run generate-sitemap || echo "Sitemap generation failed, continuing build"
+
+# Clean previous build artifacts
+echo "Cleaning previous build artifacts..."
+rm -rf .next
+rm -rf out
+
+# Set NODE_ENV to production for better performance
+export NODE_ENV=production
+
+# Build the Next.js application with production optimizations
+echo "Building Next.js application with production optimizations..."
+next build
+
+# Generate sitemap with next-sitemap
+echo "Generating sitemap with next-sitemap..."
+npx next-sitemap --config next-sitemap.config.js || echo "Sitemap generation failed, continuing"
 
 # Verify the output directory
 echo "Verifying output directory..."
@@ -86,6 +102,26 @@ if [ ! -d "out" ]; then
   echo "Error: 'out' directory was not created. Creating empty directory for debugging."
   mkdir -p out
   echo "This is a placeholder file. The build process failed to generate proper output files." > out/index.html
+fi
+
+# Optimize HTML files
+echo "Optimizing HTML files..."
+find out -name "*.html" -exec sed -i 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
+
+# Compress static assets
+echo "Compressing static assets..."
+find out -type f -name "*.js" -exec gzip -9 -k {} \; 2>/dev/null || echo "Gzip compression failed, continuing"
+find out -type f -name "*.css" -exec gzip -9 -k {} \; 2>/dev/null || echo "Gzip compression failed, continuing"
+find out -type f -name "*.html" -exec gzip -9 -k {} \; 2>/dev/null || echo "Gzip compression failed, continuing"
+
+# Create Brotli compressed files if brotli is available
+if command -v brotli &> /dev/null; then
+  echo "Creating Brotli compressed files..."
+  find out -type f -name "*.js" -exec brotli -q 11 {} \; 2>/dev/null || echo "Brotli compression failed, continuing"
+  find out -type f -name "*.css" -exec brotli -q 11 {} \; 2>/dev/null || echo "Brotli compression failed, continuing"
+  find out -type f -name "*.html" -exec brotli -q 11 {} \; 2>/dev/null || echo "Brotli compression failed, continuing"
+else
+  echo "Brotli not available, skipping Brotli compression"
 fi
 
 ls -la out/ || echo "Warning: Could not list contents of out directory"

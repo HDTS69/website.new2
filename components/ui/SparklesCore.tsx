@@ -1,11 +1,33 @@
 "use client";
-import React, { useId, useMemo } from "react";
+import React, { useId, useMemo, useRef } from "react";
 import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import type { Container, SingleOrMultiple } from "@tsparticles/engine";
+import type { Container, SingleOrMultiple, Engine } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
 import { motion, useAnimation } from "framer-motion";
+
+// Initialize particles engine once for the entire app
+let engineInitialized = false;
+let initializationPromise: Promise<void> | null = null;
+
+const initializeParticlesEngine = async (): Promise<void> => {
+  if (engineInitialized) return;
+  
+  if (!initializationPromise) {
+    initializationPromise = initParticlesEngine(async (engine: Engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      engineInitialized = true;
+    }).catch((error) => {
+      console.error("Failed to initialize particles:", error);
+      // Reset so we can try again
+      initializationPromise = null;
+    });
+  }
+  
+  return initializationPromise;
+};
 
 type ParticlesProps = {
   id?: string;
@@ -34,25 +56,38 @@ export const SparklesCore = (props: ParticlesProps) => {
   const [init, setInit] = useState(false);
   const controls = useAnimation();
   const generatedId = useId();
+  const containerRef = useRef<Container | null>(null);
   
   useEffect(() => {
-    const initializeParticles = async () => {
+    let mounted = true;
+    
+    const initialize = async () => {
       try {
-        await initParticlesEngine(async (engine) => {
-          await loadSlim(engine);
-        });
-        setInit(true);
-        controls.start({ opacity: 1 });
+        await initializeParticlesEngine();
+        if (mounted) {
+          setInit(true);
+          controls.start({ opacity: 1 });
+        }
       } catch (error) {
         console.error("Failed to initialize particles:", error);
       }
     };
 
-    initializeParticles();
+    initialize();
+    
+    return () => {
+      mounted = false;
+      // Clean up particles when component unmounts
+      if (containerRef.current) {
+        containerRef.current.destroy();
+        containerRef.current = null;
+      }
+    };
   }, [controls]);
 
   const particlesLoaded = async (container?: Container) => {
     if (container) {
+      containerRef.current = container;
       await controls.start({
         opacity: 1,
         transition: {
@@ -62,6 +97,7 @@ export const SparklesCore = (props: ParticlesProps) => {
     }
   };
 
+  // Memoize options to prevent unnecessary re-renders
   const options = useMemo(() => ({
     background: {
       color: {
@@ -72,7 +108,7 @@ export const SparklesCore = (props: ParticlesProps) => {
       enable: false,
       zIndex: 1,
     },
-    fpsLimit: 60,
+    fpsLimit: 30, // Reduced from 60 to 30 for better performance
     interactivity: {
       events: {
         onClick: {
@@ -80,8 +116,7 @@ export const SparklesCore = (props: ParticlesProps) => {
           mode: "push",
         },
         onHover: {
-          enable: false,
-          mode: "repulse",
+          enable: false, // Disabled hover for better performance
         },
         resize: {
           enable: true,
@@ -91,10 +126,6 @@ export const SparklesCore = (props: ParticlesProps) => {
       modes: {
         push: {
           quantity: 4,
-        },
-        repulse: {
-          distance: 200,
-          duration: 0.4,
         },
       },
     },
@@ -114,7 +145,7 @@ export const SparklesCore = (props: ParticlesProps) => {
         warp: false,
       },
       number: {
-        value: particleDensity || 80,
+        value: particleDensity || 40, // Reduced from 80 to 40
         density: {
           enable: true,
           area: 800
@@ -134,8 +165,13 @@ export const SparklesCore = (props: ParticlesProps) => {
       size: {
         value: { min: minSize || 1, max: maxSize || 3 },
       },
+      // Reduce complexity for better performance
+      reduceDuplicates: true,
+      life: {
+        count: 1,
+      },
     },
-    detectRetina: true,
+    detectRetina: false, // Disabled for better performance
   }), [background, minSize, maxSize, speed, particleColor, particleDensity]);
   
   return (
@@ -158,4 +194,6 @@ export const SparklesCore = (props: ParticlesProps) => {
       )}
     </motion.div>
   );
-}; 
+};
+
+export default { SparklesCore }; 

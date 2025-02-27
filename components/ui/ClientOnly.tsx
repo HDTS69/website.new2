@@ -3,7 +3,7 @@
 import { useEffect, useState, ReactNode } from 'react';
 
 interface ClientOnlyProps {
-  children: ReactNode | (() => ReactNode);
+  children: ReactNode;
 }
 
 export function ClientOnly({ children }: ClientOnlyProps) {
@@ -17,5 +17,5 @@ export function ClientOnly({ children }: ClientOnlyProps) {
     return null;
   }
 
-  return <>{typeof children === 'function' ? (children as () => ReactNode)() : children}</>;
+  return <>{children}</>;
 } 

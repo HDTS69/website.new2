@@ -105,7 +105,6 @@ function DefaultLayoutInner({
         }`}
       >
         <Header />
-        <MobileHeader />
         <Navigation items={navigationItems} actionItems={actionItems} />
         <main className="pb-[72px] md:pb-0">{children}</main>
         <Footer />

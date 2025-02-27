@@ -157,10 +157,10 @@ export default function AquamaxPage() {
           background="transparent"
           minSize={0.8}
           maxSize={2}
-          particleDensity={150}
+          particleDensity={100}
           className="w-full h-full"
-          particleColor="#00E6CA"
-          speed={0.4}
+          particleColor="#1CD4A7"
+          speed={0.3}
         />
       </div>
 

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/fetch-instagram.js || echo 'Instagram fetch failed, continuing build'",
-    "build": "npm run optimize-images && rm -rf .next && rm -rf out && next build",
+    "build": "npm run optimize-images && npm run generate-sitemap && rm -rf .next && rm -rf out && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "playwright test",
@@ -14,8 +14,10 @@
     "test:headed": "playwright test --headed",
     "fetch-instagram": "node scripts/fetch-instagram.js || echo 'Instagram fetch failed, continuing'",
     "optimize-images": "node scripts/optimize-images.js || echo 'Image optimization failed, continuing'",
+    "generate-sitemap": "node scripts/generate-sitemap.js || echo 'Sitemap generation failed, continuing'",
     "analyze": "ANALYZE=true next build",
-    "test-deploy": "netlify deploy --build --dir=out"
+    "test-deploy": "netlify deploy --build --dir=out",
+    "postbuild": "next-sitemap --config next-sitemap.config.js || echo 'Sitemap generation failed, continuing'"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.6",
@@ -53,6 +55,7 @@
     "eslint": "9.21.0",
     "eslint-config-next": "^14.2.24",
     "glob": "^10.3.10",
+    "next-sitemap": "^4.2.3",
     "postcss": "^8.5.3",
     "rollup": "^4.12.0",
     "rollup-plugin-postcss": "^4.0.2",

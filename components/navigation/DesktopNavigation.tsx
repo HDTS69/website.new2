@@ -111,20 +111,12 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
         top: `${Math.max(96 - scrollPosition, 10)}px`, // Start at 96px (below header), move to 10px when scrolled past header
       }}
     >
-      <motion.div 
+      <div 
         className={cn(
           "border border-[#00E6CA]/20 bg-black/90 backdrop-blur-md pointer-events-auto",
           isMobile ? "rounded-2xl mx-auto max-w-md mb-0" : "rounded-full",
           "transition-none" // No transitions for natural movement
         )}
-        initial={{ opacity: 0, scale: 0, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 260,
-          damping: 20,
-          duration: 0.8
-        }}
       >
         <div className={cn(
           "flex items-center justify-center py-2",
@@ -191,7 +183,7 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
             </div>
           )}
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

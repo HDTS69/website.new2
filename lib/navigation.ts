@@ -13,6 +13,30 @@ export const navigationItems: NavItem[] = [
     icon: Wrench,
     dropdownItems: [
       {
+        name: "Plumbing",
+        url: "/services/plumbing",
+        subItems: [
+          { name: "Emergency Plumbing", url: "/services/plumbing/emergency" },
+          { name: "Blocked Drains", url: "/services/plumbing/blocked-drains" },
+          { name: "Leak Detection", url: "/services/plumbing/leak-detection" },
+          { name: "Toilet Repairs", url: "/services/plumbing/toilet-repairs" },
+          { name: "Tap Repairs", url: "/services/plumbing/tap-repairs" },
+          { name: "Pipe Repairs", url: "/services/plumbing/pipe-repairs" },
+          { name: "Bathroom Renovations", url: "/services/plumbing/bathroom-renovations" },
+        ]
+      },
+      {
+        name: "Gas",
+        url: "/services/gas",
+        subItems: [
+          { name: "Gas Fitting", url: "/services/gas/gas-fitting" },
+          { name: "Gas Leak Detection", url: "/services/gas/leak-detection" },
+          { name: "Gas Appliance Installation", url: "/services/gas/appliance-installation" },
+          { name: "Gas Heater Services", url: "/services/gas/heater-services" },
+          { name: "Gas Compliance Certificates", url: "/services/gas/compliance-certificates" },
+        ]
+      },
+      {
         name: "Hot Water Systems",
         url: "/services/hot-water",
         subItems: [
@@ -20,16 +44,8 @@ export const navigationItems: NavItem[] = [
           { name: "Electric Hot Water", url: "/services/hot-water/electric" },
           { name: "Heat Pump", url: "/services/hot-water/heat-pump" },
           { name: "Solar Hot Water", url: "/services/hot-water/solar" },
-        ]
-      },
-      {
-        name: "Plumbing",
-        url: "/services/plumbing",
-        subItems: [
-          { name: "Emergency Plumbing", url: "/services/plumbing/emergency" },
-          { name: "Blocked Drains", url: "/services/plumbing/blocked-drains" },
-          { name: "Leak Detection", url: "/services/plumbing/leak-detection" },
-          { name: "Gas Fitting", url: "/services/plumbing/gas-fitting" },
+          { name: "Hot Water Repairs", url: "/services/hot-water/repairs" },
+          { name: "Hot Water Replacement", url: "/services/hot-water/replacement" },
         ]
       },
       {
@@ -40,6 +56,19 @@ export const navigationItems: NavItem[] = [
           { name: "Gutter Cleaning", url: "/services/roofing/gutter-cleaning" },
           { name: "Roof Restoration", url: "/services/roofing/restoration" },
           { name: "Roof Replacement", url: "/services/roofing/replacement" },
+          { name: "Leak Investigation", url: "/services/roofing/leak-investigation" },
+          { name: "Gutter & Downpipes", url: "/services/roofing/gutter-downpipes" },
+        ]
+      },
+      {
+        name: "Air Conditioning",
+        url: "/services/air-conditioning",
+        subItems: [
+          { name: "AC Installation", url: "/services/air-conditioning/installation" },
+          { name: "AC Repairs", url: "/services/air-conditioning/repairs" },
+          { name: "AC Maintenance", url: "/services/air-conditioning/maintenance" },
+          { name: "Split System Installation", url: "/services/air-conditioning/split-system" },
+          { name: "Ducted Systems", url: "/services/air-conditioning/ducted-systems" },
         ]
       }
     ]
@@ -49,6 +78,17 @@ export const navigationItems: NavItem[] = [
     url: "/brands",
     icon: Building2,
     dropdownItems: [
+      {
+        name: "Plumbing Brands",
+        url: "/brands/plumbing",
+        subItems: [
+          { name: "Caroma", url: "/brands/caroma" },
+          { name: "Reece", url: "/brands/reece" },
+          { name: "Methven", url: "/brands/methven" },
+          { name: "Dorf", url: "/brands/dorf" },
+          { name: "Grohe", url: "/brands/grohe" },
+        ]
+      },
       {
         name: "Hot Water Brands",
         url: "/brands/hot-water",
@@ -66,14 +106,16 @@ export const navigationItems: NavItem[] = [
         ]
       },
       {
-        name: "Air Conditioning",
+        name: "Air Conditioning Brands",
         url: "/brands/air-conditioning",
         subItems: [
           { name: "Daikin", url: "/brands/daikin" },
           { name: "Fujitsu", url: "/brands/fujitsu" },
-          { name: "Mitsubishi Heavy Industries", url: "/brands/mitsubishi-heavy-industries" },
+          { name: "Mitsubishi", url: "/brands/mitsubishi" },
           { name: "Samsung", url: "/brands/samsung" },
           { name: "Gree", url: "/brands/gree" },
+          { name: "Panasonic", url: "/brands/panasonic" },
+          { name: "LG", url: "/brands/lg" },
         ]
       }
     ]
@@ -95,6 +137,16 @@ export const navigationItems: NavItem[] = [
         ]
       },
       {
+        name: "Moreton Bay",
+        url: "/locations/moreton-bay",
+        subItems: [
+          { name: "North Lakes", url: "/locations/moreton-bay/north-lakes" },
+          { name: "Redcliffe", url: "/locations/moreton-bay/redcliffe" },
+          { name: "Caboolture", url: "/locations/moreton-bay/caboolture" },
+          { name: "Strathpine", url: "/locations/moreton-bay/strathpine" },
+        ]
+      },
+      {
         name: "Gold Coast",
         url: "/locations/gold-coast",
         subItems: [
@@ -104,12 +156,30 @@ export const navigationItems: NavItem[] = [
         ]
       },
       {
+        name: "Ipswich",
+        url: "/locations/ipswich",
+        subItems: [
+          { name: "Ipswich CBD", url: "/locations/ipswich/cbd" },
+          { name: "Springfield", url: "/locations/ipswich/springfield" },
+          { name: "Goodna", url: "/locations/ipswich/goodna" },
+        ]
+      },
+      {
+        name: "Logan",
+        url: "/locations/logan",
+        subItems: [
+          { name: "Logan Central", url: "/locations/logan/central" },
+          { name: "Beenleigh", url: "/locations/logan/beenleigh" },
+          { name: "Springwood", url: "/locations/logan/springwood" },
+        ]
+      },
+      {
         name: "Sunshine Coast",
         url: "/locations/sunshine-coast",
         subItems: [
-          { name: "North Sunshine Coast", url: "/locations/sunshine-coast/north" },
-          { name: "Central Sunshine Coast", url: "/locations/sunshine-coast/central" },
-          { name: "South Sunshine Coast", url: "/locations/sunshine-coast/south" },
+          { name: "Maroochydore", url: "/locations/sunshine-coast/maroochydore" },
+          { name: "Caloundra", url: "/locations/sunshine-coast/caloundra" },
+          { name: "Noosa", url: "/locations/sunshine-coast/noosa" },
         ]
       }
     ]

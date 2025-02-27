@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
 import { motion } from 'framer-motion';
@@ -13,6 +13,44 @@ import { useFormValidation } from './useFormValidation';
 import { useFormSubmission } from './useFormSubmission';
 import { SERVICE_CATEGORIES, PREFERRED_TIMES, URGENCY_OPTIONS } from './constants';
 import type { BookingFormProps, Service, ServiceCategory } from './types';
+
+// Google Maps Places Autocomplete
+declare global {
+  interface Window {
+    initAutocomplete: () => void;
+    google: {
+      maps: {
+        places: {
+          Autocomplete: new (
+            input: HTMLInputElement,
+            options?: google.maps.places.AutocompleteOptions
+          ) => google.maps.places.Autocomplete;
+        };
+        event: {
+          clearInstanceListeners: (instance: any) => void;
+        };
+      };
+    };
+  }
+}
+
+// Define Google Maps types
+namespace google.maps.places {
+  export interface Autocomplete {
+    addListener: (event: string, callback: () => void) => void;
+    getPlace: () => {
+      formatted_address?: string;
+      address_components?: any[];
+      geometry?: any;
+    };
+  }
+  
+  export interface AutocompleteOptions {
+    componentRestrictions?: { country: string };
+    fields?: string[];
+    types?: string[];
+  }
+}
 
 export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
   const {
@@ -48,6 +86,7 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
   const [showUrgency, setShowUrgency] = React.useState(false);
   const [showDate, setShowDate] = React.useState(false);
   const [expandedCategories, setExpandedCategories] = React.useState<Record<string, boolean>>({});
+  const [autocomplete, setAutocomplete] = React.useState<google.maps.places.Autocomplete | null>(null);
   const servicesRef = useRef<HTMLDivElement>(null);
   const timeRef = useRef<HTMLDivElement>(null);
   const urgencyRef = useRef<HTMLDivElement>(null);
@@ -59,6 +98,179 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
       [category]: !prev[category]
     }));
   };
+
+  // Initialize Google Maps Places Autocomplete
+  useEffect(() => {
+    let scriptElement: HTMLScriptElement | null = null;
+    let isScriptLoaded = false;
+    
+    // Check if script is already loaded
+    isScriptLoaded = typeof window.google !== 'undefined' && 
+                     typeof window.google.maps !== 'undefined' && 
+                     typeof window.google.maps.places !== 'undefined';
+
+    // Add the styles for Google Places autocomplete once
+    const addAutocompleteStyles = () => {
+      if (!document.getElementById('pac-styles')) {
+        const style = document.createElement('style');
+        style.id = 'pac-styles';
+        style.textContent = `
+          .pac-container {
+            border: 1px solid #374151;
+            background-color: #0C0C0C;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 0.375rem;
+            z-index: 1000;
+            margin-top: 4px;
+          }
+          .pac-item {
+            padding: 8px 12px;
+            color: #D1D5DB;
+            background-color: #0C0C0C;
+            border-top: 1px solid #374151;
+            font-family: inherit;
+            font-size: 0.875rem;
+            cursor: pointer;
+          }
+          .pac-item:hover {
+            background-color: #1F2937;
+          }
+          .pac-item-query {
+            color: #F9FAFB;
+            font-size: 0.875rem;
+          }
+          .pac-matched {
+            color: #00E6CA;
+          }
+          .pac-icon {
+            display: none;
+          }
+          /* Style the Google attribution to match our theme but keep logo visible */
+          .pac-logo:after {
+            background-color: #0C0C0C !important;
+            color: #6B7280 !important;
+            font-size: 0.7rem !important;
+            padding: 4px 8px !important;
+            height: 18px !important;
+            line-height: 18px !important;
+            margin: 0 !important;
+            border-top: 1px solid #374151 !important;
+            background-position: right center !important;
+            background-size: 50px !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    };
+
+    // Add styles immediately
+    addAutocompleteStyles();
+
+    // Load Google Maps API script
+    const loadGoogleMapsScript = () => {
+      const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+      if (!googleMapsApiKey) {
+        console.error('Google Maps API key is missing');
+        return;
+      }
+
+      // Check if script already exists
+      const existingScript = document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]');
+      if (existingScript) {
+        return;
+      }
+
+      scriptElement = document.createElement('script');
+      scriptElement.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&libraries=places&callback=initAutocomplete&loading=async`;
+      scriptElement.async = true;
+      scriptElement.defer = true;
+      document.head.appendChild(scriptElement);
+    };
+
+    // Initialize autocomplete
+    window.initAutocomplete = () => {
+      if (!addressRef.current || formData.manualEntry) return;
+
+      // Check if autocomplete is already initialized on this input
+      if (addressRef.current.getAttribute('data-autocomplete-initialized') === 'true') {
+        return;
+      }
+
+      const options = {
+        componentRestrictions: { country: 'au' }, // Restrict to Australia
+        fields: ['address_components', 'formatted_address', 'geometry'],
+        types: ['address'],
+      };
+
+      try {
+        const autocompleteInstance = new window.google.maps.places.Autocomplete(
+          addressRef.current,
+          options
+        );
+
+        // Mark input as initialized
+        addressRef.current.setAttribute('data-autocomplete-initialized', 'true');
+
+        // Handle place selection
+        autocompleteInstance.addListener('place_changed', () => {
+          const place = autocompleteInstance.getPlace();
+          if (place.formatted_address) {
+            setFormData((prev) => ({
+              ...prev,
+              address: place.formatted_address || ''
+            }));
+          }
+        });
+
+        setAutocomplete(autocompleteInstance);
+      } catch (error) {
+        console.error('Error initializing Google Maps Autocomplete:', error);
+      }
+    };
+
+    // Initialize or load script based on conditions
+    if (!formData.manualEntry) {
+      if (isScriptLoaded) {
+        // If script is already loaded, initialize autocomplete directly
+        window.initAutocomplete();
+      } else {
+        // Load the script
+        loadGoogleMapsScript();
+      }
+    }
+
+    // Cleanup
+    return () => {
+      if (autocomplete) {
+        // Clean up listeners if needed
+        if (window.google && window.google.maps && window.google.maps.event) {
+          window.google.maps.event.clearInstanceListeners(autocomplete);
+        }
+      }
+      
+      // We don't remove the script or styles as they might be used by other components
+    };
+  }, [formData.manualEntry]); // Only re-run when manual entry changes
+
+  // Handle manual entry checkbox change - simplified to avoid unnecessary re-renders
+  useEffect(() => {
+    if (formData.manualEntry && addressRef.current) {
+      // When manual entry is enabled, remove the initialized flag
+      addressRef.current.removeAttribute('data-autocomplete-initialized');
+      
+      if (autocomplete && window.google && window.google.maps && window.google.maps.event) {
+        // Clean up the existing autocomplete
+        window.google.maps.event.clearInstanceListeners(autocomplete);
+        setAutocomplete(null);
+      }
+      
+      // Remove the pac-container if it exists
+      const pacContainer = document.querySelector('.pac-container');
+      if (pacContainer && pacContainer.parentNode) {
+        pacContainer.parentNode.removeChild(pacContainer);
+      }
+    }
+  }, [formData.manualEntry, autocomplete]);
 
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -118,6 +330,41 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
     }
     
     await submitForm();
+  };
+
+  // Modify the address input field to handle the manual entry toggle
+  const handleAddressFocus = () => {
+    if (!formData.manualEntry) {
+      setShowManualEntry(true);
+    }
+  };
+
+  const handleManualEntryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    
+    // Update the form data
+    handleChange(e);
+    
+    // If switching to manual entry, clear any existing autocomplete
+    if (isChecked && addressRef.current) {
+      // Remove the initialized flag
+      addressRef.current.removeAttribute('data-autocomplete-initialized');
+      
+      if (autocomplete && window.google && window.google.maps && window.google.maps.event) {
+        // Clean up the existing autocomplete
+        window.google.maps.event.clearInstanceListeners(autocomplete);
+        setAutocomplete(null);
+      }
+      
+      // Remove the pac-container if it exists
+      const pacContainer = document.querySelector('.pac-container');
+      if (pacContainer && pacContainer.parentNode) {
+        pacContainer.parentNode.removeChild(pacContainer);
+      }
+    } else if (!isChecked && addressRef.current && window.google && window.google.maps) {
+      // Re-initialize autocomplete when switching back
+      window.initAutocomplete();
+    }
   };
 
   if (showThankYou) {
@@ -197,9 +444,10 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
                 value={formData.address}
                 onChange={handleChange}
                 onBlur={(e) => validateField('address', e.target.value)}
-                onFocus={() => setShowManualEntry(true)}
+                onFocus={handleAddressFocus}
                 label="Address"
                 error={errors.address}
+                autoComplete={formData.manualEntry ? "on" : "off"}
               />
               {showManualEntry && (
                 <motion.div 
@@ -216,7 +464,7 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
                       type="checkbox"
                       name="manualEntry"
                       checked={formData.manualEntry}
-                      onChange={handleChange}
+                      onChange={handleManualEntryChange}
                       className="accent-[#00E6CA] rounded border-gray-700 cursor-pointer"
                     />
                     <span className="text-teal-500 transition-colors duration-200">Manual Entry</span>

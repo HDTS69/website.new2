@@ -9,6 +9,7 @@ const inter = Inter({
   display: "swap",
   preload: true,
   adjustFontFallback: true,
+  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -77,7 +78,9 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         
-        <style>{`
+        <link rel="preload" href="/images/hayden-hero-1.webp" as="image" />
+        
+        <style dangerouslySetInnerHTML={{ __html: `
           :root {
             color-scheme: dark;
             touch-action: pan-x pan-y;
@@ -139,7 +142,7 @@ export default function RootLayout({
             content-visibility: auto;
             contain-intrinsic-size: 1px 5000px;
           }
-        `}</style>
+        ` }} />
       </head>
       <body
         className="font-inter antialiased bg-black"

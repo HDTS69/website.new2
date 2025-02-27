@@ -50,11 +50,11 @@ export default function Home() {
             id="tsparticlesfullpage-booking"
             background="transparent"
             minSize={0.4}
-            maxSize={1}
+            maxSize={2}
             particleDensity={100}
             className="w-full h-full"
             particleColor="#1CD4A7"
-            speed={0.2}
+            speed={0.3}
           />
         </div>
 

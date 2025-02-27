@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SparklesCore } from "./SparklesCore";
+import MobileTestimonialsNew from "../mobile/MobileTestimonialsNew";
 
 // Interfaces for type safety
 interface Review {
@@ -383,37 +384,6 @@ const TestimonialColumn = ({ reviews, direction = "up", duration }: {
   );
 };
 
-// Mobile Testimonials Component - Single Column with scrolling animation
-export const MobileTestimonials = () => {
-  return (
-    <section className="py-16 bg-black relative overflow-hidden md:hidden" aria-label="Customer testimonials section">
-      <div className="container max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <header className="text-center mb-8 relative z-10">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            What Our Customers Say
-          </h2>
-        </header>
-
-        {/* Single scrolling column of testimonials */}
-        <div className="relative z-10 h-[calc(100vh-250px)] max-h-[600px]">
-          <TestimonialColumn reviews={reviews} direction="up" duration={80} />
-        </div>
-
-        {/* Sparkles effect */}
-        <div className="absolute bottom-0 left-0 w-full h-32 z-0">
-          <SparklesCore
-            className="w-full h-full"
-            particleColor="#00E6CA"
-            particleDensity={100}
-            aria-hidden="true"
-          />
-        </div>
-      </div>
-    </section>
-  );
-};
-
 export const Testimonials = () => {
   const [isMobile, setIsMobile] = useState(false);
   
@@ -437,7 +407,7 @@ export const Testimonials = () => {
 
   // If mobile, render the mobile version
   if (isMobile) {
-    return <MobileTestimonials />;
+    return <MobileTestimonialsNew />;
   }
 
   // Desktop version (existing code)
@@ -468,7 +438,7 @@ export const Testimonials = () => {
         <div className="absolute bottom-0 left-0 w-full h-32 z-0">
           <SparklesCore
             className="w-full h-full"
-            particleColor="#00E6CA"
+            particleColor="#1CD4A7"
             particleDensity={100}
             aria-hidden="true"
           />

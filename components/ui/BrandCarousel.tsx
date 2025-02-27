@@ -42,7 +42,7 @@ const allLogos: BrandLogo[] = [
 const manufacturerLogos = allLogos.slice(0, 12); // First 12 logos (Manufacturers)
 const supplierLogos = allLogos.slice(12); // Remaining logos (Suppliers and Certifications)
 
-const BrandLogoSlide: React.FC<BrandLogo> = ({ src, alt }) => {
+const BrandLogoSlide: React.FC<BrandLogo & { isMobile: boolean }> = ({ src, alt, isMobile }) => {
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -53,7 +53,10 @@ const BrandLogoSlide: React.FC<BrandLogo> = ({ src, alt }) => {
 
   return (
     <div 
-      className="relative w-[200px] h-[120px] mx-4 flex items-center justify-center select-none"
+      className={`
+        relative mx-4 flex items-center justify-center select-none
+        ${isMobile ? 'w-[120px] h-[80px]' : 'w-[200px] h-[120px]'}
+      `}
       onContextMenu={preventInteraction}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -68,7 +71,7 @@ const BrandLogoSlide: React.FC<BrandLogo> = ({ src, alt }) => {
           src={src}
           alt={alt}
           fill
-          sizes="(max-width: 640px) 160px, (max-width: 1024px) 180px, 200px"
+          sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 200px"
           quality={90}
           priority={true}
           className={`
@@ -100,9 +103,25 @@ const BrandLogoSlide: React.FC<BrandLogo> = ({ src, alt }) => {
 };
 
 export function BrandCarousel() {
+  const [isMobile, setIsMobile] = React.useState(false);
+  
+  // Check if mobile on client side
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+  
   // Common marquee settings
   const marqueeSettings = {
-    speed: 40,
+    speed: isMobile ? 80 : 40,
     gradient: false,
     pauseOnHover: true,
     className: "overflow-hidden"
@@ -134,7 +153,7 @@ export function BrandCarousel() {
         <div className="w-full">
           <Marquee {...marqueeSettings}>
             {manufacturerLogos.map((brand, index) => (
-              <BrandLogoSlide key={`brand-1-${index}`} {...brand} />
+              <BrandLogoSlide key={`brand-1-${index}`} {...brand} isMobile={isMobile} />
             ))}
           </Marquee>
         </div>
@@ -143,7 +162,7 @@ export function BrandCarousel() {
         <div className="w-full">
           <Marquee {...marqueeSettings} direction="right">
             {supplierLogos.map((brand, index) => (
-              <BrandLogoSlide key={`brand-2-${index}`} {...brand} />
+              <BrandLogoSlide key={`brand-2-${index}`} {...brand} isMobile={isMobile} />
             ))}
           </Marquee>
         </div>

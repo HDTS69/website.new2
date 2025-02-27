@@ -98,10 +98,10 @@ export function WhyChooseUsMobile() {
           background="transparent"
           minSize={0.6}
           maxSize={1.4}
-          particleDensity={70}
+          particleDensity={100}
           className="w-full h-full"
-          particleColor="#00E6CA"
-          speed={0.5}
+          particleColor="#1CD4A7"
+          speed={0.3}
         />
       </div>
 

@@ -67,7 +67,7 @@ export default function RoofRepairServices() {
           particleDensity={100}
           className="w-full h-full"
           particleColor="#1CD4A7"
-          speed={0.4}
+          speed={0.3}
         />
       </div>
 

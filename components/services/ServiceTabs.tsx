@@ -68,11 +68,17 @@ const ServiceTabButton = ({ tab, activeTab, onClick }: ServiceTabButtonProps) =>
 );
 
 const ServiceLink = ({ service }: ServiceLinkProps) => (
-  <div className="flex items-center gap-6 group">
-    <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-[#1C1C1C]">
+  <motion.div 
+    className="flex items-center gap-4 group relative p-3 rounded-xl transition-all duration-300 hover:bg-gray-900/50 hover:backdrop-blur-sm"
+    whileHover={{ 
+      x: 5,
+      transition: { duration: 0.2 }
+    }}
+  >
+    <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#1C1C1C] to-[#252525] shadow-inner shadow-black/30 group-hover:from-[#00E6CA]/10 group-hover:to-[#00E6CA]/5 transition-all duration-300">
       {service.isCalculator ? (
         <svg 
-          className="w-5 h-5 text-[#00E6CA]" 
+          className="w-5 h-5 text-[#00E6CA] drop-shadow-glow transition-all duration-300 group-hover:scale-110" 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -86,7 +92,7 @@ const ServiceLink = ({ service }: ServiceLinkProps) => (
         </svg>
       ) : service.isGuide ? (
         <svg 
-          className="w-5 h-5 text-[#00E6CA]" 
+          className="w-5 h-5 text-[#00E6CA] drop-shadow-glow transition-all duration-300 group-hover:scale-110" 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -100,7 +106,7 @@ const ServiceLink = ({ service }: ServiceLinkProps) => (
         </svg>
       ) : (
         <svg 
-          className="w-5 h-5 text-[#00E6CA]" 
+          className="w-5 h-5 text-[#00E6CA] drop-shadow-glow transition-all duration-300 group-hover:scale-110" 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -118,25 +124,32 @@ const ServiceLink = ({ service }: ServiceLinkProps) => (
       href={service.href}
       className="relative flex-grow py-2"
     >
-      <span className="text-white text-base font-medium hover:text-[#00E6CA] transition-colors duration-300">
+      <span className="text-white text-base font-medium group-hover:text-[#00E6CA] transition-colors duration-300">
         {service.name}
       </span>
       <span className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#00E6CA] to-transparent w-8 group-hover:w-full transition-all duration-300"></span>
     </Link>
-    <svg
-      className="w-5 h-5 text-[#00E6CA] transform group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M9 5l7 7-7 7"
-      />
-    </svg>
-  </div>
+    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-black/30 flex items-center justify-center group-hover:bg-[#00E6CA]/10 transition-all duration-300">
+      <svg
+        className="w-4 h-4 text-[#00E6CA] transform group-hover:translate-x-0.5 transition-transform duration-300"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M9 5l7 7-7 7"
+        />
+      </svg>
+    </div>
+    
+    {/* Add subtle glow effect on hover */}
+    <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300">
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#00E6CA]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    </div>
+  </motion.div>
 );
 
 const serviceData: Record<ServiceId, ServiceContent> = {
@@ -265,11 +278,11 @@ export default function ServiceTabs() {
         <SparklesCore
           background="transparent"
           minSize={0.4}
-          maxSize={1}
+          maxSize={2}
           particleDensity={100}
           className="w-full h-full"
-          particleColor="#00E6CA"
-          speed={0.2}
+          particleColor="#1CD4A7"
+          speed={0.3}
         />
       </div>
 

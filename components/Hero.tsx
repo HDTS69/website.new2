@@ -1,17 +1,24 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { AnimatedButton } from './ui/AnimatedButton';
-import { SparklesCore } from './ui/SparklesCore';
 import { Cover } from './ui/cover';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Hero as MobileHero } from './mobile';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+
+// Lazy load heavy components
+const SparklesCore = lazy(() => import('./ui/SparklesCore').then(mod => ({ default: mod.SparklesCore })));
+const MobileHero = lazy(() => import('./mobile').then(mod => ({ default: mod.Hero })));
+
+// Loading fallbacks
+const SparklesFallback = () => <div className="absolute inset-0 z-[2] bg-black" />;
+const MobileHeroFallback = () => <div className="min-h-[100dvh] flex items-center justify-center bg-black" />;
 
 export function Hero() {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [shouldLoadSparkles, setShouldLoadSparkles] = useState(false);
 
   useEffect(() => {
     // Small delay to ensure proper animation on initial load
@@ -19,26 +26,44 @@ export function Hero() {
       setIsLoaded(true);
     }, 100);
 
-    return () => clearTimeout(timer);
+    // Delay loading sparkles to improve initial page load
+    const sparklesTimer = setTimeout(() => {
+      setShouldLoadSparkles(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(sparklesTimer);
+    };
   }, []);
 
   if (isMobile) {
-    return <MobileHero />;
+    return (
+      <Suspense fallback={<MobileHeroFallback />}>
+        <MobileHero />
+      </Suspense>
+    );
   }
 
   return (
     <div className="relative min-h-[100dvh] flex items-center justify-center bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto">
-      {/* Sparkles Animation */}
+      {/* Sparkles Animation - Lazy loaded */}
       <div className="absolute inset-0 z-[2]">
-        <SparklesCore
-          background="transparent"
-          minSize={0.8}
-          maxSize={2}
-          particleDensity={150}
-          className="w-full h-full"
-          particleColor="#00E6CA"
-          speed={0.4}
-        />
+        {shouldLoadSparkles ? (
+          <Suspense fallback={<SparklesFallback />}>
+            <SparklesCore
+              background="transparent"
+              minSize={0.8}
+              maxSize={2}
+              particleDensity={50} /* Reduced from 100 to 50 */
+              className="w-full h-full"
+              particleColor="#1CD4A7"
+              speed={0.3}
+            />
+          </Suspense>
+        ) : (
+          <SparklesFallback />
+        )}
       </div>
 
       {/* Hero Images Container */}
@@ -68,7 +93,8 @@ export function Hero() {
                     src="/images/hayden-hero-1.webp"
                     alt="Professional Technician"
                     fill
-                    sizes="45vw"
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                    priority
                     style={{ 
                       objectFit: 'contain', 
                       objectPosition: 'left center',
@@ -77,7 +103,8 @@ export function Hero() {
                       filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
                     }}
                     className="select-none"
-                    priority
+                    loading="eager"
+                    fetchPriority="high"
                   />
                 </div>
               </motion.div>
