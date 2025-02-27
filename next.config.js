@@ -31,7 +31,7 @@ const nextConfig = {
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || 'placeholder-google-maps-key',
     
     // Add any other required environment variables here with fallbacks
-    NODE_ENV: process.env.NODE_ENV || 'production',
+    // NODE_ENV is managed by Next.js and should not be set here
   },
   webpack: (config, { isServer }) => {
     // If client-side, don't polyfill fs
