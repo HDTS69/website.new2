@@ -124,7 +124,7 @@ function MobileWhyChooseUs() {
             const Icon = feature.icon;
             return (
               <motion.div
-                key={feature.title}
+                key={index}
                 className="relative"
                 variants={fadeInUpVariant}
                 custom={index}
@@ -161,6 +161,5 @@ function MobileWhyChooseUs() {
   );
 }
 
-// Export both as named export and default export to ensure compatibility
-export { MobileWhyChooseUs as WhyChooseUs };
+// Export as default for dynamic import compatibility
 export default MobileWhyChooseUs; 
