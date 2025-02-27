@@ -84,7 +84,7 @@ const allFeatures = [
   }
 ];
 
-export function WhyChooseUs() {
+function MobileWhyChooseUs() {
   return (
     <section className="relative py-10 px-4 bg-black overflow-hidden md:hidden">
       {/* Background Pattern */}
@@ -159,4 +159,8 @@ export function WhyChooseUs() {
       </div>
     </section>
   );
-} 
+}
+
+// Export both as named export and default export to ensure compatibility
+export { MobileWhyChooseUs as WhyChooseUs };
+export default MobileWhyChooseUs; 

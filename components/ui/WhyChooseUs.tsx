@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 
 // Dynamically import the mobile version with no SSR to avoid hydration issues
 const MobileWhyChooseUs = dynamic(
-  () => import('@/components/mobile/WhyChooseUs').then(mod => ({ default: mod.WhyChooseUs })),
+  () => import('@/components/mobile/WhyChooseUs'),
   { ssr: false }
 );
 
@@ -118,7 +118,6 @@ const bottomFeatures = [
 ];
 
 export function WhyChooseUs() {
-  const isMobile = useMediaQuery('(max-width: 768px)');
   const [mounted, setMounted] = useState(false);
   
   // Set mounted to true after component mounts to avoid hydration mismatch
@@ -126,8 +125,37 @@ export function WhyChooseUs() {
     setMounted(true);
   }, []);
   
-  // If not mounted yet, render nothing to avoid hydration issues
-  if (!mounted) return null;
+  // If not mounted yet, render the desktop version without any client-side logic
+  if (!mounted) {
+    return (
+      <section className="relative py-16 px-4 md:px-6 lg:px-8 bg-black overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 w-full h-full opacity-5">
+          <div className="w-full h-full" style={{
+            backgroundImage: "repeating-linear-gradient(45deg, #ffffff 0, #ffffff 1px, transparent 0, transparent 50%)",
+            backgroundSize: "20px 20px"
+          }} />
+        </div>
+
+        <div className="relative container mx-auto px-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="standard-header">
+              Why Choose Us
+            </h2>
+            <p className="standard-subheader">
+              Experience excellence with our comprehensive service offerings
+            </p>
+          </div>
+          
+          {/* Placeholder for content that will be hydrated */}
+          <div className="min-h-[400px]"></div>
+        </div>
+      </section>
+    );
+  }
+  
+  // After mounting, check if mobile
+  const isMobile = useMediaQuery('(max-width: 768px)');
   
   // Render mobile version on small screens
   if (isMobile) {
