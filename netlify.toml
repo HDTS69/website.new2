@@ -1,4 +1,5 @@
 [build]
+  base = ""
   command = "./netlify-build.sh"
   publish = "out"
 
