@@ -6,7 +6,7 @@ import { SparklesCore } from './ui/SparklesCore';
 import { Cover } from './ui/cover';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Hero as MobileHero } from './mobile/MobileHero';
+import { Hero as MobileHero } from './mobile/Hero';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export function Hero() {
