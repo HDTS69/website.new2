@@ -5,13 +5,20 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 export function MobileHeader() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
   useEffect(() => {
+    // Set header visible after a short delay for entrance animation
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 300);
+
     const handleScroll = () => {
       const currentScroll = window.scrollY;
       // Update background opacity
@@ -19,14 +26,32 @@ export function MobileHeader() {
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+    };
   }, []);
 
   const LogoButton = () => {
     const buttonContent = (
-      <div className="flex items-center w-full">
+      <motion.div 
+        className="flex items-center w-full"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ 
+          opacity: isVisible ? 1 : 0, 
+          y: isVisible ? 0 : -20,
+          transition: {
+            duration: 0.5,
+            ease: "easeOut"
+          }
+        }}
+      >
         {/* Icon logo aligned to the left - increased size */}
-        <div className="relative w-12 h-12 flex-shrink-0">
+        <motion.div 
+          className="relative w-12 h-12 flex-shrink-0"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
           <Image
             src="/images/icon-logo.png"
             alt={isHomePage ? "Return to top" : "Return to homepage"}
@@ -34,11 +59,19 @@ export function MobileHeader() {
             sizes="48px"
             className="object-contain"
             priority
+            draggable="false"
           />
-        </div>
+        </motion.div>
         
         {/* Text logo centered - increased size */}
-        <div className="flex-grow flex justify-center">
+        <motion.div 
+          className="flex-grow flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: isVisible ? 1 : 0,
+            transition: { delay: 0.2, duration: 0.5 }
+          }}
+        >
           <div className="relative h-10 w-[180px]">
             <Image
               src="/images/text logo.png"
@@ -47,13 +80,14 @@ export function MobileHeader() {
               sizes="180px"
               className="object-contain"
               priority
+              draggable="false"
             />
           </div>
-        </div>
+        </motion.div>
         
         {/* Empty div to balance the layout - increased size to match icon logo */}
         <div className="w-12 h-12 flex-shrink-0"></div>
-      </div>
+      </motion.div>
     );
 
     if (isHomePage) {
@@ -80,7 +114,7 @@ export function MobileHeader() {
   };
 
   return (
-    <header 
+    <motion.header 
       className={cn(
         // Base styles
         "fixed top-0 left-0 right-0 w-full z-50",
@@ -90,10 +124,21 @@ export function MobileHeader() {
         // Show only on mobile
         "block md:hidden"
       )}
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ 
+        opacity: isVisible ? 1 : 0, 
+        y: isVisible ? 0 : -100,
+        transition: {
+          type: "spring",
+          stiffness: 100,
+          damping: 15,
+          delay: 0.1
+        }
+      }}
     >
       <div className="px-4 py-3">
         <LogoButton />
       </div>
-    </header>
+    </motion.header>
   );
 } 
