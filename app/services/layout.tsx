@@ -2,7 +2,7 @@
 
 import Header from "@/components/ui/header";
 import Footer from "@/components/ui/footer";
-import { Navigation as MobileNavigation } from "@/components/mobile/MobileNavigation";
+import { MobileNavigation } from "@/components/mobile";
 import { NavBar as DesktopNavigation } from "@/components/navigation/DesktopNavigation";
 import { navigationItems, actionItems } from "@/lib/navigation";
 import { BannerCTA } from "@/components/BannerCTA";

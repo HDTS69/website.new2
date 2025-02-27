@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavBar } from '@/components/navigation/DesktopNavigation';
-import { Navigation as MobileNavigation } from '@/components/mobile/MobileNavigation';
+import { MobileNavigation } from '@/components/mobile';
 import { Building2, Home, MapPin, Wrench, Calendar, Phone } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
