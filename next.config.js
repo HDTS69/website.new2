@@ -12,10 +12,14 @@ const nextConfig = {
     unoptimized: true,
   },
   reactStrictMode: true,
+  swcMinify: true,
   output: 'export',
   distDir: 'out',
   experimental: {
-    appDocumentPreloading: false,
+    appDocumentPreloading: true,
+  },
+  compiler: {
+    styledComponents: true,
   },
   webpack: (config, { isServer }) => {
     // If client-side, don't polyfill fs
