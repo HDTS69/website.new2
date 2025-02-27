@@ -1,6 +1,7 @@
 import { Hero } from '@/components/Hero';
 import { BookingForm } from '@/components/ui/BookingForm';
 import { WhyChooseUs } from '@/components/ui/WhyChooseUs';
+import { WhyChooseUsMobile } from '@/components/mobile/WhyChooseUsMobile';
 import { Testimonials } from '@/components/ui/Testimonials';
 import ServiceTabs from '@/components/services/ServiceTabs';
 import { BrandCarousel } from '@/components/ui/BrandCarousel';
@@ -8,6 +9,7 @@ import { FAQ } from '@/components/ui/FAQ';
 import { InstagramFeed } from '@/components/ui/InstagramFeed';
 import { SparklesCore } from '@/components/ui/SparklesCore';
 import type { Metadata } from 'next';
+import { ClientOnly } from '@/components/ui/ClientOnly';
 
 export const metadata: Metadata = {
   title: 'Brisbane 24/7 Emergency Repairs & Installations',
@@ -22,8 +24,19 @@ export default function Home() {
       {/* Services Section */}
       <ServiceTabs />
 
-      {/* Why Choose Us Section */}
-      <WhyChooseUs />
+      {/* Why Choose Us Section - Conditionally rendered for mobile/desktop */}
+      <ClientOnly>
+        {() => (
+          <>
+            <div className="hidden md:block">
+              <WhyChooseUs />
+            </div>
+            <div className="block md:hidden">
+              <WhyChooseUsMobile />
+            </div>
+          </>
+        )}
+      </ClientOnly>
       
       {/* Testimonials Section */}
       <Testimonials />
