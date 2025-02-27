@@ -383,7 +383,7 @@ const TestimonialColumn = ({ reviews, direction = "up", duration }: {
   );
 };
 
-// Mobile Testimonials Component - Single Column
+// Mobile Testimonials Component - Single Column with scrolling animation
 export const MobileTestimonials = () => {
   return (
     <section className="py-16 bg-black relative overflow-hidden md:hidden" aria-label="Customer testimonials section">
@@ -395,11 +395,9 @@ export const MobileTestimonials = () => {
           </h2>
         </header>
 
-        {/* Single column of testimonials */}
-        <div className="space-y-4 relative z-10 pb-8">
-          {reviews.map((review) => (
-            <TestimonialCard key={review.id} review={review} />
-          ))}
+        {/* Single scrolling column of testimonials */}
+        <div className="relative z-10 h-[calc(100vh-250px)] max-h-[600px]">
+          <TestimonialColumn reviews={reviews} direction="up" duration={80} />
         </div>
 
         {/* Sparkles effect */}

@@ -34,13 +34,9 @@ export default function RootLayout({
         <style>{`
           :root {
             color-scheme: dark;
-            overflow-x: hidden;
-            width: 100%;
           }
           
           html {
-            overflow-x: hidden;
-            width: 100%;
             height: 100%;
             margin: 0;
             padding: 0;
@@ -48,12 +44,9 @@ export default function RootLayout({
 
           body {
             background-color: rgb(0, 0, 0);
-            overflow-x: hidden;
-            width: 100%;
             min-height: 100%;
             margin: 0;
             padding: 0;
-            overscroll-behavior-x: none;
             -webkit-overflow-scrolling: touch;
           }
 
@@ -83,10 +76,10 @@ export default function RootLayout({
         `}</style>
       </head>
       <body
-        className="font-inter antialiased bg-black overflow-x-hidden overscroll-behavior-x-none"
+        className="font-inter antialiased bg-black"
         suppressHydrationWarning
       >
-        <div className="flex min-h-screen flex-col overflow-x-hidden overscroll-behavior-x-none supports-[overflow:clip]:overflow-clip bg-black">
+        <div className="flex min-h-screen flex-col bg-black">
           {children}
           <ScrollToTop />
         </div>
