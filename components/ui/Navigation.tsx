@@ -241,11 +241,11 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Delayed animation for the navigation to appear last
+  // Delayed animation for the navigation to appear last in the sequence
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 2500); // Delay navigation appearance by 2.5 seconds
+    }, 3000); // Delay navigation appearance by 3 seconds to be the last element
     
     return () => clearTimeout(timer);
   }, []);
@@ -290,9 +290,9 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
           y: isVisible ? 0 : 100,
           transition: {
             type: "spring",
-            stiffness: 50,
-            damping: 20,
-            duration: 1.2,
+            stiffness: 40, // Lower stiffness for a slower, more dramatic entrance
+            damping: 25,
+            duration: 1.5, // Longer duration for a slower animation
             ease: [0.22, 1, 0.36, 1]
           }
         }}
@@ -379,9 +379,9 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
           y: isVisible ? 0 : 100,
           transition: {
             type: "spring",
-            stiffness: 50,
-            damping: 20,
-            duration: 1.2,
+            stiffness: 40, // Lower stiffness for a slower, more dramatic entrance
+            damping: 25,
+            duration: 1.5, // Longer duration for a slower animation
             ease: [0.22, 1, 0.36, 1]
           }
         }}

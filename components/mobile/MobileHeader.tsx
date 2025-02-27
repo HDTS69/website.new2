@@ -14,7 +14,7 @@ export function MobileHeader() {
   const isHomePage = pathname === '/';
 
   useEffect(() => {
-    // Set header visible immediately for the first animation in sequence
+    // Set header visible immediately as the first element in the animation sequence
     setIsVisible(true);
 
     const handleScroll = () => {
@@ -38,7 +38,7 @@ export function MobileHeader() {
           opacity: isVisible ? 1 : 0, 
           y: isVisible ? 0 : -20,
           transition: {
-            duration: 0.8,
+            duration: 0.6, // Slightly faster to start the sequence
             ease: [0.22, 1, 0.36, 1]
           }
         }}
@@ -51,8 +51,8 @@ export function MobileHeader() {
             opacity: 1, 
             scale: 1,
             transition: {
-              delay: 0.2,
-              duration: 0.8,
+              delay: 0.1, // Reduced delay to start sequence faster
+              duration: 0.6,
               ease: [0.22, 1, 0.36, 1]
             }
           }}
@@ -77,8 +77,8 @@ export function MobileHeader() {
           animate={{ 
             opacity: isVisible ? 1 : 0,
             transition: { 
-              delay: 0.4, 
-              duration: 0.8,
+              delay: 0.2, // Reduced delay to start sequence faster
+              duration: 0.6,
               ease: [0.22, 1, 0.36, 1]
             }
           }}
@@ -141,9 +141,9 @@ export function MobileHeader() {
         y: isVisible ? 0 : -100,
         transition: {
           type: "spring",
-          stiffness: 50,
+          stiffness: 60,
           damping: 15,
-          duration: 1.2
+          duration: 0.8 // Slightly faster to start the sequence
         }
       }}
     >

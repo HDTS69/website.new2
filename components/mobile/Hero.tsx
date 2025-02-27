@@ -11,18 +11,18 @@ export function Hero() {
 
   React.useEffect(() => {
     // Sequence the animations
-    // 1. Header loads first (handled in MobileHeader component)
-    // 2. After a delay, show the hero image
+    // 1. Header loads first (handled in MobileHeader component - completes around 0.8s)
+    // 2. After header animation, show the hero image
     const imageTimer = setTimeout(() => {
       setIsLoaded(true);
       
-      // 3. After hero image appears, show the text content
+      // 3. After hero image appears and starts animating, show the text content
       const contentTimer = setTimeout(() => {
         setShowContent(true);
-      }, 1000); // Delay text content by 1 second after hero image starts animating
+      }, 1200); // Delay text content by 1.2 seconds after hero image starts animating
       
       return () => clearTimeout(contentTimer);
-    }, 800); // Delay hero image by 800ms to let header animate first
+    }, 600); // Delay hero image by 600ms to let header animate first
 
     return () => clearTimeout(imageTimer);
   }, []);
@@ -56,10 +56,10 @@ export function Hero() {
                   opacity: 1,
                   transition: {
                     type: "spring",
-                    damping: 25,
-                    mass: 0.8,
-                    stiffness: 80,
-                    duration: 1.5
+                    damping: 22,
+                    mass: 0.9,
+                    stiffness: 70,
+                    duration: 1.8
                   }
                 }}
                 key="hero-image"
