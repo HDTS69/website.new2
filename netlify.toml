@@ -8,10 +8,4 @@
   NPM_FLAGS = "--legacy-peer-deps"
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-# Remove the redirect as it's not needed for Next.js
-# [[redirects]]
-#   from = "/*"
-#   to = "/index.html"
-#   status = 200 
+  package = "@netlify/plugin-nextjs" 
