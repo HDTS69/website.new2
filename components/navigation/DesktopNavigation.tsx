@@ -90,6 +90,14 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
     }
   }
 
+  // Add the missing isItemActive function
+  const isItemActive = (item: NavItem): boolean => {
+    if (pathname === '/' && item.name === 'Home') return true;
+    if (item.url && pathname.startsWith(item.url) && item.url !== '/') return true;
+    if (item.url === pathname) return true;
+    return false;
+  }
+
   const linkBaseClasses = "relative flex items-center gap-1.5 text-sm font-medium transition-all duration-300 text-gray-400 hover:text-[#00E6CA]"
   const linkActiveClasses = "text-[#00E6CA]"
   const linkHighlightedClasses = "text-gray-400 hover:text-[#00E6CA]"
@@ -166,7 +174,7 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
           {/* All Navigation Items (Main Items with Dropdowns) */}
           {items.map((item, index) => (
             <motion.div key={`${item.name}-${index}`} variants={itemVariants}>
-              <NavItem
+              <SimpleNavItem
                 item={item}
                 isActive={isItemActive(item)}
                 className={cn(
@@ -196,7 +204,7 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
                   {item.name}
                 </button>
               ) : (
-                <NavItem
+                <SimpleNavItem
                   item={item}
                   isActive={false}
                   className={cn(
@@ -212,6 +220,60 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
       </motion.div>
     </div>
   )
+}
+
+// Create a simplified NavItem component that accepts className
+interface SimpleNavItemProps {
+  item: NavItem;
+  isActive: boolean;
+  className?: string;
+  onClick?: (e: React.MouseEvent) => void;
+}
+
+function SimpleNavItem({ item, isActive, className, onClick }: SimpleNavItemProps) {
+  const Icon = item.icon;
+  
+  return (
+    <div className="relative nav-item">
+      {onClick ? (
+        <button
+          onClick={onClick}
+          className={className}
+        >
+          {Icon && <Icon className="w-4 h-4" />}
+          <span>{item.name}</span>
+        </button>
+      ) : (
+        <Link
+          href={item.url}
+          className={className}
+        >
+          {Icon && <Icon className="w-4 h-4" />}
+          <span>{item.name}</span>
+        </Link>
+      )}
+      
+      {/* Active indicator */}
+      {isActive && (
+        <motion.div
+          layoutId="lamp"
+          className="absolute inset-0 w-full bg-[#00E6CA]/5 rounded-full -z-10"
+          initial={false}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 30,
+          }}
+        >
+          <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-[#00E6CA] rounded-t-full opacity-50">
+            <div className="absolute w-12 h-6 bg-[#00E6CA]/20 rounded-full blur-md -top-2 -left-2" />
+            <div className="absolute w-8 h-6 bg-[#00E6CA]/20 rounded-full blur-md -top-1" />
+            <div className="absolute w-4 h-4 bg-[#00E6CA]/20 rounded-full blur-sm top-0 left-2" />
+          </div>
+        </motion.div>
+      )}
+    </div>
+  );
 }
 
 interface NavItemProps {
