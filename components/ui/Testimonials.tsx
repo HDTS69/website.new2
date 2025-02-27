@@ -300,10 +300,52 @@ const TestimonialColumn = ({ reviews, direction = "up", duration }: {
     if (columnRef.current) {
       const column = columnRef.current;
       const height = column.scrollHeight / 2;
+      
+      // Set the scroll height based on direction
       column.style.setProperty("--scroll-height", `-${height}px`);
       column.style.setProperty("--scroll-duration", `${duration}s`);
     }
   }, [duration]);
+
+  // Create a custom animation style based on direction
+  const animationStyle = {
+    animationName: direction === "down" ? "scroll-down" : "scroll-up",
+    animationDuration: `${duration}s`,
+    animationTimingFunction: "linear",
+    animationIterationCount: "infinite",
+    animationPlayState: "running",
+  };
+
+  // Define keyframes in a style tag
+  useEffect(() => {
+    // Create a style element if it doesn't exist
+    let styleElement = document.getElementById("testimonial-keyframes");
+    if (!styleElement) {
+      styleElement = document.createElement("style");
+      styleElement.id = "testimonial-keyframes";
+      document.head.appendChild(styleElement);
+    }
+
+    // Define keyframes for both directions
+    styleElement.textContent = `
+      @keyframes scroll-up {
+        from { transform: translateY(0); }
+        to { transform: translateY(var(--scroll-height)); }
+      }
+      
+      @keyframes scroll-down {
+        from { transform: translateY(var(--scroll-height)); }
+        to { transform: translateY(0); }
+      }
+    `;
+
+    // Clean up
+    return () => {
+      if (styleElement && document.head.contains(styleElement)) {
+        document.head.removeChild(styleElement);
+      }
+    };
+  }, []);
 
   return (
     <div 
@@ -315,15 +357,24 @@ const TestimonialColumn = ({ reviews, direction = "up", duration }: {
     >
       <div
         ref={columnRef}
-        className={cn(
-          "flex flex-col gap-6 group-hover:animation-play-state-paused",
-          direction === "down" ? "animate-scroll-reverse" : "animate-scroll"
-        )}
+        className="flex flex-col gap-6"
         style={{
-          animationDuration: `var(--scroll-duration)`,
-          transform: "translateY(0)",
+          ...animationStyle,
+          // Pause animation on hover
+          ...{ animationPlayState: "var(--play-state, running)" },
+        }}
+        onMouseEnter={() => {
+          if (columnRef.current) {
+            columnRef.current.style.setProperty("--play-state", "paused");
+          }
+        }}
+        onMouseLeave={() => {
+          if (columnRef.current) {
+            columnRef.current.style.setProperty("--play-state", "running");
+          }
         }}
       >
+        {/* Double the reviews to create a seamless loop */}
         {[...reviews, ...reviews].map((review, index) => (
           <TestimonialCard key={`${review.id}-${index}`} review={review} />
         ))}
@@ -347,14 +398,13 @@ export const Testimonials = () => {
           <h2 className="text-4xl font-bold text-white mb-4">
             What Our Customers Say
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-teal-400 mx-auto rounded-full" />
         </header>
 
         {/* Testimonials grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-[600px] relative z-10">
-          <TestimonialColumn reviews={column1} duration={50} />
+          <TestimonialColumn reviews={column1} direction="up" duration={50} />
           <TestimonialColumn reviews={column2} direction="down" duration={50} />
-          <TestimonialColumn reviews={column3} duration={50} />
+          <TestimonialColumn reviews={column3} direction="up" duration={50} />
         </div>
 
         {/* Sparkles effect */}

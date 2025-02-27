@@ -2,8 +2,10 @@
 
 import React from 'react';
 import { NavBar } from '@/components/navigation/DesktopNavigation';
+import { Navigation as MobileNavigation } from '@/components/navigation/MobileNavigation';
 import { Building2, Home, MapPin, Wrench, Calendar, Phone } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const navigationItems = [
   {
@@ -206,6 +208,7 @@ const navigationItems = [
 
 export function Navigation() {
   const pathname = usePathname();
+  const isMobile = useMediaQuery('(max-width: 768px)');
   
   // Separate navigation items from action items
   const mainNavItems = navigationItems.filter(item => 
@@ -216,7 +219,26 @@ export function Navigation() {
     item.name === 'Call Now' || item.name === 'Book Online'
   );
   
+  // For mobile, we want to show a simplified set of navigation items
+  const mobileNavItems = isMobile ? 
+    navigationItems.filter(item => 
+      item.name !== 'Home' && 
+      item.name !== 'About Us' && 
+      item.name !== 'Brands'
+    ) : 
+    mainNavItems;
+  
   return (
-    <NavBar items={mainNavItems} actionItems={actionButtons} />
+    <>
+      {/* Desktop Navigation */}
+      <div className="hidden md:block">
+        <NavBar items={mainNavItems} actionItems={actionButtons} />
+      </div>
+      
+      {/* Mobile Navigation */}
+      <div className="block md:hidden">
+        <MobileNavigation items={mobileNavItems} actionItems={actionButtons} />
+      </div>
+    </>
   );
 } 

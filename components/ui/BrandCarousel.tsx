@@ -3,11 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { SparklesCore } from "@/components/ui/sparkles";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-
-// Import Swiper styles
-import 'swiper/css';
+import Marquee from 'react-fast-marquee';
 
 interface BrandLogo {
   src: string;
@@ -104,25 +100,13 @@ const BrandLogoSlide: React.FC<BrandLogo> = ({ src, alt }) => {
 };
 
 export function BrandCarousel() {
-  const commonSwiperParams = {
-    modules: [Autoplay],
-    spaceBetween: 30,
-    slidesPerView: 'auto' as const,
-    loop: true,
-    speed: 5000,
-    autoplay: {
-      delay: 0,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    },
-    allowTouchMove: false,
-    centeredSlides: true,
-    freeMode: true,
+  // Common marquee settings
+  const marqueeSettings = {
+    speed: 40,
+    gradient: false,
+    pauseOnHover: true,
+    className: "overflow-hidden"
   };
-
-  // Duplicate logos for continuous scrolling
-  const duplicatedManufacturerLogos = [...manufacturerLogos, ...manufacturerLogos];
-  const duplicatedSupplierLogos = [...supplierLogos, ...supplierLogos];
 
   return (
     <section className="relative py-12 md:py-16 lg:py-24 bg-black overflow-hidden">
@@ -146,32 +130,22 @@ export function BrandCarousel() {
       </div>
 
       <div className="relative z-20 w-full space-y-16">
-        {/* First carousel - Left to Right */}
-        <div className="w-full overflow-hidden">
-          <Swiper {...commonSwiperParams} slidesPerView={5}>
-            {duplicatedManufacturerLogos.map((brand, index) => (
-              <SwiperSlide key={`brand-1-${index}`} className="!w-auto">
-                <BrandLogoSlide {...brand} />
-              </SwiperSlide>
+        {/* First marquee - Left to Right */}
+        <div className="w-full">
+          <Marquee {...marqueeSettings}>
+            {manufacturerLogos.map((brand, index) => (
+              <BrandLogoSlide key={`brand-1-${index}`} {...brand} />
             ))}
-          </Swiper>
+          </Marquee>
         </div>
 
-        {/* Second carousel - Right to Left */}
-        <div className="w-full overflow-hidden">
-          <Swiper 
-            {...commonSwiperParams}
-            autoplay={{
-              ...commonSwiperParams.autoplay,
-              reverseDirection: true // Move right to left
-            }}
-          >
-            {duplicatedSupplierLogos.map((brand, index) => (
-              <SwiperSlide key={`brand-2-${index}`} className="!w-auto">
-                <BrandLogoSlide {...brand} />
-              </SwiperSlide>
+        {/* Second marquee - Right to Left */}
+        <div className="w-full">
+          <Marquee {...marqueeSettings} direction="right">
+            {supplierLogos.map((brand, index) => (
+              <BrandLogoSlide key={`brand-2-${index}`} {...brand} />
             ))}
-          </Swiper>
+          </Marquee>
         </div>
       </div>
     </section>

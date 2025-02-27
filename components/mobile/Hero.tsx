@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { SparklesCore } from '../ui/SparklesCore';
 import { Cover } from '../ui/cover';
 import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatedButton } from '../ui/AnimatedButton';
 
 export function MobileHero() {
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -16,9 +17,9 @@ export function MobileHero() {
   }, []);
 
   return (
-    <div className="relative min-h-[100dvh] flex items-start bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto">
+    <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24">
       {/* Sparkles Animation */}
-      <div className="absolute inset-0 z-[2]">
+      <div className="absolute inset-0 z-[2] pointer-events-none">
         <SparklesCore
           background="transparent"
           minSize={0.8}
@@ -30,17 +31,17 @@ export function MobileHero() {
         />
       </div>
 
-      {/* Hero Images Container */}
-      <div className="absolute inset-0 top-0 z-[3] transform-gpu">
+      {/* Hero Images Container - Moved to bottom */}
+      <div className="absolute inset-0 bottom-0 z-[3] transform-gpu pointer-events-none">
         <div className="relative h-full w-full">
           {/* Main Hero Image */}
           <AnimatePresence mode="wait">
             {isLoaded && (
               <motion.div 
-                className="absolute inset-0 left-0 w-[55%] h-full"
-                initial={{ x: '-100vw', opacity: 0 }}
+                className="absolute bottom-0 left-0 w-[55%] h-[70%]"
+                initial={{ y: '100vh', opacity: 0 }}
                 animate={{ 
-                  x: 0,
+                  y: 0,
                   opacity: 1,
                   transition: {
                     type: "spring",
@@ -60,7 +61,7 @@ export function MobileHero() {
                     sizes="55vw"
                     style={{ 
                       objectFit: 'contain', 
-                      objectPosition: 'left center',
+                      objectPosition: 'left bottom',
                       transform: 'translateZ(0)',
                       willChange: 'transform',
                       filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
@@ -73,34 +74,41 @@ export function MobileHero() {
             )}
           </AnimatePresence>
           
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent from-70% via-black/70 via-85% to-black transform-gpu" />
+          {/* Bottom fade gradient only */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent transform-gpu" />
         </div>
       </div>
       
-      <div className="relative z-[4] container mx-auto px-4 py-0">
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-0">
-          {/* Mobile Logo */}
-          <div className="mt-4 opacity-0 animate-fade-in animation-delay-200 flex items-center gap-3">
-            <Image
-              src="/images/icon-logo.png"
-              alt="Return to top"
-              fill
-              sizes="(max-width: 768px) 48px, 64px"
-              className="object-contain"
-              priority
-            />
-            <Image
-              src="/images/text logo.png"
-              alt="Company Name"
-              fill
-              sizes="(max-width: 768px) 160px, 200px"
-              className="object-contain"
-              priority
-            />
+      <div className="relative z-[4] container mx-auto px-4 py-0 flex-1">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto select-none transform-gpu mt-0 mb-20">
+          {/* Mobile Logo - Horizontal and Centered */}
+          <div className="w-full mt-6 mb-4 opacity-0 animate-fade-in animation-delay-200 flex justify-center">
+            <div className="flex items-center">
+              <div className="relative w-12 h-12">
+                <Image
+                  src="/images/icon-logo.png"
+                  alt="HD Trade Services Logo"
+                  fill
+                  sizes="48px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="relative w-44 h-12 ml-2">
+                <Image
+                  src="/images/text logo.png"
+                  alt="HD Trade Services"
+                  fill
+                  sizes="176px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
           </div>
 
           {/* Mobile Text Content */}
-          <div className="flex flex-col items-center mt-4 space-y-4">
+          <div className="flex flex-col items-center mt-2 space-y-4">
             <h1 className="flex flex-col gap-1 text-[2rem] leading-[1.15] font-bold text-white tracking-tight">
               <span className="opacity-0 animate-fade-in-up animation-delay-300">Brisbane</span>
               <span className="opacity-0 animate-fade-in-up animation-delay-400 bg-gradient-to-r from-[#00E6CA] to-[#00E6CA]/80 bg-clip-text text-transparent">24/7 Emergency</span>
@@ -124,6 +132,16 @@ export function MobileHero() {
                 <span className="text-white/90 text-sm">Technician to your home at</span>
                 <Cover className="text-[#00E6CA] font-semibold text-base">warp speed</Cover>
               </div>
+            </div>
+            
+            <div className="opacity-0 animate-scale-up animation-delay-900 transform-gpu mt-4">
+              <AnimatedButton 
+                href="#booking-form"
+                variant="primary"
+                className="shadow-lg hover:shadow-xl hover:shadow-[#00E6CA]/20 text-white"
+              >
+                Book Online
+              </AnimatedButton>
             </div>
           </div>
         </div>

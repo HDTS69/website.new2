@@ -49,15 +49,15 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
   return (
     <nav
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-[60] w-full px-4 pb-4",
+        "fixed bottom-0 left-0 right-0 z-[60] w-full px-4 pb-4 pt-2",
         "md:hidden", // Hide on desktop since we're using NavBar.tsx
         className,
       )}
     >
-      <div className="mx-auto max-w-md border border-[#00E6CA]/20 bg-black/90 backdrop-blur-lg rounded-2xl">
-        <div className="flex items-center justify-center gap-1 py-2 px-2">
+      <div className="mx-auto max-w-md border border-[#00E6CA]/20 bg-black/90 backdrop-blur-lg rounded-2xl shadow-lg shadow-[#00E6CA]/10">
+        <div className="flex items-center justify-between gap-1 py-2 px-2">
           {/* Navigation Items */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center justify-around gap-1 w-full">
             {items.map((item) => (
               <NavigationItem
                 key={item.name}
@@ -69,16 +69,16 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
                 onSubItemClick={handleSubItemClick}
               />
             ))}
+          
+            {/* Action Buttons */}
+            {actionItems.length > 0 && (
+              <>
+                {actionItems.map((item) => (
+                  <ActionButton key={item.name} item={item} />
+                ))}
+              </>
+            )}
           </div>
-
-          {/* Action Buttons */}
-          {actionItems.length > 0 && (
-            <div className="flex items-center gap-1 ml-1 pl-1 border-l border-[#00E6CA]/20">
-              {actionItems.map((item) => (
-                <ActionButton key={item.name} item={item} />
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </nav>
@@ -267,7 +267,7 @@ function ActionButton({ item }: { item: NavItem }) {
       className={cn(
         "flex flex-col items-center gap-0.5 px-2 py-1",
         "text-gray-400 hover:text-[#00E6CA] transition-all duration-300",
-        "[text-shadow:0_0_10px_rgba(0,230,202,0.5)] hover:[text-shadow:0_0_20px_rgba(0,230,202,0.8)]"
+        item.isHighlighted ? "text-[#00E6CA] [text-shadow:0_0_10px_rgba(0,230,202,0.5)] hover:[text-shadow:0_0_20px_rgba(0,230,202,0.8)]" : ""
       )}
     >
       <Icon size={20} strokeWidth={2} className="flex-shrink-0" />
