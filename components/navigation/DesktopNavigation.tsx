@@ -117,13 +117,13 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
           isMobile ? "rounded-2xl mx-auto max-w-md mb-0" : "rounded-full",
           "transition-none" // No transitions for natural movement
         )}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, scale: 0, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{
           type: "spring",
-          stiffness: 100,
-          damping: 15,
-          duration: 0.6
+          stiffness: 260,
+          damping: 20,
+          duration: 0.8
         }}
       >
         <div className={cn(

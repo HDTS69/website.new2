@@ -7,7 +7,7 @@ import { Building2, Home, MapPin, Wrench, Calendar, Phone } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { NavItem, BaseNavigationProps } from '@/types/navigation/types';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 // Default navigation items if none are provided
 const defaultNavigationItems: NavItem[] = [
@@ -240,7 +240,7 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
     // Set navigation visible after a short delay for entrance animation
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 500); // Slightly delayed after header animation
+    }, 800); // Longer delay after header animation
     
     return () => {
       clearTimeout(timer);
@@ -263,24 +263,22 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
     <>
       {/* Desktop Navigation */}
       <div className="hidden md:block">
-        <AnimatePresence initial={true}>
-          {isVisible && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-                duration: 0.6
-              }}
-              key="desktop-nav"
-            >
-              <NavBar items={mainNavItems} actionItems={actionButtons} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {isVisible ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0, y: 50 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              duration: 0.8
+            }}
+          >
+            <NavBar items={mainNavItems} actionItems={actionButtons} />
+          </motion.div>
+        ) : (
+          <div className="h-16 opacity-0"></div>
+        )}
       </div>
       
       {/* Mobile Navigation */}

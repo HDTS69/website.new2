@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -114,26 +114,24 @@ export default function Header() {
       style={{ touchAction: 'pan-x pan-y' }}
     >
       <div className="container mx-auto px-4">
-        <AnimatePresence initial={true}>
-          {isVisible && (
-            <motion.div 
-              className="flex items-center justify-between h-24"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{
-                type: "spring",
-                stiffness: 100,
-                damping: 15,
-                duration: 0.6
-              }}
-              key="desktop-header"
-            >
-              {/* Logo Section */}
-              <LogoButton />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {isVisible ? (
+          <motion.div 
+            className="flex items-center justify-between h-24"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              duration: 0.8
+            }}
+          >
+            {/* Logo Section */}
+            <LogoButton />
+          </motion.div>
+        ) : (
+          <div className="h-24 opacity-0"></div>
+        )}
       </div>
     </header>
   );
