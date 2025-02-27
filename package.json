@@ -4,13 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "rm -rf .next && rm -rf out && next build",
+    "prebuild": "node scripts/fetch-instagram.js",
+    "build": "npm run optimize-images && rm -rf .next && rm -rf out && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
-    "test:headed": "playwright test --headed"
+    "test:headed": "playwright test --headed",
+    "fetch-instagram": "node scripts/fetch-instagram.js",
+    "optimize-images": "node scripts/optimize-images.js",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.6",
@@ -33,6 +37,7 @@
     "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.2.0",
     "@playwright/test": "^1.50.1",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -43,11 +48,14 @@
     "@types/react-dom": "^19.0.4",
     "autoprefixer": "10.4.20",
     "date-fns": "^4.1.0",
+    "dotenv": "16.4.7",
     "eslint": "9.21.0",
     "eslint-config-next": "^14.2.24",
+    "glob": "^10.3.10",
     "postcss": "^8.5.3",
     "rollup": "^4.12.0",
     "rollup-plugin-postcss": "^4.0.2",
+    "sharp": "^0.33.3",
     "tailwindcss": "^3.4.17",
     "typescript": "5.7.3"
   }

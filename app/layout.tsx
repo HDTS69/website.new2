@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 const inter = Inter({
@@ -12,8 +12,55 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Brisbane 24/7 Emergency Repairs",
-  description: "Professional plumbing, gas, roofing & air conditioning services.",
+  title: "Brisbane 24/7 Emergency Repairs | HD Trade Services",
+  description: "Professional plumbing, gas, roofing & air conditioning services in Brisbane. 24/7 emergency repairs by licensed technicians.",
+  keywords: "plumbing, gas fitting, roof repairs, air conditioning, Brisbane, emergency repairs, 24/7 service",
+  authors: [{ name: "HD Trade Services" }],
+  creator: "HD Trade Services",
+  publisher: "HD Trade Services",
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
+  },
+  metadataBase: new URL("https://hdtradeservices.com.au"),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_AU",
+    url: "https://hdtradeservices.com.au",
+    title: "Brisbane 24/7 Emergency Repairs | HD Trade Services",
+    description: "Professional plumbing, gas, roofing & air conditioning services in Brisbane. 24/7 emergency repairs by licensed technicians.",
+    siteName: "HD Trade Services",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "HD Trade Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Brisbane 24/7 Emergency Repairs | HD Trade Services",
+    description: "Professional plumbing, gas, roofing & air conditioning services in Brisbane. 24/7 emergency repairs by licensed technicians.",
+    images: ["/images/og-image.jpg"],
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -24,6 +71,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        
         <style>{`
           :root {
             color-scheme: dark;
@@ -72,7 +125,6 @@ export default function RootLayout({
             transition: none !important;
           }
           
-          /* Fix for DevTools mobile scrolling */
           @media (max-width: 767px) {
             html, body {
               position: relative;
@@ -82,13 +134,12 @@ export default function RootLayout({
               overscroll-behavior: none;
             }
           }
+          
+          .content-visibility-auto {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 5000px;
+          }
         `}</style>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0, viewport-fit=cover" />
-        
-        {/* Preload logo images to prevent warnings */}
-        <link rel="preload" href="/images/text-logo.png" as="image" />
-        <link rel="preload" href="/images/icon-logo.png" as="image" />
-        <link rel="preload" href="/images/hayden-hero-1.webp" as="image" />
       </head>
       <body
         className="font-inter antialiased bg-black"
