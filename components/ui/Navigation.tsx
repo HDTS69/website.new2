@@ -241,14 +241,10 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
   
   const actionButtons = actionItems;
   
-  // For mobile, we want to show a simplified set of navigation items
-  const mobileNavItems = isMobile ? 
-    items.filter(item => 
-      item.name !== 'Home' && 
-      item.name !== 'About Us' && 
-      item.name !== 'Brands'
-    ) : 
-    mainNavItems;
+  // For mobile, we now want to show all navigation items, same as desktop
+  const mobileNavItems = items.filter(item => 
+    item.name !== 'Call Now' && item.name !== 'Book Online'
+  );
   
   return (
     <>

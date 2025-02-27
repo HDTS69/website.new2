@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { ChevronDown, ChevronRight } from "lucide-react"
+import { ChevronDown, ChevronRight, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { NavItem, BaseNavigationProps } from "@/types/navigation/types"
 
@@ -15,6 +15,7 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
   const [activeTab, setActiveTab] = useState<string | null>(null)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [openSubDropdown, setOpenSubDropdown] = useState<string | null>(null)
+  const [showFullMenu, setShowFullMenu] = useState(false)
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -22,6 +23,11 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
       if (!(event.target as Element).closest('.nav-item')) {
         setOpenDropdown(null)
         setOpenSubDropdown(null)
+      }
+      
+      if (!(event.target as Element).closest('.mobile-menu') && 
+          !(event.target as Element).closest('.menu-button')) {
+        setShowFullMenu(false)
       }
     }
 
@@ -37,6 +43,7 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
       setActiveTab(item.name)
       setOpenDropdown(null)
       setOpenSubDropdown(null)
+      setShowFullMenu(false)
     }
   }
 
@@ -45,6 +52,10 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
     e.stopPropagation()
     setOpenSubDropdown(openSubDropdown === itemName ? null : itemName)
   }
+
+  // Determine which items to show in the bottom bar vs full menu
+  const primaryItems = items.slice(0, 3) // Show first 3 items in bottom bar
+  const secondaryItems = items.slice(3) // Rest go in the full menu
 
   return (
     <nav
@@ -56,9 +67,10 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
     >
       <div className="mx-auto max-w-md border border-[#00E6CA]/20 bg-black/90 backdrop-blur-lg rounded-2xl shadow-lg shadow-[#00E6CA]/10">
         <div className="flex items-center justify-between gap-1 py-2 px-2">
-          {/* Navigation Items */}
+          {/* Navigation Items - Bottom Bar */}
           <div className="flex items-center justify-around gap-1 w-full">
-            {items.map((item) => (
+            {/* Primary Navigation Items */}
+            {primaryItems.map((item) => (
               <NavigationItem
                 key={item.name}
                 item={item}
@@ -69,6 +81,19 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
                 onSubItemClick={handleSubItemClick}
               />
             ))}
+            
+            {/* Menu Button */}
+            <button 
+              className={cn(
+                "flex flex-col items-center gap-0.5 px-2 py-1 menu-button",
+                "text-gray-400 hover:text-[#00E6CA] transition-all duration-300",
+                showFullMenu && "text-[#00E6CA]"
+              )}
+              onClick={() => setShowFullMenu(!showFullMenu)}
+            >
+              <Menu size={20} strokeWidth={2} className="flex-shrink-0" />
+              <span className="text-[10px] leading-tight text-center">Menu</span>
+            </button>
           
             {/* Action Buttons */}
             {actionItems.length > 0 && (
@@ -81,6 +106,139 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
           </div>
         </div>
       </div>
+      
+      {/* Full Menu Dropdown */}
+      <AnimatePresence>
+        {showFullMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-[80px] left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-md py-4 bg-black/90 backdrop-blur-lg border border-[#00E6CA]/20 rounded-xl shadow-xl z-50 mobile-menu"
+          >
+            <div className="px-4 py-2 border-b border-[#00E6CA]/10 mb-2">
+              <h3 className="text-sm font-semibold text-[#00E6CA]">Navigation</h3>
+            </div>
+            
+            <div className="max-h-[50vh] overflow-y-auto">
+              {/* Secondary Navigation Items */}
+              {secondaryItems.map((item) => (
+                <div key={item.name} className="px-4 py-2">
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href={item.url}
+                      onClick={() => {
+                        setActiveTab(item.name)
+                        setShowFullMenu(false)
+                      }}
+                      className="text-sm font-medium text-gray-400 hover:text-[#00E6CA]"
+                    >
+                      <div className="flex items-center gap-2">
+                        <item.icon size={16} strokeWidth={2} />
+                        <span>{item.name}</span>
+                      </div>
+                    </Link>
+                    
+                    {item.dropdownItems && (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          handleItemClick(item, true)
+                        }}
+                        className={cn(
+                          "p-1 text-gray-400 hover:text-[#00E6CA] transition-colors",
+                          openDropdown === item.name && "text-[#00E6CA]"
+                        )}
+                      >
+                        <ChevronDown
+                          size={16}
+                          className={cn(
+                            "transition-transform duration-200",
+                            openDropdown === item.name && "rotate-180"
+                          )}
+                        />
+                      </button>
+                    )}
+                  </div>
+                  
+                  {/* Dropdown Items */}
+                  <AnimatePresence>
+                    {item.dropdownItems && openDropdown === item.name && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="mt-2 pl-6 overflow-hidden"
+                      >
+                        {item.dropdownItems.map((dropdownItem) => (
+                          <div key={dropdownItem.url} className="py-2">
+                            <div className="flex items-center justify-between">
+                              <Link
+                                href={dropdownItem.url}
+                                onClick={() => {
+                                  setActiveTab(item.name)
+                                  setShowFullMenu(false)
+                                }}
+                                className="text-sm text-gray-400 hover:text-[#00E6CA]"
+                              >
+                                {dropdownItem.name}
+                              </Link>
+                              
+                              {dropdownItem.subItems && (
+                                <button
+                                  onClick={(e) => handleSubItemClick(e, dropdownItem.name)}
+                                  className={cn(
+                                    "p-1 text-gray-400 hover:text-[#00E6CA] transition-colors",
+                                    openSubDropdown === dropdownItem.name && "text-[#00E6CA]"
+                                  )}
+                                >
+                                  <ChevronRight
+                                    size={14}
+                                    className={cn(
+                                      "transition-transform duration-200",
+                                      openSubDropdown === dropdownItem.name && "rotate-90"
+                                    )}
+                                  />
+                                </button>
+                              )}
+                            </div>
+                            
+                            {/* Sub Items */}
+                            <AnimatePresence>
+                              {dropdownItem.subItems && openSubDropdown === dropdownItem.name && (
+                                <motion.div
+                                  initial={{ opacity: 0, height: 0 }}
+                                  animate={{ opacity: 1, height: 'auto' }}
+                                  exit={{ opacity: 0, height: 0 }}
+                                  className="mt-1 pl-4 overflow-hidden"
+                                >
+                                  {dropdownItem.subItems.map((subItem) => (
+                                    <Link
+                                      key={subItem.url}
+                                      href={subItem.url}
+                                      onClick={() => {
+                                        setActiveTab(item.name)
+                                        setShowFullMenu(false)
+                                      }}
+                                      className="block py-2 text-xs text-gray-400 hover:text-[#00E6CA]"
+                                    >
+                                      {subItem.name}
+                                    </Link>
+                                  ))}
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }
