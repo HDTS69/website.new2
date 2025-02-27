@@ -106,7 +106,13 @@ fi
 
 # Optimize HTML files
 echo "Optimizing HTML files..."
-find out -name "*.html" -exec sed -i 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS version (BSD sed)
+  find out -name "*.html" -exec sed -i '' 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
+else
+  # Linux version (GNU sed)
+  find out -name "*.html" -exec sed -i 's/<script/<script defer/g' {} \; || echo "HTML optimization failed, continuing"
+fi
 
 # Compress static assets
 echo "Compressing static assets..."
