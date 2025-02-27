@@ -31,8 +31,8 @@ export function MobileHero() {
         />
       </div>
 
-      {/* Hero Images Container - Moved to bottom */}
-      <div className="absolute inset-0 bottom-0 z-[3] transform-gpu pointer-events-none">
+      {/* Hero Images Container - Fixed position */}
+      <div className="fixed inset-0 bottom-0 z-[3] transform-gpu pointer-events-none">
         <div className="relative h-full w-full">
           {/* Main Hero Image */}
           <AnimatePresence mode="wait">
