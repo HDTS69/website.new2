@@ -383,7 +383,66 @@ const TestimonialColumn = ({ reviews, direction = "up", duration }: {
   );
 };
 
+// Mobile Testimonials Component - Single Column
+export const MobileTestimonials = () => {
+  return (
+    <section className="py-16 bg-black relative overflow-hidden md:hidden" aria-label="Customer testimonials section">
+      <div className="container max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <header className="text-center mb-8 relative z-10">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            What Our Customers Say
+          </h2>
+        </header>
+
+        {/* Single column of testimonials */}
+        <div className="space-y-4 relative z-10 pb-8">
+          {reviews.map((review) => (
+            <TestimonialCard key={review.id} review={review} />
+          ))}
+        </div>
+
+        {/* Sparkles effect */}
+        <div className="absolute bottom-0 left-0 w-full h-32 z-0">
+          <SparklesCore
+            className="w-full h-full"
+            particleColor="#00E6CA"
+            particleDensity={100}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+    </section>
+  );
+};
+
 export const Testimonials = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    // Check if we're on the client side
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+      
+      // Initial check
+      checkMobile();
+      
+      // Add event listener for window resize
+      window.addEventListener('resize', checkMobile);
+      
+      // Cleanup
+      return () => window.removeEventListener('resize', checkMobile);
+    }
+  }, []);
+
+  // If mobile, render the mobile version
+  if (isMobile) {
+    return <MobileTestimonials />;
+  }
+
+  // Desktop version (existing code)
   // Split reviews into three roughly equal groups
   const columnSize = Math.ceil(reviews.length / 3);
   const column1 = reviews.slice(0, columnSize);
@@ -391,7 +450,7 @@ export const Testimonials = () => {
   const column3 = reviews.slice(columnSize * 2);
 
   return (
-    <section className="py-16 bg-black relative overflow-hidden" aria-label="Customer testimonials section">
+    <section className="py-16 bg-black relative overflow-hidden hidden md:block" aria-label="Customer testimonials section">
       <div className="container max-w-7xl mx-auto px-4">
         {/* Header */}
         <header className="text-center mb-12 relative z-10">
