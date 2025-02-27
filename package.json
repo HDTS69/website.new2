@@ -10,8 +10,7 @@
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
-    "test:headed": "playwright test --headed",
-    "netlify-build": "npm install react react-dom --save && next build"
+    "test:headed": "playwright test --headed"
   },
   "dependencies": {
     "@headlessui/react": "^2.0.0",

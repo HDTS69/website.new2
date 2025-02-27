@@ -1,8 +1,6 @@
-# Netlify configuration for Next.js project
 [build]
-  command = "npm run netlify-build"
+  command = "npm run build"
   publish = ".next"
-  ignore = "git diff --quiet HEAD^ HEAD -- ."
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
@@ -12,8 +10,8 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Redirect all requests to index.html for SPA routing
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200 
+# Remove the redirect as it's not needed for Next.js
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200 
