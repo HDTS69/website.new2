@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SparklesCore } from '@/components/ui/sparkles';
+import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 const brands = [
   {
@@ -144,7 +145,9 @@ export default function BrandsPage() {
                       src={brand.logo}
                       alt={brand.name}
                       fill
+                      sizes={IMAGE_SIZES.THUMBNAIL}
                       className="object-contain"
+                      {...getImageLoadingProps(false)}
                     />
                   </div>
                   

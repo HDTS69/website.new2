@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SparklesCore } from './SparklesCore';
 import { motion } from 'framer-motion';
+import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 interface InstagramPost {
   id: string;
@@ -179,8 +180,9 @@ export function InstagramFeed() {
                         src={post.media_url} 
                         alt="Instagram post" 
                         fill
-                        sizes="(max-width: 768px) 33vw, 25vw"
+                        sizes={IMAGE_SIZES.THUMBNAIL}
                         className="object-cover"
+                        {...getImageLoadingProps(false)}
                       />
                     </div>
                   </Link>
@@ -203,8 +205,9 @@ export function InstagramFeed() {
                         src={post.media_url} 
                         alt="Instagram post" 
                         fill
-                        sizes="(max-width: 768px) 33vw, 25vw"
+                        sizes={IMAGE_SIZES.THUMBNAIL}
                         className="object-cover"
+                        {...getImageLoadingProps(false)}
                       />
                     </div>
                   </Link>

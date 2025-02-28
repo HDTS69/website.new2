@@ -4,6 +4,7 @@ import { SparklesCore } from '../ui/SparklesCore';
 import { Cover } from '../ui/cover';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedButton } from '../ui/AnimatedButton';
+import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 export function Hero() {
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -58,7 +59,7 @@ export function Hero() {
                     src="/images/hayden-hero-1.webp"
                     alt="Professional Technician"
                     fill
-                    sizes="55vw"
+                    sizes={IMAGE_SIZES.HERO}
                     style={{ 
                       objectFit: 'contain', 
                       objectPosition: 'left bottom',
@@ -67,8 +68,8 @@ export function Hero() {
                       filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
                     }}
                     className="select-none"
-                    priority
                     draggable="false"
+                    {...getImageLoadingProps(true)}
                   />
                 </div>
               </motion.div>

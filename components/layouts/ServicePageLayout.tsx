@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { AnimatedButton } from '../ui/AnimatedButton';
 import { SparklesCore } from '../ui/sparkles';
+import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 interface ServicePageProps {
   title: string;
@@ -134,7 +135,9 @@ export function ServicePageLayout({
                     src={image}
                     alt={`${title} service image ${index + 1}`}
                     fill
+                    sizes={IMAGE_SIZES.CARD}
                     className="object-cover"
+                    {...getImageLoadingProps(false)}
                   />
                 </div>
                 <AnimatedButton

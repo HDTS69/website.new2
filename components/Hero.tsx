@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Hero as MobileHero } from './mobile';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 export function Hero() {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -68,7 +69,7 @@ export function Hero() {
                     src="/images/hayden-hero-1.webp"
                     alt="Professional Technician"
                     fill
-                    sizes="45vw"
+                    sizes={IMAGE_SIZES.HERO}
                     style={{ 
                       objectFit: 'contain', 
                       objectPosition: 'left center',
@@ -77,7 +78,8 @@ export function Hero() {
                       filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
                     }}
                     className="select-none"
-                    priority
+                    draggable="false"
+                    {...getImageLoadingProps(true)}
                   />
                 </div>
               </motion.div>

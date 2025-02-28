@@ -10,6 +10,7 @@ import { NavBar } from '@/components/navigation/DesktopNavigation';
 import { Calendar, Phone, Home, Wrench, Info, Building2, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { navigationItems, actionItems } from '@/lib/navigation';
+import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 interface Feature {
   title: string;
@@ -142,10 +143,28 @@ export function BrandPageLayout({
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="relative h-[400px]">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#00E6CA]/5 to-transparent rounded-lg border border-[#00E6CA]/10" />
+                  <Image
+                    src={expertImage}
+                    alt={`${brandName} expert technician`}
+                    fill
+                    sizes={IMAGE_SIZES.CARD}
+                    className="object-cover rounded-lg"
+                    {...getImageLoadingProps(true)}
+                  />
                 </div>
                 <div>
                   <div className="w-48 h-24 relative mb-6">
                     <div className="absolute inset-0 bg-gradient-to-br from-[#00E6CA]/5 to-transparent rounded-lg border border-[#00E6CA]/10" />
+                    {brandLogo && (
+                      <Image
+                        src={brandLogo}
+                        alt={`${brandName} logo`}
+                        fill
+                        sizes={IMAGE_SIZES.THUMBNAIL}
+                        className="object-contain p-4"
+                        {...getImageLoadingProps(true)}
+                      />
+                    )}
                   </div>
                   <h2 className="text-3xl font-bold text-white mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[#00E6CA] via-white to-[#00E6CA]">
                     {brandName} Experts
@@ -184,6 +203,14 @@ export function BrandPageLayout({
                     </div>
                     <div className={`relative h-[300px] ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                       <div className="absolute inset-0 bg-gradient-to-br from-[#00E6CA]/5 to-transparent rounded-lg border border-[#00E6CA]/10" />
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        sizes={IMAGE_SIZES.CARD}
+                        className="object-cover rounded-lg"
+                        {...getImageLoadingProps(false)}
+                      />
                     </div>
                   </div>
                 ))}

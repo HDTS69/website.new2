@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -46,9 +47,9 @@ export default function Header() {
               src="/images/icon-logo.png"
               alt="Return to top"
               fill
-              sizes="(max-width: 768px) 48px, 64px"
+              sizes={IMAGE_SIZES.THUMBNAIL}
               className="object-contain"
-              priority
+              {...getImageLoadingProps(true)}
               draggable="false"
             />
           </div>
@@ -57,9 +58,9 @@ export default function Header() {
               src="/images/text-logo.png"
               alt="Company Name"
               fill
-              sizes="(max-width: 768px) 160px, 200px"
+              sizes={IMAGE_SIZES.THUMBNAIL}
               className="object-contain"
-              priority
+              {...getImageLoadingProps(true)}
               draggable="false"
             />
           </div>
@@ -79,9 +80,9 @@ export default function Header() {
             src="/images/icon-logo.png"
             alt="Return to homepage"
             fill
-            sizes="(max-width: 768px) 48px, 64px"
+            sizes={IMAGE_SIZES.THUMBNAIL}
             className="object-contain"
-            priority
+            {...getImageLoadingProps(true)}
             draggable="false"
           />
         </div>
@@ -90,9 +91,9 @@ export default function Header() {
             src="/images/text-logo.png"
             alt="Company Name"
             fill
-            sizes="(max-width: 768px) 160px, 200px"
+            sizes={IMAGE_SIZES.THUMBNAIL}
             className="object-contain"
-            priority
+            {...getImageLoadingProps(true)}
             draggable="false"
           />
         </div>
