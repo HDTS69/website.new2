@@ -54,70 +54,14 @@ export function InstagramFeed() {
           }
         }
         
-        // Then try to fetch from our API route
-        const response = await fetch('/api/instagram');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch Instagram posts');
-        }
-        
-        const data = await response.json();
-        
-        if (data.data && Array.isArray(data.data)) {
-          // Only take the first 3 posts
-          setPosts(data.data.slice(0, 3));
-        } else {
-          // If no posts found, try direct fetch from Instagram API
-          await fetchDirectFromInstagram();
-        }
+        // If static data fails, use mock data
+        setPosts(MOCK_INSTAGRAM_POSTS);
+        setLoading(false);
       } catch (err) {
         console.error('Error fetching Instagram posts:', err);
-        // Fall back to direct fetch from Instagram API
-        await fetchDirectFromInstagram();
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    // Fallback function to fetch directly from Instagram API
-    async function fetchDirectFromInstagram() {
-      try {
-        // For static builds, use mock data
-        if (process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true') {
-          setPosts(MOCK_INSTAGRAM_POSTS);
-          return;
-        }
-
-        // Try direct fetch from Instagram API (only works client-side if CORS allows)
-        const instagramUserId = process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID || '17841459278007316';
-        const instagramToken = process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN;
-        
-        if (!instagramToken) {
-          throw new Error('Instagram access token not available');
-        }
-        
-        const response = await fetch(
-          `https://graph.facebook.com/v12.0/${instagramUserId}/media?fields=id,media_url,permalink&access_token=${instagramToken}`
-        );
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch directly from Instagram API');
-        }
-        
-        const data = await response.json();
-        
-        if (data.data && Array.isArray(data.data)) {
-          setPosts(data.data.slice(0, 3));
-        } else {
-          // If all else fails, use mock data
-          setPosts(MOCK_INSTAGRAM_POSTS);
-          setError('Using placeholder Instagram posts');
-        }
-      } catch (err) {
-        console.error('Error in direct Instagram fetch:', err);
-        // Final fallback to mock data
+        // Fall back to mock data
         setPosts(MOCK_INSTAGRAM_POSTS);
-        setError('Using placeholder Instagram posts');
+        setLoading(false);
       }
     }
 
@@ -162,31 +106,6 @@ export function InstagramFeed() {
                   key={`loading-${i}`}
                   className="aspect-square bg-gray-800 animate-pulse rounded-xl"
                 />
-              ))
-            ) : error ? (
-              // Error state with posts (using mock data)
-              posts.map((post, i) => (
-                <motion.div
-                  key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="aspect-square relative overflow-hidden rounded-xl"
-                >
-                  <Link href={post.permalink} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                    <div className="relative w-full h-full">
-                      <Image 
-                        src={post.media_url} 
-                        alt="Instagram post" 
-                        fill
-                        sizes={IMAGE_SIZES.THUMBNAIL}
-                        className="object-cover"
-                        {...getImageLoadingProps(false)}
-                      />
-                    </div>
-                  </Link>
-                </motion.div>
               ))
             ) : (
               // Instagram posts
