@@ -1,7 +1,7 @@
 # netlify.toml
 [build]
   base = "/"
-  publish = "out"
+  publish = ".next"
   command = "./netlify-build.sh"
 
 [build.environment]
@@ -13,9 +13,9 @@
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "placeholder-anon-key"
   NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "placeholder-google-maps-key"
 
-# Remove Next.js plugin since we're using static export
-# [[plugins]]
-#   package = "@netlify/plugin-nextjs"
+# Enable the Next.js plugin for proper handling
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 # Enable HTTP/2 and HTTP/3
 [build.processing]
@@ -44,16 +44,16 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: *.cdninstagram.com via.placeholder.com *.google-analytics.com https://*; font-src 'self' fonts.gstatic.com fonts.googleapis.com; connect-src 'self' *.google-analytics.com *.analytics.google.com *.googletagmanager.com; frame-src 'self'"
+    Content-Security-Policy = "default-src 'self' hdtradeservices.com.au *.hdtradeservices.com.au; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.google-analytics.com hdtradeservices.com.au *.hdtradeservices.com.au; style-src 'self' 'unsafe-inline' fonts.googleapis.com hdtradeservices.com.au *.hdtradeservices.com.au; img-src 'self' data: *.cdninstagram.com via.placeholder.com *.google-analytics.com https://* hdtradeservices.com.au *.hdtradeservices.com.au; font-src 'self' fonts.gstatic.com fonts.googleapis.com; connect-src 'self' *.google-analytics.com *.analytics.google.com *.googletagmanager.com hdtradeservices.com.au *.hdtradeservices.com.au; frame-src 'self'"
 
 # Cache static assets for a year
 [[headers]]
-  for = "/*.js"
+  for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
-  for = "/*.css"
+  for = "/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -72,66 +72,9 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Redirects for static assets - ensure these are served correctly
-[[redirects]]
-  from = "/_next/*"
-  to = "/_next/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/images/*"
-  to = "/images/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/optimized/*"
-  to = "/optimized/:splat"
-  status = 200
-
-# Handle static HTML files for routes
-[[redirects]]
-  from = "/blog"
-  to = "/blog.html"
-  status = 200
-
-[[redirects]]
-  from = "/book"
-  to = "/book.html"
-  status = 200
-
-[[redirects]]
-  from = "/brands"
-  to = "/brands.html"
-  status = 200
-
-[[redirects]]
-  from = "/careers"
-  to = "/careers.html"
-  status = 200
-
-[[redirects]]
-  from = "/locations"
-  to = "/locations.html"
-  status = 200
-
-[[redirects]]
-  from = "/privacy"
-  to = "/privacy.html"
-  status = 200
-
-[[redirects]]
-  from = "/services"
-  to = "/services.html"
-  status = 200
-
-[[redirects]]
-  from = "/terms"
-  to = "/terms.html"
-  status = 200
-
-# Fallback redirect for SPA - only apply to routes that don't match files
+# Let Next.js handle all routing
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/next"
   status = 200
-  force = false
+  force = true

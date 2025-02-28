@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SparklesCore } from '@/components/ui/sparkles';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 
 const brands = [
   {
@@ -91,7 +91,7 @@ export default function BrandsPage() {
     <div className="pt-32 pb-16 min-h-screen">
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -104,7 +104,7 @@ export default function BrandsPage() {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -116,17 +116,17 @@ export default function BrandsPage() {
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             We partner with industry-leading manufacturers to ensure you receive the highest quality products and solutions for your home or business.
           </p>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Brands Grid */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {brands.map((brand, index) => (
-            <motion.div
+            <LazyMotionDiv
               key={brand.name}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -144,6 +144,7 @@ export default function BrandsPage() {
                       src={brand.logo}
                       alt={brand.name}
                       fill
+                      loading="lazy"
                       className="object-contain"
                     />
                   </div>
@@ -174,9 +175,9 @@ export default function BrandsPage() {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </LazyMotionDiv>
           ))}
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </div>
   );

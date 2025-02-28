@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -115,7 +115,7 @@ export default function Header() {
     >
       <div className="container mx-auto px-4">
         {isVisible ? (
-          <motion.div 
+          <LazyMotionDiv 
             className="flex items-center justify-between h-24"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -128,7 +128,7 @@ export default function Header() {
           >
             {/* Logo Section */}
             <LogoButton />
-          </motion.div>
+          </LazyMotionDiv>
         ) : (
           <div className="h-24 opacity-0"></div>
         )}

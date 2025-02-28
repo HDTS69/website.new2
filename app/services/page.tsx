@@ -1,9 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { SparklesCore } from '@/components/ui/SparklesCore';
+import { LazyMotionDiv, LazyMotion } from '@/components/ui/motion/LazyMotion';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 import Link from 'next/link';
 import { Wrench, Flame, Home, Wind } from 'lucide-react';
+import { useState } from 'react';
 
 const services = [
   {
@@ -86,11 +87,14 @@ const itemVariants = {
 };
 
 export default function ServicesPage() {
+  // State to track if content is ready to show
+  const [isContentReady, setIsContentReady] = useState(true);
+
   return (
     <div className="min-h-screen bg-black">
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -103,7 +107,7 @@ export default function ServicesPage() {
 
       <div className="container mx-auto px-4 py-24 relative z-10">
         {/* Header Section */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -115,10 +119,10 @@ export default function ServicesPage() {
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             HD Trade Services offers comprehensive solutions for all your plumbing, gas fitting, roofing, and air conditioning needs. Our licensed technicians bring over 25 years of experience to every job, ensuring quality workmanship and customer satisfaction.
           </p>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Services Grid */}
-        <motion.div
+        <LazyMotionDiv
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -127,7 +131,7 @@ export default function ServicesPage() {
           {services.map((service) => {
             const Icon = service.icon;
             return (
-              <motion.div
+              <LazyMotionDiv
                 key={service.name}
                 variants={itemVariants}
                 className="group relative"
@@ -169,13 +173,13 @@ export default function ServicesPage() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </LazyMotionDiv>
             );
           })}
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* CTA Section */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
@@ -200,7 +204,7 @@ export default function ServicesPage() {
               />
             </svg>
           </Link>
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </div>
   );

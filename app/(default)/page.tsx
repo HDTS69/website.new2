@@ -7,7 +7,7 @@ import ServiceTabs from '@/components/services/ServiceTabs';
 import { BrandCarousel } from '@/components/ui/BrandCarousel';
 import { FAQ } from '@/components/ui/FAQ';
 import { InstagramFeed } from '@/components/ui/InstagramFeed';
-import { SparklesCore } from '@/components/ui/SparklesCore';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 import type { Metadata } from 'next';
 import { ClientOnly } from '@/components/ui/ClientOnly';
 
@@ -46,7 +46,7 @@ export default function Home() {
       <section id="book" className="relative bg-black py-20 overflow-hidden">
         {/* Background Effects */}
         <div className="absolute inset-0">
-          <SparklesCore
+          <LazySparklesCore
             id="tsparticlesfullpage-booking"
             background="transparent"
             minSize={0.4}

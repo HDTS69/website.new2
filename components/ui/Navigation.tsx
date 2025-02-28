@@ -7,7 +7,7 @@ import { Building2, Home, MapPin, Wrench, Calendar, Phone, Info } from 'lucide-r
 import { usePathname } from 'next/navigation';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { NavItem, BaseNavigationProps } from '@/types/navigation/types';
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 
 // Default navigation items if none are provided
 const defaultNavigationItems: NavItem[] = [
@@ -296,7 +296,7 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
       {/* Desktop Navigation */}
       <div className="hidden md:block">
         {isVisible ? (
-          <motion.div
+          <LazyMotionDiv
             initial={{ opacity: 0, scale: 0, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{
@@ -307,7 +307,7 @@ export function Navigation({ items = defaultNavigationItems, actionItems = defau
             }}
           >
             <NavBar items={mainNavItems} actionItems={actionButtons} />
-          </motion.div>
+          </LazyMotionDiv>
         ) : (
           <div className="h-16 opacity-0"></div>
         )}

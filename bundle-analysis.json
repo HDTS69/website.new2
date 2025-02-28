@@ -1,0 +1,639 @@
+{
+  "largeComponents": [
+    {
+      "file": "components/ui/BookingForm/BookingForm.tsx",
+      "name": "BookingForm",
+      "size": 27902,
+      "sizeKB": "27.25 KB",
+      "importCount": 12,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 5
+    },
+    {
+      "file": "components/ui/Testimonials.tsx",
+      "name": "Testimonials",
+      "size": 17909,
+      "sizeKB": "17.49 KB",
+      "importCount": 5,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": true,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 3
+    },
+    {
+      "file": "components/services/ServiceTabs.tsx",
+      "name": "ServiceTabs",
+      "size": 16991,
+      "sizeKB": "16.59 KB",
+      "importCount": 7,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": true,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "components/ui/DatePicker.tsx",
+      "name": "DatePicker",
+      "size": 15014,
+      "sizeKB": "14.66 KB",
+      "importCount": 6,
+      "largeLibraryImports": [
+        "lucide-react",
+        "date-fns"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "components/ui/footer.tsx",
+      "name": "footer",
+      "size": 14571,
+      "sizeKB": "14.23 KB",
+      "importCount": 7,
+      "largeLibraryImports": [
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": true,
+      "usesNextImage": true,
+      "hasEventHandlers": true,
+      "hasEffects": false,
+      "effectsWithDeps": 0
+    },
+    {
+      "file": "components/navigation/DesktopNavigation.tsx",
+      "name": "DesktopNavigation",
+      "size": 14408,
+      "sizeKB": "14.07 KB",
+      "importCount": 7,
+      "largeLibraryImports": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 3
+    },
+    {
+      "file": "app/(default)/terms/page.tsx",
+      "name": "page",
+      "size": 13621,
+      "sizeKB": "13.30 KB",
+      "importCount": 3,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": false,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "components/ui/sparkles.tsx",
+      "name": "sparkles",
+      "size": 11488,
+      "sizeKB": "11.22 KB",
+      "importCount": 7,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "app/(default)/privacy/page.tsx",
+      "name": "page",
+      "size": 11411,
+      "sizeKB": "11.14 KB",
+      "importCount": 3,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": false,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "components/Hero.tsx",
+      "name": "Hero",
+      "size": 11323,
+      "sizeKB": "11.06 KB",
+      "importCount": 7,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": true,
+      "isLazyLoaded": true,
+      "hasImages": true,
+      "usesNextImage": true,
+      "hasEventHandlers": false,
+      "hasEffects": true,
+      "effectsWithDeps": 2
+    },
+    {
+      "file": "components/ui/Navigation.tsx",
+      "name": "Navigation",
+      "size": 11027,
+      "sizeKB": "10.77 KB",
+      "importCount": 8,
+      "largeLibraryImports": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "components/mobile/MobileTestimonialsNew.tsx",
+      "name": "MobileTestimonialsNew",
+      "size": 10233,
+      "sizeKB": "9.99 KB",
+      "importCount": 4,
+      "largeLibraryImports": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "components/mobile/MobileTestimonials.tsx",
+      "name": "MobileTestimonials",
+      "size": 10227,
+      "sizeKB": "9.99 KB",
+      "importCount": 4,
+      "largeLibraryImports": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    },
+    {
+      "file": "app/locations/page.tsx",
+      "name": "page",
+      "size": 8967,
+      "sizeKB": "8.76 KB",
+      "importCount": 4,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": false,
+      "hasEffects": false,
+      "effectsWithDeps": 0
+    },
+    {
+      "file": "app/careers/page.tsx",
+      "name": "page",
+      "size": 8870,
+      "sizeKB": "8.66 KB",
+      "importCount": 3,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": false,
+      "hasEffects": false,
+      "effectsWithDeps": 0
+    },
+    {
+      "file": "components/ui/HamburgerMenu.tsx",
+      "name": "HamburgerMenu",
+      "size": 8751,
+      "sizeKB": "8.55 KB",
+      "importCount": 4,
+      "largeLibraryImports": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": false,
+      "effectsWithDeps": 0
+    },
+    {
+      "file": "components/ui/WhyChooseUs.tsx",
+      "name": "WhyChooseUs",
+      "size": 8652,
+      "sizeKB": "8.45 KB",
+      "importCount": 4,
+      "largeLibraryImports": [
+        "framer-motion",
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": false,
+      "hasEffects": false,
+      "effectsWithDeps": 0
+    },
+    {
+      "file": "lib/navigation.ts",
+      "name": "navigation",
+      "size": 7792,
+      "sizeKB": "7.61 KB",
+      "importCount": 2,
+      "largeLibraryImports": [
+        "lucide-react"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": false,
+      "hasEffects": false,
+      "effectsWithDeps": 0
+    },
+    {
+      "file": "app/blog/page.tsx",
+      "name": "page",
+      "size": 7503,
+      "sizeKB": "7.33 KB",
+      "importCount": 4,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": false,
+      "isLazyLoaded": false,
+      "hasImages": true,
+      "usesNextImage": true,
+      "hasEventHandlers": false,
+      "hasEffects": false,
+      "effectsWithDeps": 0
+    },
+    {
+      "file": "components/ui/SparklesCore.tsx",
+      "name": "SparklesCore",
+      "size": 7423,
+      "sizeKB": "7.25 KB",
+      "importCount": 7,
+      "largeLibraryImports": [
+        "framer-motion"
+      ],
+      "shouldBeLazyLoaded": true,
+      "isLazyLoaded": false,
+      "hasImages": false,
+      "usesNextImage": false,
+      "hasEventHandlers": true,
+      "hasEffects": true,
+      "effectsWithDeps": 1
+    }
+  ],
+  "pageSizes": [
+    {
+      "page": "/404",
+      "size": "16.95 KB",
+      "sizeBytes": 17352
+    },
+    {
+      "page": "/_error",
+      "size": "1.96 KB",
+      "sizeBytes": 2008
+    },
+    {
+      "page": "/_document",
+      "size": "0.45 KB",
+      "sizeBytes": 456
+    },
+    {
+      "page": "/_app",
+      "size": "0.32 KB",
+      "sizeBytes": 329
+    }
+  ],
+  "opportunities": [
+    {
+      "component": "BookingForm",
+      "file": "components/ui/BookingForm/BookingForm.tsx",
+      "size": "27.25 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "Testimonials",
+      "file": "components/ui/Testimonials.tsx",
+      "size": "17.49 KB",
+      "opportunities": [
+        {
+          "type": "lazy-loading",
+          "description": "Component Testimonials should be lazy loaded",
+          "priority": "high"
+        },
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "ServiceTabs",
+      "file": "components/services/ServiceTabs.tsx",
+      "size": "16.59 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "DatePicker",
+      "file": "components/ui/DatePicker.tsx",
+      "size": "14.66 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: lucide-react, date-fns",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "footer",
+      "file": "components/ui/footer.tsx",
+      "size": "14.23 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "DesktopNavigation",
+      "file": "components/navigation/DesktopNavigation.tsx",
+      "size": "14.07 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion, lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "page",
+      "file": "app/(default)/terms/page.tsx",
+      "size": "13.30 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "sparkles",
+      "file": "components/ui/sparkles.tsx",
+      "size": "11.22 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "page",
+      "file": "app/(default)/privacy/page.tsx",
+      "size": "11.14 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "Hero",
+      "file": "components/Hero.tsx",
+      "size": "11.06 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "Navigation",
+      "file": "components/ui/Navigation.tsx",
+      "size": "10.77 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion, lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "MobileTestimonialsNew",
+      "file": "components/mobile/MobileTestimonialsNew.tsx",
+      "size": "9.99 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion, lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "MobileTestimonials",
+      "file": "components/mobile/MobileTestimonials.tsx",
+      "size": "9.99 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion, lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "page",
+      "file": "app/locations/page.tsx",
+      "size": "8.76 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "page",
+      "file": "app/careers/page.tsx",
+      "size": "8.66 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "HamburgerMenu",
+      "file": "components/ui/HamburgerMenu.tsx",
+      "size": "8.55 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion, lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "WhyChooseUs",
+      "file": "components/ui/WhyChooseUs.tsx",
+      "size": "8.45 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion, lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "navigation",
+      "file": "lib/navigation.ts",
+      "size": "7.61 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: lucide-react",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "page",
+      "file": "app/blog/page.tsx",
+      "size": "7.33 KB",
+      "opportunities": [
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "component": "SparklesCore",
+      "file": "components/ui/SparklesCore.tsx",
+      "size": "7.25 KB",
+      "opportunities": [
+        {
+          "type": "lazy-loading",
+          "description": "Component SparklesCore should be lazy loaded",
+          "priority": "high"
+        },
+        {
+          "type": "dynamic-import",
+          "description": "Consider dynamic imports for: framer-motion",
+          "priority": "medium"
+        }
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "title": "Implement lazy loading for large components",
+      "description": "The following components should be lazy loaded: Testimonials, SparklesCore",
+      "code": "\n// Before\nimport LargeComponent from '@/components/LargeComponent'\n\n// After\nimport dynamic from 'next/dynamic'\nconst LargeComponent = dynamic(() => import('@/components/LargeComponent'), {\n  loading: () => <div>Loading...</div>,\n  ssr: false // Set to true if server-side rendering is needed\n})\n      ",
+      "priority": "high"
+    },
+    {
+      "title": "Use dynamic imports for large libraries",
+      "description": "Consider using dynamic imports for: framer-motion, lucide-react, date-fns",
+      "code": "\n// Before\nimport { motion } from 'framer-motion'\n\n// After\nimport { useEffect, useState } from 'react'\n\nfunction MyComponent() {\n  const [Motion, setMotion] = useState(null)\n  \n  useEffect(() => {\n    // Import only when component is mounted\n    import('framer-motion').then((mod) => {\n      setMotion(() => mod.motion)\n    })\n  }, [])\n  \n  if (!Motion) return <div>Loading...</div>\n  \n  return <Motion.div>Animated content</Motion.div>\n}\n      ",
+      "priority": "medium"
+    }
+  ]
+}

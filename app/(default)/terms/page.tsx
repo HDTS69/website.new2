@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion } from "framer-motion";
-import { SparklesCore } from "@/components/ui/SparklesCore";
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 
 export default function TermsPage() {
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function TermsPage() {
     <div className="relative min-h-screen bg-black">
       {/* Sparkles Animation */}
       <div className="absolute inset-0 z-[1]">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={1}
           maxSize={2}
@@ -36,7 +36,7 @@ export default function TermsPage() {
       <div className="relative z-[2] max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           {/* Page header */}
-          <motion.div
+          <LazyMotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -49,12 +49,12 @@ export default function TermsPage() {
             <p className="text-gray-400 mt-2">
               Effective Date: {currentDate}
             </p>
-          </motion.div>
+          </LazyMotionDiv>
 
           {/* Terms content */}
           <div className="max-w-3xl mx-auto">
             <div className="space-y-8">
-              <motion.div 
+              <LazyMotionDiv 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -63,7 +63,7 @@ export default function TermsPage() {
                 <p className="text-gray-300">
                   These Terms and Conditions ("Agreement") govern the services provided by HD Trade Services Pty Ltd ("Company," "we," "us," or "our") to the client ("you" or "Customer"). By engaging our services, you agree to these terms and conditions in full. Please read this Agreement carefully before proceeding.
                 </p>
-              </motion.div>
+              </LazyMotionDiv>
 
               {/* Section 1 */}
               <div className="space-y-4 bg-black/50 backdrop-blur-lg rounded-xl p-8 border border-[#1CD4A7]/10 shadow-[0_0_15px_rgba(28,212,167,0.1)]" data-aos="fade-up">
@@ -196,7 +196,7 @@ export default function TermsPage() {
               </div>
 
               {/* Acknowledgment section */}
-              <motion.div
+              <LazyMotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1 }}
@@ -206,7 +206,7 @@ export default function TermsPage() {
                 <p className="text-gray-300">
                   By engaging HD Trade Services Pty Ltd, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.
                 </p>
-              </motion.div>
+              </LazyMotionDiv>
             </div>
           </div>
         </div>

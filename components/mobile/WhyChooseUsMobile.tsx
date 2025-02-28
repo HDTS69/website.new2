@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 import { 
   Clock, Shield, Award, CreditCard, Zap, Wrench, 
   Recycle, Users, Gift, Truck, HeartHandshake, ThumbsUp 
 } from "lucide-react";
-import { SparklesCore } from "@/components/ui/SparklesCore";
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 
 const fadeInUpVariant = {
   hidden: { opacity: 0, y: 10 },
@@ -93,7 +93,7 @@ export function WhyChooseUsMobile() {
     <section className="relative py-10 px-4 bg-black overflow-hidden">
       {/* Sparkles Background */}
       <div className="absolute inset-0 w-full h-full">
-        <SparklesCore
+        <LazySparklesCore
           id="tsparticlesfullpage-mobile"
           background="transparent"
           minSize={0.6}
@@ -106,7 +106,7 @@ export function WhyChooseUsMobile() {
       </div>
 
       <div className="relative z-10">
-        <motion.div
+        <LazyMotionDiv
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -120,10 +120,10 @@ export function WhyChooseUsMobile() {
           <p className="text-sm text-[#00E6CA]">
             Excellence in every service
           </p>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Grid of 12 cards */}
-        <motion.div
+        <LazyMotionDiv
           variants={containerVariant}
           initial="hidden"
           whileInView="visible"
@@ -133,7 +133,7 @@ export function WhyChooseUsMobile() {
           {allFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <motion.div
+              <LazyMotionDiv
                 key={feature.title}
                 variants={fadeInUpVariant}
                 className="flex flex-col items-center"
@@ -145,10 +145,10 @@ export function WhyChooseUsMobile() {
                   <h3 className="text-xs font-semibold text-white leading-tight line-clamp-2">{feature.title}</h3>
                   <p className="text-[#00E6CA] font-medium text-[10px] mt-0.5 line-clamp-1">{feature.subheader}</p>
                 </div>
-              </motion.div>
+              </LazyMotionDiv>
             );
           })}
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </section>
   );

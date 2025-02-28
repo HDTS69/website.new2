@@ -1,0 +1,106 @@
+{
+  "unusedDependencies": [
+    "aos"
+  ],
+  "unusedDevDependencies": [
+    "@next/bundle-analyzer",
+    "@playwright/test",
+    "@rollup/plugin-commonjs",
+    "@rollup/plugin-node-resolve",
+    "@rollup/plugin-terser",
+    "@tailwindcss/forms",
+    "@types/aos",
+    "autoprefixer",
+    "dotenv",
+    "glob",
+    "next-sitemap",
+    "postcss",
+    "rollup",
+    "rollup-plugin-postcss",
+    "sharp",
+    "tailwindcss"
+  ],
+  "duplicates": [],
+  "largeDependencies": [
+    {
+      "name": "next",
+      "size": "125M"
+    },
+    {
+      "name": "@next",
+      "size": "124M"
+    },
+    {
+      "name": "@next/swc-darwin-arm64",
+      "size": "123M"
+    },
+    {
+      "name": "lucide-react",
+      "size": "42M"
+    },
+    {
+      "name": "date-fns",
+      "size": "38M"
+    },
+    {
+      "name": "typescript",
+      "size": "22M"
+    },
+    {
+      "name": "@tsparticles",
+      "size": "22M"
+    },
+    {
+      "name": "@img/sharp-libvips-darwin-arm64",
+      "size": "15M"
+    },
+    {
+      "name": "@img",
+      "size": "15M"
+    },
+    {
+      "name": "es-abstract",
+      "size": "9.1M"
+    },
+    {
+      "name": "@typescript-eslint",
+      "size": "8.4M"
+    },
+    {
+      "name": "playwright-core",
+      "size": "8.1M"
+    },
+    {
+      "name": "react-dom",
+      "size": "6.2M"
+    },
+    {
+      "name": "tailwindcss",
+      "size": "6.1M"
+    },
+    {
+      "name": "@tsparticles/engine",
+      "size": "5.3M"
+    },
+    {
+      "name": "eslint",
+      "size": "4.4M"
+    },
+    {
+      "name": "@typescript-eslint/eslint-plugin",
+      "size": "4.4M"
+    },
+    {
+      "name": "caniuse-lite",
+      "size": "4.0M"
+    },
+    {
+      "name": "@supabase",
+      "size": "3.7M"
+    },
+    {
+      "name": "framer-motion",
+      "size": "3.5M"
+    }
+  ]
+}

@@ -92,6 +92,13 @@ export NODE_ENV=production
 echo "Building Next.js application with production optimizations..."
 next build
 
+# No longer using next export as it's deprecated in Next.js 13+
+# Instead, we'll copy the .next directory to out for Netlify
+echo "Preparing output for Netlify..."
+mkdir -p out
+cp -r .next/* out/
+cp -r public/* out/
+
 # Generate sitemap with next-sitemap
 echo "Generating sitemap with next-sitemap..."
 npx next-sitemap --config next-sitemap.config.js || echo "Sitemap generation failed, continuing"

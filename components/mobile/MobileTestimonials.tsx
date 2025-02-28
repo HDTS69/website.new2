@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { SparklesCore } from "../ui/SparklesCore";
+import { LazyMotionDiv, LazyAnimatePresence } from '@/components/ui/motion/LazyMotion';
+import { LazySparklesCore } from '../ui/LazySparklesCore';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Interfaces for type safety
@@ -72,7 +72,7 @@ const StarRating = ({ rating }: { rating: number }) => (
 
 const TestimonialCard = ({ review }: { review: Review }) => {
   return (
-    <motion.div
+    <LazyMotionDiv
       className="bg-gradient-to-br from-gray-900 to-gray-800/90 p-6 rounded-xl shadow-lg border border-gray-800 h-full flex flex-col"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -89,7 +89,7 @@ const TestimonialCard = ({ review }: { review: Review }) => {
       
       {/* Subtle glow effect at the bottom */}
       <div className="h-1 w-full mt-4 bg-gradient-to-r from-transparent via-[#00E6CA]/30 to-transparent rounded-full" />
-    </motion.div>
+    </LazyMotionDiv>
   );
 };
 
@@ -182,7 +182,7 @@ const MobileTestimonials = () => {
   return (
     <section className="py-16 bg-black relative overflow-hidden md:hidden" aria-label="Customer testimonials section">
       <div className="absolute inset-0 z-0">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -197,7 +197,7 @@ const MobileTestimonials = () => {
       
       <div className="container max-w-7xl mx-auto px-4 relative z-10">
         {/* Header with animation */}
-        <motion.header 
+        <LazyMotionDiv 
           className="text-center mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -209,7 +209,7 @@ const MobileTestimonials = () => {
           <p className="text-[#00E6CA] text-base">
             Read what our satisfied customers have to say
           </p>
-        </motion.header>
+        </LazyMotionDiv>
 
         {/* Testimonials carousel */}
         <div 
@@ -219,9 +219,9 @@ const MobileTestimonials = () => {
           onTouchEnd={handleTouchEnd}
         >
           <div className="relative h-[400px] overflow-hidden rounded-xl backdrop-blur-sm bg-black/20">
-            <AnimatePresence mode="wait">
+            <LazyAnimatePresence mode="wait">
               <TestimonialCard key={reviews[currentIndex].id} review={reviews[currentIndex]} />
-            </AnimatePresence>
+            </LazyAnimatePresence>
             
             {/* Navigation buttons */}
             <button 
@@ -254,7 +254,7 @@ const MobileTestimonials = () => {
         </div>
 
         {/* Interactive CTA */}
-        <motion.div 
+        <LazyMotionDiv 
           className="mt-10 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -266,7 +266,7 @@ const MobileTestimonials = () => {
           >
             Book Your Service Today
           </a>
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </section>
   );

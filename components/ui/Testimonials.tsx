@@ -3,8 +3,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { SparklesCore } from "./SparklesCore";
+import { LazySparklesCore } from "./LazySparklesCore";
+import dynamic from 'next/dynamic';
 import MobileTestimonialsNew from "../mobile/MobileTestimonialsNew";
+
+// Lazy load the MobileTestimonialsNew component
+const MobileTestimonialsNewComponent = dynamic(
+  () => import("../mobile/MobileTestimonialsNew"),
+  { 
+    loading: () => <div className="min-h-[300px] flex items-center justify-center">Loading testimonials...</div>,
+    ssr: false 
+  }
+);
 
 // Interfaces for type safety
 interface Review {
@@ -407,7 +417,7 @@ export const Testimonials = () => {
 
   // If mobile, render the mobile version
   if (isMobile) {
-    return <MobileTestimonialsNew />;
+    return <MobileTestimonialsNewComponent />;
   }
 
   // Desktop version (existing code)
@@ -436,7 +446,7 @@ export const Testimonials = () => {
 
         {/* Sparkles effect */}
         <div className="absolute bottom-0 left-0 w-full h-32 z-0">
-          <SparklesCore
+          <LazySparklesCore
             className="w-full h-full"
             particleColor="#1CD4A7"
             particleDensity={100}

@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { SparklesCore } from '@/components/ui/sparkles';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 import { AnimatedButton } from '@/components/ui/AnimatedButton';
 
 const jobOpenings = [
@@ -96,7 +96,7 @@ export default function CareersPage() {
     <div className="pt-32 pb-16 min-h-screen">
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -109,7 +109,7 @@ export default function CareersPage() {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -121,10 +121,10 @@ export default function CareersPage() {
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             We're looking for talented professionals to join our growing team. Discover exciting career opportunities and grow with us.
           </p>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Benefits Section */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -133,7 +133,7 @@ export default function CareersPage() {
           <h2 className="text-2xl font-semibold text-white mb-8 text-center">Why Work With Us</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
-              <motion.div
+              <LazyMotionDiv
                 key={benefit.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -142,13 +142,13 @@ export default function CareersPage() {
               >
                 <h3 className="text-xl font-semibold text-white mb-2">{benefit.title}</h3>
                 <p className="text-gray-300">{benefit.description}</p>
-              </motion.div>
+              </LazyMotionDiv>
             ))}
           </div>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Current Openings */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -156,7 +156,7 @@ export default function CareersPage() {
           <h2 className="text-2xl font-semibold text-white mb-8 text-center">Current Openings</h2>
           <div className="space-y-6">
             {jobOpenings.map((job, index) => (
-              <motion.div
+              <LazyMotionDiv
                 key={job.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -226,13 +226,13 @@ export default function CareersPage() {
                     </ul>
                   </div>
                 </div>
-              </motion.div>
+              </LazyMotionDiv>
             ))}
           </div>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* CTA Section */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -247,7 +247,7 @@ export default function CareersPage() {
           <AnimatedButton href="/careers/contact" variant="primary">
             Contact Our HR Team
           </AnimatedButton>
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </div>
   );

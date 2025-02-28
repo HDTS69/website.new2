@@ -1,9 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SparklesCore } from '@/components/ui/sparkles';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
+import { motion } from 'framer-motion';
 
 const blogPosts = [
   {
@@ -76,7 +77,7 @@ export default function BlogPage() {
     <div className="pt-32 pb-16 min-h-screen">
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -89,7 +90,7 @@ export default function BlogPage() {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -101,10 +102,10 @@ export default function BlogPage() {
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             Expert advice, maintenance tips, and guides to help you maintain your home's plumbing, gas, air conditioning, and roofing systems.
           </p>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Categories */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -120,10 +121,10 @@ export default function BlogPage() {
               {category}
             </button>
           ))}
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Blog Posts Grid */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -146,6 +147,7 @@ export default function BlogPage() {
                     src={post.image}
                     alt={post.title}
                     fill
+                    loading="lazy"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60" />
@@ -187,10 +189,10 @@ export default function BlogPage() {
               </Link>
             </motion.article>
           ))}
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Load More Button */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -199,7 +201,7 @@ export default function BlogPage() {
           <button className="px-8 py-3 rounded-full text-black font-medium bg-gradient-to-r from-[#1CD4A7] to-[#15b38d] hover:shadow-lg hover:shadow-[#1CD4A7]/20 transition-all duration-300 hover:-translate-y-1">
             Load More Articles
           </button>
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </div>
   );

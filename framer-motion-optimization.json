@@ -1,0 +1,613 @@
+{
+  "filesWithImports": [
+    {
+      "file": "app/loading.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "app/services/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "app/services/roof-repairs/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "app/services/gas-fitting/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "app/services/air-conditioning/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "app/locations/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "app/careers/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "app/brands/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "app/brands/aquamax/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "app/blog/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "app/(default)/terms/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "app/(default)/privacy/page.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "components/Hero.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from 'framer-motion'"
+    },
+    {
+      "file": "components/ui/sparkles.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "useAnimation"
+      ],
+      "fullMatch": "import { motion, useAnimation } from \"framer-motion\""
+    },
+    {
+      "file": "components/ui/header.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "components/ui/cover.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "AnimatePresence",
+        "motion"
+      ],
+      "fullMatch": "import { AnimatePresence, motion } from \"framer-motion\""
+    },
+    {
+      "file": "components/ui/WhyChooseUs.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "components/ui/Testimonials.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "components/ui/SparklesCore.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "useAnimation"
+      ],
+      "fullMatch": "import { motion, useAnimation } from \"framer-motion\""
+    },
+    {
+      "file": "components/ui/ScrollToTop.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from 'framer-motion'"
+    },
+    {
+      "file": "components/ui/Navigation.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "components/ui/InstagramFeed.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "components/ui/HamburgerMenu.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "AnimatePresence",
+        "motion"
+      ],
+      "fullMatch": "import { AnimatePresence, motion } from 'framer-motion'"
+    },
+    {
+      "file": "components/ui/BookingForm/BookingForm.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "components/services/ServiceTabs.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence",
+        "useAnimation"
+      ],
+      "fullMatch": "import { motion, AnimatePresence, useAnimation, useInView } from \"framer-motion\""
+    },
+    {
+      "file": "components/navigation/DesktopNavigation.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from \"framer-motion\""
+    },
+    {
+      "file": "components/mobile/WhyChooseUsMobile.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from \"framer-motion\""
+    },
+    {
+      "file": "components/mobile/MobileTestimonialsNew.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from \"framer-motion\""
+    },
+    {
+      "file": "components/mobile/MobileTestimonials.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from \"framer-motion\""
+    },
+    {
+      "file": "components/mobile/MobileNavigation.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from \"framer-motion\""
+    },
+    {
+      "file": "components/mobile/MobileHero.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from 'framer-motion'"
+    },
+    {
+      "file": "components/mobile/MobileHeader.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion"
+      ],
+      "fullMatch": "import { motion } from 'framer-motion'"
+    },
+    {
+      "file": "components/mobile/Hero.tsx",
+      "library": "framer-motion",
+      "importedItems": [
+        "motion",
+        "AnimatePresence"
+      ],
+      "fullMatch": "import { motion, AnimatePresence } from 'framer-motion'"
+    }
+  ],
+  "suggestions": [
+    {
+      "file": "app/loading.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/services/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/services/roof-repairs/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/services/gas-fitting/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/services/air-conditioning/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/locations/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/careers/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/brands/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/brands/aquamax/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/blog/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/(default)/terms/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "app/(default)/privacy/page.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/Hero.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/Hero.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/sparkles.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, useAnimation } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/sparkles.tsx",
+      "library": "framer-motion",
+      "importedItem": "useAnimation",
+      "currentImport": "import { motion, useAnimation } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for useAnimation from framer-motion\nconst [useAnimation, setUseAnimation] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setUseAnimation(() => mod.useAnimation);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure useAnimation is loaded before using it\nif (!useAnimation) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/header.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/cover.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { AnimatePresence, motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/cover.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { AnimatePresence, motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/WhyChooseUs.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/Testimonials.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/SparklesCore.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, useAnimation } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/SparklesCore.tsx",
+      "library": "framer-motion",
+      "importedItem": "useAnimation",
+      "currentImport": "import { motion, useAnimation } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for useAnimation from framer-motion\nconst [useAnimation, setUseAnimation] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setUseAnimation(() => mod.useAnimation);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure useAnimation is loaded before using it\nif (!useAnimation) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/ScrollToTop.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/ScrollToTop.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/Navigation.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/InstagramFeed.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/HamburgerMenu.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { AnimatePresence, motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/HamburgerMenu.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { AnimatePresence, motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/ui/BookingForm/BookingForm.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/services/ServiceTabs.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence, useAnimation, useInView } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/services/ServiceTabs.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence, useAnimation, useInView } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/services/ServiceTabs.tsx",
+      "library": "framer-motion",
+      "importedItem": "useAnimation",
+      "currentImport": "import { motion, AnimatePresence, useAnimation, useInView } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for useAnimation from framer-motion\nconst [useAnimation, setUseAnimation] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setUseAnimation(() => mod.useAnimation);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure useAnimation is loaded before using it\nif (!useAnimation) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/navigation/DesktopNavigation.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/navigation/DesktopNavigation.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/WhyChooseUsMobile.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileTestimonialsNew.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileTestimonialsNew.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileTestimonials.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileTestimonials.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileNavigation.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileNavigation.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from \"framer-motion\"",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileHero.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileHero.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/MobileHeader.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/Hero.tsx",
+      "library": "framer-motion",
+      "importedItem": "motion",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for motion from framer-motion\nconst [motion, setMotion] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setMotion(() => mod.motion);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure motion is loaded before using it\nif (!motion) return <div>Loading...</div>;\n"
+    },
+    {
+      "file": "components/mobile/Hero.tsx",
+      "library": "framer-motion",
+      "importedItem": "AnimatePresence",
+      "currentImport": "import { motion, AnimatePresence } from 'framer-motion'",
+      "suggestedReplacement": "\n// Dynamic import for AnimatePresence from framer-motion\nconst [AnimatePresence, setAnimatePresence] = useState(null);\n\nuseEffect(() => {\n  // Import only when component is mounted\n  let isMounted = true;\n  import('framer-motion').then((mod) => {\n    if (isMounted) {\n      setAnimatePresence(() => mod.AnimatePresence);\n    }\n  });\n  \n  return () => {\n    isMounted = false;\n  };\n}, []);\n\n// Make sure AnimatePresence is loaded before using it\nif (!AnimatePresence) return <div>Loading...</div>;\n"
+    }
+  ]
+}

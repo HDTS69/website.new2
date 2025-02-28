@@ -135,6 +135,7 @@ export function ServicePageLayout({
                     alt={`${title} service image ${index + 1}`}
                     fill
                     className="object-cover"
+                    loading="lazy"
                   />
                 </div>
                 <AnimatedButton

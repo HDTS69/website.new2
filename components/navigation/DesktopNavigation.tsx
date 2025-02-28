@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion" // Kept for active indicator (optional, can remove if no animations desired)
+import { LazyMotionDiv, LazyAnimatePresence } from '@/components/ui/motion/LazyMotion' // Kept for active indicator (optional, can remove if no animations desired)
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LucideIcon, ChevronDown, ChevronRight, Phone, Calendar } from "lucide-react"
@@ -353,7 +353,7 @@ function NavItem({
 
       {/* Active indicator (Optional: Remove if no animations desired) */}
       {isActive && !item.isHighlighted && (
-        <motion.div
+        <LazyMotionDiv
           layoutId="lamp"
           className="absolute inset-0 w-full bg-[#00E6CA]/5 rounded-full -z-10"
           initial={false}
@@ -368,7 +368,7 @@ function NavItem({
             <div className="absolute w-8 h-6 bg-[#00E6CA]/20 rounded-full blur-md -top-1" />
             <div className="absolute w-4 h-4 bg-[#00E6CA]/20 rounded-full blur-sm top-0 left-2" />
           </div>
-        </motion.div>
+        </LazyMotionDiv>
       )}
     </div>
   )

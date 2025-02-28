@@ -265,18 +265,11 @@
   }
 
   /* Dark Mode */
-  .dark {
-    color-scheme: dark;
-  }
 
   /* FOUC Prevention */
   html {
     visibility: visible;
     opacity: 1;
-  }
-
-  .animate-gradient {
-    animation: gradient 8s linear infinite;
   }
 
   @keyframes gradient {
@@ -289,6 +282,11 @@
     100% {
       background-position: 0% 50%;
     }
+  }
+
+  .animate-gradient {
+    animation: gradient 15s ease infinite;
+    background-size: 200% 200%;
   }
 
   @keyframes glow {
@@ -315,21 +313,10 @@
     animation: scaleUp 0.4s cubic-bezier(0.2, 0, 0.2, 1) forwards;
     will-change: transform, opacity;
   }
-  .animate-slide-in-down { 
-    animation: slideInDown 0.4s cubic-bezier(0.2, 0, 0.2, 1) forwards;
-    will-change: transform, opacity;
-  }
-  .animate-float {
-    animation: float 2s ease-in-out infinite;
-  }
 
   /* Animation Durations */
-  .animation-duration-300 { animation-duration: 300ms; }
-  .animation-duration-500 { animation-duration: 500ms; }
-  .animation-duration-700 { animation-duration: 700ms; }
 
   /* Animation Delays */
-  .animation-delay-100 { animation-delay: 100ms; }
   .animation-delay-200 { animation-delay: 200ms; }
   .animation-delay-300 { animation-delay: 300ms; }
   .animation-delay-400 { animation-delay: 400ms; }
@@ -345,10 +332,6 @@
     animation: slideDownAndFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     transform-origin: top;
     will-change: transform, opacity;
-  }
-
-  .dropdown-content[data-state='closed'] {
-    animation: slideUpAndFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .dropdown-backdrop {
@@ -371,57 +354,6 @@
 
 /* Button Styles and Animations */
 @layer components {
-  .btn-sparkle {
-    --h-button: 48px;
-    --w-button: 102px;
-    --round: 0.75rem;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: all 0.25s ease;
-    animation: glow 2s ease-in-out infinite;
-    background: radial-gradient(
-        65.28% 65.28% at 50% 100%,
-        rgba(var(--theme-color-rgb), 0.8) 0%,
-        rgba(var(--theme-color-rgb), 0) 100%
-      ),
-      linear-gradient(0deg, var(--theme-color), var(--theme-color));
-  }
-
-  .btn-sparkle::before,
-  .btn-sparkle::after {
-    content: "";
-    position: absolute;
-    inset: var(--space);
-    transition: all 0.5s ease-in-out;
-    border-radius: calc(var(--round) - var(--space));
-    z-index: 0;
-  }
-
-  .btn-sparkle::before {
-    --space: 1px;
-    background: linear-gradient(
-      177.95deg,
-      rgba(255, 255, 255, 0.19) 0%,
-      rgba(255, 255, 255, 0) 100%
-    );
-  }
-
-  .btn-sparkle::after {
-    --space: 2px;
-    background: radial-gradient(
-        65.28% 65.28% at 50% 100%,
-        rgba(var(--theme-color-rgb), 0.8) 0%,
-        rgba(var(--theme-color-rgb), 0) 100%
-      ),
-      linear-gradient(0deg, var(--theme-color), var(--theme-color));
-  }
-
-  .btn-sparkle:active {
-    transform: scale(0.95);
-  }
 
   .points_wrapper {
     overflow: hidden;
@@ -600,50 +532,6 @@
 }
 
 /* Add Slick carousel styles */
-.slick-slider {
-  margin: 0 -10px;
-}
-
-.slick-slide {
-  padding: 0 10px;
-}
-
-.slick-prev,
-.slick-next {
-  z-index: 10;
-  width: 40px;
-  height: 40px;
-}
-
-.slick-prev {
-  left: -10px;
-}
-
-.slick-next {
-  right: -10px;
-}
-
-.slick-prev:before,
-.slick-next:before {
-  font-size: 40px;
-  color: #1CD4A7;
-  opacity: 0.75;
-}
-
-.slick-dots {
-  bottom: -40px;
-}
-
-.slick-dots li button:before {
-  color: #1CD4A7;
-  opacity: 0.25;
-  font-size: 12px;
-}
-
-.slick-dots li.slick-active button:before {
-  color: #1CD4A7;
-  opacity: 0.75;
-}
 
 /* Ensure the submit button is properly styled when disabled */
 button:disabled {

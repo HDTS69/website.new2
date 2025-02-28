@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion } from "framer-motion";
-import { SparklesCore } from "@/components/ui/SparklesCore";
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 
 export default function PrivacyPage() {
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
     <div className="relative min-h-screen bg-black">
       {/* Sparkles Animation */}
       <div className="absolute inset-0 z-[1]">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={1}
           maxSize={2}
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
       <div className="relative z-[2] max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           {/* Page header */}
-          <motion.div
+          <LazyMotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -49,12 +49,12 @@ export default function PrivacyPage() {
             <p className="text-gray-400 mt-2">
               Last Updated: {currentDate}
             </p>
-          </motion.div>
+          </LazyMotionDiv>
 
           {/* Privacy Policy content */}
           <div className="max-w-3xl mx-auto">
             <div className="space-y-8">
-              <motion.div 
+              <LazyMotionDiv 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
                 <p className="text-gray-300">
                   This Privacy Policy describes how HD Trade Services Pty Ltd ("we," "us," or "our") collects, uses, and protects your personal information. We are committed to protecting your privacy and ensuring the security of your personal information.
                 </p>
-              </motion.div>
+              </LazyMotionDiv>
 
               {/* Section 1 */}
               <div className="space-y-4 bg-black/50 backdrop-blur-lg rounded-xl p-8 border border-[#1CD4A7]/10 shadow-[0_0_15px_rgba(28,212,167,0.1)]" data-aos="fade-up">
@@ -199,7 +199,7 @@ export default function PrivacyPage() {
               </div>
 
               {/* Acknowledgment section */}
-              <motion.div
+              <LazyMotionDiv
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1 }}
@@ -209,7 +209,7 @@ export default function PrivacyPage() {
                 <p className="text-gray-300">
                   By using our services, you acknowledge that you have read and understood this Privacy Policy and consent to our collection and use of your information as described herein.
                 </p>
-              </motion.div>
+              </LazyMotionDiv>
             </div>
           </div>
         </div>

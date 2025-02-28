@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { SparklesCore } from "@/components/ui/sparkles";
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 import Marquee from 'react-fast-marquee';
 
 interface BrandLogo {
@@ -75,6 +75,7 @@ const BrandLogoSlide: React.FC<BrandLogo & { isMobile: boolean }> = ({ src, alt,
           sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px, 200px"
           quality={90}
           priority={false}
+          loading="lazy"
           className={`
             object-contain
             transition-[filter,opacity] duration-300
@@ -136,7 +137,7 @@ export function BrandCarousel() {
   return (
     <section className="relative py-12 md:py-16 lg:py-24 bg-black overflow-hidden">
       <div className="absolute inset-0 opacity-50">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={1}
           maxSize={2}

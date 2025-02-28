@@ -5,7 +5,8 @@ import { motion, AnimatePresence, useAnimation, useInView } from "framer-motion"
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { AnimatedButton } from "@/components/ui/AnimatedButton";
-import { SparklesCore } from "@/components/ui/SparklesCore";
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 import Link from "next/link";
 
 type ServiceId = "plumbing" | "gasFitting" | "roofRepairs" | "airConditioning";
@@ -49,7 +50,7 @@ const Header = () => (
 );
 
 const ServiceTabButton = ({ tab, activeTab, onClick }: ServiceTabButtonProps) => (
-  <motion.button
+  <motion.div
     key={tab.id}
     onClick={() => onClick(tab.id)}
     className={cn(
@@ -64,7 +65,7 @@ const ServiceTabButton = ({ tab, activeTab, onClick }: ServiceTabButtonProps) =>
     whileTap={{ scale: 0.95 }}
   >
     <span className="relative z-10">{tab.label}</span>
-  </motion.button>
+  </motion.div>
 );
 
 const ServiceLink = ({ service }: ServiceLinkProps) => (
@@ -275,7 +276,7 @@ export default function ServiceTabs() {
     >
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -286,7 +287,7 @@ export default function ServiceTabs() {
         />
       </div>
 
-      <motion.div 
+      <LazyMotionDiv 
         className="relative z-10 max-w-6xl mx-auto"
         initial="hidden"
         animate={controls}
@@ -351,14 +352,14 @@ export default function ServiceTabs() {
                 <h3 className="text-xl font-semibold text-white">Our Services Include:</h3>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {serviceData[activeTab].services.map((service, index) => (
-                    <motion.li
+                    <motion.div
                       key={service.name}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
                     >
                       <ServiceLink service={service} />
-                    </motion.li>
+                    </motion.div>
                   ))}
                 </ul>
               </div>
@@ -416,7 +417,7 @@ export default function ServiceTabs() {
             </motion.div>
           </div>
         </div>
-      </motion.div>
+      </LazyMotionDiv>
     </section>
   );
 } 

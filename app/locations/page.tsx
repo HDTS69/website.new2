@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 import Link from 'next/link';
-import { SparklesCore } from '@/components/ui/sparkles';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 import { AnimatedButton } from '@/components/ui/AnimatedButton';
 
 const locations = [
@@ -60,7 +60,7 @@ export default function LocationsPage() {
     <div className="pt-32 pb-16 min-h-screen">
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -73,7 +73,7 @@ export default function LocationsPage() {
 
       <div className="container mx-auto px-4">
         {/* Header */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -85,17 +85,17 @@ export default function LocationsPage() {
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
             We provide comprehensive plumbing, gas fitting, air conditioning, and roofing services across South East Queensland. Find your local service area below.
           </p>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Main Service Areas */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16"
         >
           {locations.map((location, index) => (
-            <motion.div
+            <LazyMotionDiv
               key={location.name}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -148,12 +148,12 @@ export default function LocationsPage() {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </LazyMotionDiv>
           ))}
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Specialty Service Areas */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -161,7 +161,7 @@ export default function LocationsPage() {
           <h2 className="text-2xl font-semibold text-white mb-6 text-center">Find Services Near You</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {specialtyLocations.map((location, index) => (
-              <motion.div
+              <LazyMotionDiv
                 key={location.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -200,13 +200,13 @@ export default function LocationsPage() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </LazyMotionDiv>
             ))}
           </div>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* CTA Section */}
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
@@ -226,7 +226,7 @@ export default function LocationsPage() {
               Book Online
             </AnimatedButton>
           </div>
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </div>
   );

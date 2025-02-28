@@ -1,5 +1,5 @@
-import { SparklesCore } from "@/components/ui/SparklesCore";
-import { motion } from "framer-motion";
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 import Link from "next/link";
 
 const services = [
@@ -55,7 +55,7 @@ export default function AirConditioningServices() {
     <div className="relative min-h-screen bg-black overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={1}
           maxSize={2}

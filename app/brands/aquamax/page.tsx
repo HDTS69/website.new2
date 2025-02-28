@@ -2,9 +2,9 @@
 
 import { BrandPageLayout } from '@/components/layouts/BrandPageLayout';
 import { Clock, Shield, Wrench } from 'lucide-react';
-import { SparklesCore } from '@/components/ui/sparkles';
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 
 const features = [
   {
@@ -153,7 +153,7 @@ export default function AquamaxPage() {
     <div className="relative pt-32">
       {/* Background Effects */}
       <div className="fixed inset-0 -z-10">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.8}
           maxSize={2}

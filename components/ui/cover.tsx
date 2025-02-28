@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useId, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { LazyAnimatePresence, LazyMotionDiv, LazyMotionSvg, LazyMotionPath, LazyMotionLinearGradient } from '@/components/ui/motion/LazyMotion';
+import { motion } from 'framer-motion';
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
-import { SparklesCore } from "@/components/ui/sparkles";
+import { LazySparklesCore } from '@/components/ui/LazySparklesCore';
  
 export const Cover = ({
   children,
@@ -40,9 +41,9 @@ export const Cover = ({
       ref={ref}
       className="relative hover:bg-neutral-900  group/cover inline-block dark:bg-neutral-900 bg-neutral-100 px-2 py-2  transition duration-200 rounded-sm"
     >
-      <AnimatePresence>
+      <LazyAnimatePresence>
         {hovered && (
-          <motion.div
+          <LazyMotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -53,7 +54,7 @@ export const Cover = ({
             }}
             className="h-full w-full overflow-hidden absolute inset-0"
           >
-            <motion.div
+            <LazyMotionDiv
               animate={{
                 translateX: ["-50%", "0%"],
               }}
@@ -66,7 +67,7 @@ export const Cover = ({
               }}
               className="w-[200%] h-full flex"
             >
-              <SparklesCore
+              <LazySparklesCore
                 background="transparent"
                 minSize={0.4}
                 maxSize={2}
@@ -74,7 +75,7 @@ export const Cover = ({
                 className="w-full h-full"
                 particleColor="#1CD4A7"
               />
-              <SparklesCore
+              <LazySparklesCore
                 background="transparent"
                 minSize={0.4}
                 maxSize={2}
@@ -82,10 +83,10 @@ export const Cover = ({
                 className="w-full h-full"
                 particleColor="#1CD4A7"
               />
-            </motion.div>
-          </motion.div>
+            </LazyMotionDiv>
+          </LazyMotionDiv>
         )}
-      </AnimatePresence>
+      </LazyAnimatePresence>
       {beamPositions.map((position, index) => (
         <Beam
           key={index}
@@ -98,7 +99,7 @@ export const Cover = ({
           }}
         />
       ))}
-      <motion.span
+      <LazyMotionDiv
         key={String(hovered)}
         animate={{
           scale: hovered ? 0.95 : 1,
@@ -134,7 +135,7 @@ export const Cover = ({
         )}
       >
         {children}
-      </motion.span>
+      </LazyMotionDiv>
       <CircleIcon className="absolute -right-[2px] -top-[2px]" />
       <CircleIcon className="absolute -bottom-[2px] -right-[2px]" delay={0.4} />
       <CircleIcon className="absolute -left-[2px] -top-[2px]" delay={0.8} />
@@ -160,7 +161,7 @@ export const Beam = ({
   const id = useId();
  
   return (
-    <motion.svg
+    <LazyMotionSvg
       width={width ?? "600"}
       height="1"
       viewBox={`0 0 ${width ?? "600"} 1`}
@@ -169,13 +170,13 @@ export const Beam = ({
       className={cn("absolute inset-x-0 w-full", className)}
       {...svgProps}
     >
-      <motion.path
+      <LazyMotionPath
         d={`M0 0.5H${width ?? "600"}`}
         stroke={`url(#svgGradient-${id})`}
       />
  
       <defs>
-        <motion.linearGradient
+        <LazyMotionLinearGradient
           id={`svgGradient-${id}`}
           key={String(hovered)}
           gradientUnits="userSpaceOnUse"
@@ -202,9 +203,9 @@ export const Beam = ({
           <stop stopColor="#2EB9DF" stopOpacity="0" />
           <stop stopColor="#3b82f6" />
           <stop offset="1" stopColor="#3b82f6" stopOpacity="0" />
-        </motion.linearGradient>
+        </LazyMotionLinearGradient>
       </defs>
-    </motion.svg>
+    </LazyMotionSvg>
   );
 };
  

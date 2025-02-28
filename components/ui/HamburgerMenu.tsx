@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown, ChevronRight } from 'lucide-react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { LazyAnimatePresence, LazyMotionDiv } from '@/components/ui/motion/LazyMotion'
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -86,9 +86,9 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   };
 
   return (
-    <AnimatePresence>
+    <LazyAnimatePresence>
       {isOpen && (
-        <motion.div
+        <LazyMotionDiv
           initial={{ opacity: 0, x: '100%' }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: '100%' }}
@@ -123,9 +123,9 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                       }`}
                     />
                   </button>
-                  <AnimatePresence>
+                  <LazyAnimatePresence>
                     {expandedCategory === category.name && (
-                      <motion.div
+                      <LazyMotionDiv
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -152,9 +152,9 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                             View All {category.name} Services →
                           </Link>
                         </div>
-                      </motion.div>
+                      </LazyMotionDiv>
                     )}
-                  </AnimatePresence>
+                  </LazyAnimatePresence>
                 </div>
               ))}
             </div>
@@ -185,9 +185,9 @@ function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               </Link>
             </div>
           </div>
-        </motion.div>
+        </LazyMotionDiv>
       )}
-    </AnimatePresence>
+    </LazyAnimatePresence>
   );
 }
 

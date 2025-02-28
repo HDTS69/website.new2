@@ -1,0 +1,260 @@
+{
+  "totalImages": 116,
+  "optimizedImages": 28,
+  "totalSavings": 0,
+  "totalSavingsPercent": null,
+  "results": [
+    {
+      "path": "public/optimized/images/van-828.png",
+      "dimensions": {
+        "width": 828,
+        "height": 621,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-768.png",
+      "dimensions": {
+        "width": 768,
+        "height": 576,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-750.png",
+      "dimensions": {
+        "width": 750,
+        "height": 563,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-640.png",
+      "dimensions": {
+        "width": 640,
+        "height": 480,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-320.png",
+      "dimensions": {
+        "width": 320,
+        "height": 240,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-2048.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 1536,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-1920.png",
+      "dimensions": {
+        "width": 1920,
+        "height": 1440,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-1600.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 1200,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-1366.png",
+      "dimensions": {
+        "width": 1366,
+        "height": 1025,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-1200.png",
+      "dimensions": {
+        "width": 1200,
+        "height": 900,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-1080.png",
+      "dimensions": {
+        "width": 1080,
+        "height": 810,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/van-1024.png",
+      "dimensions": {
+        "width": 1024,
+        "height": 768,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-828.png",
+      "dimensions": {
+        "width": 828,
+        "height": 55,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-768.png",
+      "dimensions": {
+        "width": 768,
+        "height": 51,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-750.png",
+      "dimensions": {
+        "width": 750,
+        "height": 50,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-640.png",
+      "dimensions": {
+        "width": 640,
+        "height": 43,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-320.png",
+      "dimensions": {
+        "width": 320,
+        "height": 21,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-2048.png",
+      "dimensions": {
+        "width": 2048,
+        "height": 137,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-1920.png",
+      "dimensions": {
+        "width": 1920,
+        "height": 128,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-1600.png",
+      "dimensions": {
+        "width": 1600,
+        "height": 107,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-1366.png",
+      "dimensions": {
+        "width": 1366,
+        "height": 91,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-1200.png",
+      "dimensions": {
+        "width": 1200,
+        "height": 80,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-1080.png",
+      "dimensions": {
+        "width": 1080,
+        "height": 72,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/text-logo-1024.png",
+      "dimensions": {
+        "width": 1024,
+        "height": 68,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/icon-logo.png",
+      "dimensions": {
+        "width": 500,
+        "height": 500,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/optimized/images/icon-logo-320.png",
+      "dimensions": {
+        "width": 320,
+        "height": 320,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/images/text-logo.png",
+      "dimensions": {
+        "width": 4320,
+        "height": 288,
+        "format": "png"
+      },
+      "results": []
+    },
+    {
+      "path": "public/images/icon-logo.png",
+      "dimensions": {
+        "width": 500,
+        "height": 500,
+        "format": "png"
+      },
+      "results": []
+    }
+  ]
+}

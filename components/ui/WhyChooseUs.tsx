@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 import { Clock, Shield, Award, CreditCard, Zap, Wrench, Recycle, Users, Gift, Truck, HeartHandshake } from "lucide-react";
-import { SparklesCore } from "./SparklesCore";
+import { LazySparklesCore } from './LazySparklesCore';
 
 const fadeInUpVariant = {
   hidden: { opacity: 0, y: 20 },
@@ -114,7 +114,7 @@ export function WhyChooseUs() {
     <section className="relative py-20 px-4 md:px-6 lg:px-8 bg-black overflow-hidden">
       {/* SparklesCore Background */}
       <div className="absolute inset-0 z-0">
-        <SparklesCore
+        <LazySparklesCore
           background="transparent"
           minSize={0.4}
           maxSize={2}
@@ -129,7 +129,7 @@ export function WhyChooseUs() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 z-1"></div>
 
       <div className="relative z-10 container mx-auto px-4">
-        <motion.div
+        <LazyMotionDiv
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -143,10 +143,10 @@ export function WhyChooseUs() {
           <p className="text-xl text-[#00E6CA] max-w-2xl mx-auto">
             Experience excellence with our comprehensive service offerings
           </p>
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Top Row Features */}
-        <motion.div
+        <LazyMotionDiv
           variants={containerVariant}
           initial="hidden"
           whileInView="visible"
@@ -156,7 +156,7 @@ export function WhyChooseUs() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <motion.div
+              <LazyMotionDiv
                 key={feature.title}
                 className="relative"
                 variants={fadeInUpVariant}
@@ -177,13 +177,13 @@ export function WhyChooseUs() {
                   {/* Subtle glow effect on hover */}
                   <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00E6CA]/0 via-[#00E6CA]/50 to-[#00E6CA]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
-              </motion.div>
+              </LazyMotionDiv>
             );
           })}
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Bottom Row Features */}
-        <motion.div
+        <LazyMotionDiv
           variants={containerVariant}
           initial="hidden"
           whileInView="visible"
@@ -193,7 +193,7 @@ export function WhyChooseUs() {
           {bottomFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <motion.div
+              <LazyMotionDiv
                 key={feature.title}
                 variants={fadeInUpVariant}
                 className="group"
@@ -212,13 +212,13 @@ export function WhyChooseUs() {
                   {/* Subtle glow effect on hover */}
                   <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#00E6CA]/0 via-[#00E6CA]/50 to-[#00E6CA]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
-              </motion.div>
+              </LazyMotionDiv>
             );
           })}
-        </motion.div>
+        </LazyMotionDiv>
 
         {/* Additional Info */}
-        <motion.div
+        <LazyMotionDiv
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -227,7 +227,7 @@ export function WhyChooseUs() {
           className="text-center mt-12 text-sm text-gray-400 backdrop-blur-sm bg-black/30 py-3 px-6 rounded-full max-w-max mx-auto"
         >
           <p>* Terms and conditions apply. Contact us for full details.</p>
-        </motion.div>
+        </LazyMotionDiv>
       </div>
     </section>
   );

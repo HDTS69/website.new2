@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
@@ -36,10 +37,61 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
   },
   reactStrictMode: true,
-  output: 'export',
-  distDir: 'out',
   // Improve performance with better compression
   compress: true,
+  // Add HTTP/2 headers for better performance
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          }
+        ],
+      },
+      {
+        source: '/images/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          }
+        ],
+      },
+      {
+        source: '/fonts/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          }
+        ],
+      },
+    ];
+  },
   experimental: {
     // Enable optimizations
     appDocumentPreloading: true,
@@ -64,6 +116,15 @@ const nextConfig = {
       'simplex-noise',
       'tailwind-merge'
     ],
+    // Add Turbopack configuration
+    turbo: {
+      rules: {
+        // Configure Turbopack rules to match webpack configuration
+        // This ensures consistency between webpack and Turbopack
+        minify: process.env.NODE_ENV === 'production',
+        // Add any other Turbopack-specific rules here
+      },
+    },
   },
   compiler: {
     styledComponents: true,
@@ -85,7 +146,13 @@ const nextConfig = {
     // NODE_ENV is managed by Next.js and should not be set here
   },
   // Configure webpack for better performance
-  webpack: (config, { isServer }) => {
+  webpack: (config, { dev, isServer }) => {
+    // Enable HMR and Fast Refresh
+    if (dev && !isServer) {
+      config.optimization.moduleIds = 'named';
+      config.optimization.chunkIds = 'named';
+    }
+    
     // If client-side, don't polyfill fs
     if (!isServer) {
       config.resolve.fallback = {

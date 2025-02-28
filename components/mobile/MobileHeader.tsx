@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 
 export function MobileHeader() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -34,7 +34,7 @@ export function MobileHeader() {
 
   const LogoButton = () => {
     const buttonContent = (
-      <motion.div 
+      <LazyMotionDiv 
         className="flex items-center w-full"
         initial={{ opacity: 0, y: -20 }}
         animate={{ 
@@ -48,7 +48,7 @@ export function MobileHeader() {
         style={{ touchAction: 'pan-x pan-y' }}
       >
         {/* Icon logo aligned to the left - increased size */}
-        <motion.div 
+        <LazyMotionDiv 
           className="relative w-12 h-12 flex-shrink-0"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -63,10 +63,10 @@ export function MobileHeader() {
             priority
             draggable="false"
           />
-        </motion.div>
+        </LazyMotionDiv>
         
         {/* Text logo centered - increased size */}
-        <motion.div 
+        <LazyMotionDiv 
           className="flex-grow flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ 
@@ -85,11 +85,11 @@ export function MobileHeader() {
               draggable="false"
             />
           </div>
-        </motion.div>
+        </LazyMotionDiv>
         
         {/* Empty div to balance the layout - increased size to match icon logo */}
         <div className="w-12 h-12 flex-shrink-0"></div>
-      </motion.div>
+      </LazyMotionDiv>
     );
 
     if (isHomePage) {
@@ -116,7 +116,7 @@ export function MobileHeader() {
   };
 
   return (
-    <motion.header 
+    <LazyMotionDiv 
       className={cn(
         // Base styles
         "fixed top-0 left-0 right-0 w-full z-50",
@@ -142,6 +142,6 @@ export function MobileHeader() {
       <div className="px-4 py-3">
         <LogoButton />
       </div>
-    </motion.header>
+    </LazyMotionDiv>
   );
 } 

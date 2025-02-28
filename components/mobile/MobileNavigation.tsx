@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { LazyMotionDiv, LazyAnimatePresence } from '@/components/ui/motion/LazyMotion'
 import Link from "next/link"
 import { Menu, Phone, Calendar, X } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -55,9 +55,9 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
   return (
     <>
       {/* Full Screen Menu Overlay */}
-      <AnimatePresence>
+      <LazyAnimatePresence>
         {isMenuOpen && (
-          <motion.div 
+          <LazyMotionDiv 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -76,7 +76,7 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
               {/* Menu Content - Centered Headings */}
               <div className="flex flex-col items-center justify-center space-y-6 w-full">
                 {mainNavItems.map((item) => (
-                  <motion.div 
+                  <LazyMotionDiv 
                     key={item.name}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ 
@@ -99,9 +99,9 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
                           {item.name}
                         </button>
                         
-                        <AnimatePresence>
+                        <LazyAnimatePresence>
                           {isExpanded(item.name) && item.dropdownItems && (
-                            <motion.div
+                            <LazyMotionDiv
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ 
                                 opacity: 1, 
@@ -125,9 +125,9 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
                                   {dropdownItem.name}
                                 </Link>
                               ))}
-                            </motion.div>
+                            </LazyMotionDiv>
                           )}
-                        </AnimatePresence>
+                        </LazyAnimatePresence>
                       </>
                     ) : (
                       <Link 
@@ -138,13 +138,13 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
                         {item.name}
                       </Link>
                     )}
-                  </motion.div>
+                  </LazyMotionDiv>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </LazyMotionDiv>
         )}
-      </AnimatePresence>
+      </LazyAnimatePresence>
       
       {/* Bottom Navigation Bar */}
       <nav

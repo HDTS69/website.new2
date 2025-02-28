@@ -1,249 +1,298 @@
 const fs = require('fs');
 const path = require('path');
-const sharp = require('sharp');
+const { execSync } = require('child_process');
 const glob = require('glob');
+const sharp = require('sharp');
 
-// Enhanced Configuration
+// Configuration
 const config = {
-  inputDir: 'public',
-  outputDir: 'public/optimized',
-  quality: {
-    webp: 75,
-    avif: 65,
-    jpeg: 80,
-    png: 80
-  },
-  // Responsive sizes for different device types
-  sizes: [320, 640, 768, 1024, 1366, 1600, 1920],
+  // Source directories to scan for images
+  sourceDirs: ['public/images'],
+  // Output formats to generate
   formats: ['webp', 'avif'],
-  includeOriginalFormat: true,
-  // Compression options
-  compressionOptions: {
-    webp: {
-      effort: 6,  // Higher effort = better compression but slower (0-6)
-      lossless: false,
-      nearLossless: false,
-    },
-    avif: {
-      effort: 7,  // Higher effort = better compression but slower (0-9)
-      lossless: false,
-    },
-    jpeg: {
-      progressive: true,
-      optimizeCoding: true,
-      mozjpeg: true,
-    },
-    png: {
-      compressionLevel: 9,  // Maximum compression (0-9)
-      palette: true,  // Use palette-based quantization for small images
-      quality: 80,
-      effort: 10,     // Maximum effort (1-10)
-    }
+  // Quality settings (0-100)
+  quality: {
+    webp: 80,
+    avif: 65,
+    jpeg: 85,
   },
-  // Skip optimization for images smaller than this size (in bytes)
-  skipSizeThreshold: 10 * 1024, // 10KB
-  // Cache optimization results to avoid reprocessing
-  cacheFile: 'public/optimized/.cache.json',
+  // Resize large images
+  maxWidth: 1920,
+  // Skip already processed images
+  skipExisting: true,
 };
 
-// Load cache if exists
-let cache = {};
+// Check if sharp is installed
 try {
-  if (fs.existsSync(config.cacheFile)) {
-    cache = JSON.parse(fs.readFileSync(config.cacheFile, 'utf8'));
-    console.log(`Loaded cache with ${Object.keys(cache).length} entries`);
-  }
-} catch (error) {
-  console.warn(`Could not load cache: ${error.message}`);
-  cache = {};
+  require.resolve('sharp');
+} catch (e) {
+  console.log('Sharp is not installed. Installing now...');
+  execSync('npm install sharp --save-dev', { stdio: 'inherit' });
+  console.log('Sharp installed successfully.');
 }
 
-// Create output directory if it doesn't exist
-if (!fs.existsSync(config.outputDir)) {
-  fs.mkdirSync(config.outputDir, { recursive: true });
-}
-
-// Get all image files
-const imageFiles = glob.sync(`${config.inputDir}/**/*.{jpg,jpeg,png,gif}`, {
-  ignore: [`${config.outputDir}/**/*`],
-});
-
-console.log(`Found ${imageFiles.length} images to optimize`);
-
-// Process each image
-(async () => {
-  let successCount = 0;
-  let errorCount = 0;
-  let skippedCount = 0;
-  let cachedCount = 0;
-
-  // Process images in batches to avoid memory issues
-  const BATCH_SIZE = 5;
+// Function to find all images in the project
+function findImages() {
+  const images = [];
   
-  for (let i = 0; i < imageFiles.length; i += BATCH_SIZE) {
-    const batch = imageFiles.slice(i, i + BATCH_SIZE);
-    
-    await Promise.all(batch.map(async (file) => {
-      const filename = path.basename(file);
-      const relativePath = path.relative(config.inputDir, path.dirname(file));
-      const outputPath = path.join(config.outputDir, relativePath);
+  // Get all files to process
+  for (const dir of config.sourceDirs) {
+    if (fs.existsSync(dir)) {
+      const dirFiles = glob.sync(`${dir}/**/*.*`);
       
-      // Create output directory if it doesn't exist
-      if (!fs.existsSync(outputPath)) {
-        fs.mkdirSync(outputPath, { recursive: true });
-      }
+      // Filter files by extension and ignore patterns
+      const imageFiles = dirFiles.filter(file => {
+        const ext = path.extname(file).toLowerCase();
+        if (!config.formats.includes(ext)) {
+          return false;
+        }
+        
+        return true;
+      });
+      
+      images.push(...imageFiles);
+    }
+  }
+  
+  return images;
+}
 
-      // Check if file has been modified since last optimization
-      const stats = fs.statSync(file);
-      const fileKey = `${file}:${stats.size}:${stats.mtime.getTime()}`;
-      
-      if (cache[fileKey]) {
-        cachedCount++;
-        console.log(`🔄 Using cached version: ${file}`);
+// Function to get image dimensions
+async function getImageDimensions(imagePath) {
+  try {
+    const metadata = await sharp(imagePath).metadata();
+    return {
+      width: metadata.width,
+      height: metadata.height,
+      format: metadata.format,
+    };
+  } catch (error) {
+    console.error(`Error getting dimensions for ${imagePath}:`, error.message);
+    return null;
+  }
+}
+
+// Function to optimize a single image
+async function optimizeImage(imagePath) {
+  try {
+    const ext = path.extname(imagePath).toLowerCase();
+    const supportedExts = ['.jpg', '.jpeg', '.png'];
+    
+    // Skip unsupported formats
+    if (!supportedExts.includes(ext)) {
+      console.log(`Skipping unsupported format: ${imagePath}`);
         return;
       }
 
-      // Skip small files if they're under the threshold
-      if (stats.size < config.skipSizeThreshold) {
-        const outputFile = path.join(outputPath, filename);
-        fs.copyFileSync(file, outputFile);
-        console.log(`⏩ Skipped small file: ${file} (${Math.round(stats.size / 1024)}KB)`);
-        skippedCount++;
-        cache[fileKey] = true;
+    // Get image metadata
+    const metadata = await sharp(imagePath).metadata();
+    
+    // Skip if image is already optimized
+    if (metadata.width <= config.maxWidth) {
+      console.log(`Image already optimized: ${imagePath}`);
         return;
       }
 
-      try {
-        // Get image metadata
-        let metadata;
-        try {
-          metadata = await sharp(file).metadata();
-        } catch (error) {
-          console.warn(`⚠️ Skipping ${file}: ${error.message}`);
-          skippedCount++;
-          
-          // Copy the original file instead
-          const outputFile = path.join(outputPath, filename);
-          fs.copyFileSync(file, outputFile);
-          console.log(`📋 Copied original: ${file}`);
-          cache[fileKey] = true;
-          return;
-        }
-        
-        // Process image in different formats and sizes
-        let formatSuccess = false;
-        
-        // Only generate sizes that make sense (don't upscale)
-        const appropriateSizes = config.sizes.filter(size => size <= metadata.width);
-        
-        // If the image is already small, just use its original size
-        if (appropriateSizes.length === 0) {
-          appropriateSizes.push(metadata.width);
-        }
-        
-        for (const format of config.formats) {
-          for (const width of appropriateSizes) {
-            try {
-              const outputFilename = `${path.parse(filename).name}-${width}.${format}`;
-              const outputFile = path.join(outputPath, outputFilename);
-              
-              // Get format-specific options
-              const formatOptions = {
-                ...config.compressionOptions[format],
-                quality: config.quality[format]
-              };
-              
-              await sharp(file)
-                .resize({
-                  width,
-                  fit: 'inside',
-                  withoutEnlargement: true
-                })
-                [format](formatOptions)
-                .toFile(outputFile);
-              
-              formatSuccess = true;
-            } catch (error) {
-              console.warn(`⚠️ Could not convert ${file} to ${format}: ${error.message}`);
-            }
-          }
-        }
-        
-        // Also save in original format if configured
-        if (config.includeOriginalFormat) {
-          const originalFormat = metadata.format;
-          let originalFormatSuccess = false;
-          
-          // Map original format to one we have compression options for
-          const formatKey = originalFormat === 'jpeg' || originalFormat === 'jpg' ? 'jpeg' : 
-                           originalFormat === 'png' ? 'png' : 'jpeg';
-          
-          for (const width of appropriateSizes) {
-            try {
-              const outputFilename = `${path.parse(filename).name}-${width}.${originalFormat}`;
-              const outputFile = path.join(outputPath, outputFilename);
-              
-              // Get format-specific options
-              const formatOptions = {
-                ...config.compressionOptions[formatKey],
-                quality: config.quality[formatKey]
-              };
-              
-              await sharp(file)
-                .resize({
-                  width,
-                  fit: 'inside',
-                  withoutEnlargement: true
-                })
-                .toFormat(originalFormat, formatOptions)
-                .toFile(outputFile);
-              
-              originalFormatSuccess = true;
-            } catch (error) {
-              console.warn(`⚠️ Could not resize ${file} to ${width}px: ${error.message}`);
-            }
-          }
-          
-          // If we couldn't process the image at all, copy the original
-          if (!formatSuccess && !originalFormatSuccess) {
-            const outputFile = path.join(outputPath, filename);
-            fs.copyFileSync(file, outputFile);
-            console.log(`📋 Copied original: ${file}`);
-          }
-        }
-        
-        successCount++;
-        console.log(`✅ Optimized: ${file}`);
-        cache[fileKey] = true;
-      } catch (error) {
-        errorCount++;
-        console.error(`❌ Error optimizing ${file}:`, error.message);
-        
-        // Copy the original file as fallback
-        try {
-          const outputFile = path.join(outputPath, filename);
-          fs.copyFileSync(file, outputFile);
-          console.log(`📋 Copied original as fallback: ${file}`);
-        } catch (copyError) {
-          console.error(`❌ Could not copy original file: ${copyError.message}`);
-        }
-      }
-    }));
+    // Base image processing
+    let pipeline = sharp(imagePath);
     
-    // Save cache after each batch
-    try {
-      fs.writeFileSync(config.cacheFile, JSON.stringify(cache));
-    } catch (error) {
-      console.warn(`Could not save cache: ${error.message}`);
+    // Resize if needed
+    if (metadata.width > config.maxWidth) {
+      pipeline = pipeline.resize(config.maxWidth);
     }
     
-    // Log progress
-    console.log(`Processed ${Math.min((i + BATCH_SIZE), imageFiles.length)}/${imageFiles.length} images`);
+    // Generate optimized versions
+    for (const format of config.formats) {
+      const outputPath = imagePath.replace(ext, `.${format}`);
+      
+      // Skip if file exists and skipExisting is true
+      if (config.skipExisting && fs.existsSync(outputPath)) {
+        console.log(`Skipping existing file: ${outputPath}`);
+        continue;
+      }
+      
+      // Process based on format
+      if (format === 'webp') {
+        await pipeline.webp({ quality: config.quality.webp }).toFile(outputPath);
+      } else if (format === 'avif') {
+        await pipeline.avif({ quality: config.quality.avif }).toFile(outputPath);
+      }
+      
+      console.log(`Generated: ${outputPath}`);
+    }
+    
+    // Also optimize the original JPEG/PNG if needed
+    if (ext === '.jpg' || ext === '.jpeg') {
+      const optimizedPath = imagePath.replace(ext, '.opt.jpg');
+      await pipeline.jpeg({ quality: config.quality.jpeg }).toFile(optimizedPath);
+      
+      // Replace original with optimized version
+      fs.renameSync(optimizedPath, imagePath);
+      console.log(`Optimized original: ${imagePath}`);
+    } else if (ext === '.png') {
+      const optimizedPath = imagePath.replace(ext, '.opt.png');
+      await pipeline.png({ quality: config.quality.jpeg }).toFile(optimizedPath);
+      
+      // Replace original with optimized version
+      fs.renameSync(optimizedPath, imagePath);
+      console.log(`Optimized original: ${imagePath}`);
+    }
+            } catch (error) {
+    console.error(`Error processing ${imagePath}:`, error.message);
   }
+}
 
-  console.log('\nOptimization complete!');
-  console.log(`✅ Successfully optimized: ${successCount} images`);
-  console.log(`🔄 Used cached versions: ${cachedCount} images`);
-  console.log(`⚠️ Skipped but copied: ${skippedCount} images`);
-  console.log(`❌ Failed to optimize: ${errorCount} images`);
-})(); 
+// Function to optimize all images
+async function optimizeImages() {
+  console.log('Starting image optimization...');
+  
+  // Process each source directory
+  for (const sourceDir of config.sourceDirs) {
+    // Find all images
+    const images = glob.sync(`${sourceDir}/**/*.{jpg,jpeg,png}`, { nocase: true });
+    console.log(`Found ${images.length} images in ${sourceDir}`);
+    
+    // Process each image
+    for (const image of images) {
+      await optimizeImage(image);
+    }
+  }
+  
+  console.log('Image optimization complete!');
+}
+
+// Function to format bytes to a human-readable format
+function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+  
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+// Function to generate HTML report
+function generateHtmlReport(report) {
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Optimization Report</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .summary {
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .summary-item {
+      margin-bottom: 10px;
+    }
+    .summary-item strong {
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+    .savings-high {
+      color: #2ecc71;
+    }
+    .savings-medium {
+      color: #3498db;
+    }
+    .savings-low {
+      color: #e67e22;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Optimization Report</h1>
+  
+  <div class="summary">
+    <div class="summary-item">
+      <strong>Total Images:</strong> ${report.totalImages}
+    </div>
+    <div class="summary-item">
+      <strong>Optimized Images:</strong> ${report.optimizedImages}
+    </div>
+    <div class="summary-item">
+      <strong>Total Savings:</strong> ${formatBytes(report.totalSavings)} (${report.totalSavingsPercent.toFixed(2)}%)
+    </div>
+  </div>
+  
+  <h2>Detailed Results</h2>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Dimensions</th>
+        <th>Format</th>
+        <th>Original Size</th>
+        <th>New Size</th>
+        <th>Savings</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${report.results.map(result => {
+        return result.results.map(formatResult => {
+          const savingsClass = formatResult.savingsPercent > 50 ? 'savings-high' : 
+                              formatResult.savingsPercent > 20 ? 'savings-medium' : 'savings-low';
+          
+          return `
+            <tr>
+              <td>${result.path}</td>
+              <td>${result.dimensions.width}x${result.dimensions.height}</td>
+              <td>${formatResult.format}</td>
+              <td>${formatBytes(formatResult.originalSize)}</td>
+              <td>${formatBytes(formatResult.newSize)}</td>
+              <td class="${savingsClass}">${formatBytes(formatResult.savings)} (${formatResult.savingsPercent.toFixed(2)}%)</td>
+            </tr>
+          `;
+        }).join('');
+      }).join('')}
+    </tbody>
+  </table>
+</body>
+</html>
+  `;
+  
+  fs.writeFileSync('image-optimization-report.html', html);
+  console.log('HTML report written to image-optimization-report.html');
+}
+
+// Run the optimization
+optimizeImages().catch(error => {
+  console.error('Error during image optimization:', error);
+  process.exit(1);
+}); 

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ChevronUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { LazyMotionDiv, LazyAnimatePresence } from '@/components/ui/motion/LazyMotion';
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,9 +31,9 @@ export function ScrollToTop() {
   };
 
   return (
-    <AnimatePresence>
+    <LazyAnimatePresence>
       {isVisible && (
-        <motion.button
+        <LazyMotionDiv
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
@@ -43,8 +43,8 @@ export function ScrollToTop() {
           aria-label="Scroll to top"
         >
           <ChevronUp size={24} strokeWidth={2.5} />
-        </motion.button>
+        </LazyMotionDiv>
       )}
-    </AnimatePresence>
+    </LazyAnimatePresence>
   );
 } 

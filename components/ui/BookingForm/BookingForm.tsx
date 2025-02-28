@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { cn } from "@/lib/utils";
-import { motion } from 'framer-motion';
+import { LazyMotionDiv } from '@/components/ui/motion/LazyMotion';
 
 import { WaveInput } from './WaveInput';
 import { Dropdown } from './Dropdown';
@@ -450,7 +450,7 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
                 autoComplete={formData.manualEntry ? "on" : "off"}
               />
               {showManualEntry && (
-                <motion.div 
+                <LazyMotionDiv 
                   ref={manualEntryRef}
                   data-manual-entry
                   initial={{ opacity: 0, y: -10 }}
@@ -469,7 +469,7 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
                     />
                     <span className="text-teal-500 transition-colors duration-200">Manual Entry</span>
                   </label>
-                </motion.div>
+                </LazyMotionDiv>
               )}
             </div>
           </div>
@@ -488,7 +488,7 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
               />
               
               {showServices && (
-                <motion.div
+                <LazyMotionDiv
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -555,7 +555,7 @@ export function BookingForm({ brandName, onStateChange }: BookingFormProps) {
                       )}
                     </div>
                   ))}
-                </motion.div>
+                </LazyMotionDiv>
               )}
             </div>
           </div>

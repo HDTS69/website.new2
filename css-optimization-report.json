@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-02-28T02:50:34.356Z",
+  "totalFiles": 3,
+  "successfulOptimizations": 0,
+  "totalOriginalSize": 16481,
+  "totalOptimizedSize": 16481,
+  "results": [
+    {
+      "file": "app/globals.css",
+      "originalSize": 12422,
+      "optimizedSize": 12422,
+      "savings": 0,
+      "savingsPercent": 0
+    },
+    {
+      "file": "app/styles/form-animations.css",
+      "originalSize": 1640,
+      "optimizedSize": 1640,
+      "savings": 0,
+      "savingsPercent": 0
+    },
+    {
+      "file": "styles/globals.css",
+      "originalSize": 2419,
+      "optimizedSize": 2419,
+      "savings": 0,
+      "savingsPercent": 0
+    }
+  ],
+  "totalSavings": 0,
+  "totalSavingsPercent": 0
+}
