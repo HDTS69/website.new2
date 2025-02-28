@@ -256,7 +256,7 @@ export default function Footer() {
           <div className="flex flex-col items-center justify-center">
             <div className="relative w-[60px] h-[60px] opacity-20 hover:opacity-30 transition-opacity duration-500">
               <Image
-                src="/images/icon-logo.png"
+                src="/images/icon-logo.webp"
                 alt="Footer Logo"
                 fill
                 sizes={IMAGE_SIZES.THUMBNAIL}

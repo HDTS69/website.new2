@@ -10,7 +10,6 @@ import { NavBar } from '@/components/navigation/DesktopNavigation';
 import { Calendar, Phone, Home, Wrench, Info, Building2, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { navigationItems, actionItems } from '@/lib/navigation';
-import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
 
 interface Feature {
   title: string;
@@ -28,7 +27,6 @@ interface Testimonial {
 interface BrandPageProps {
   brandName: string;
   brandLogo: string;
-  vanImage: string;
   expertImage: string;
   description: string;
   features: Feature[];
@@ -59,7 +57,6 @@ interface BrandPageProps {
 export function BrandPageLayout({
   brandName,
   brandLogo,
-  vanImage,
   expertImage,
   description,
   features,
@@ -147,9 +144,9 @@ export function BrandPageLayout({
                     src={expertImage}
                     alt={`${brandName} expert technician`}
                     fill
-                    sizes={IMAGE_SIZES.CARD}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover rounded-lg"
-                    {...getImageLoadingProps(true)}
+                    priority
                   />
                 </div>
                 <div>
@@ -160,9 +157,9 @@ export function BrandPageLayout({
                         src={brandLogo}
                         alt={`${brandName} logo`}
                         fill
-                        sizes={IMAGE_SIZES.THUMBNAIL}
+                        sizes="(max-width: 768px) 33vw, 25vw"
                         className="object-contain p-4"
-                        {...getImageLoadingProps(true)}
+                        priority
                       />
                     )}
                   </div>
@@ -207,9 +204,8 @@ export function BrandPageLayout({
                         src={product.image}
                         alt={product.name}
                         fill
-                        sizes={IMAGE_SIZES.CARD}
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover rounded-lg"
-                        {...getImageLoadingProps(false)}
                       />
                     </div>
                   </div>

@@ -85,10 +85,55 @@ export default function RootLayout({
         `}</style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0, viewport-fit=cover" />
         
-        {/* Preload logo images to prevent warnings */}
-        <link rel="preload" href="/images/text-logo.png" as="image" />
-        <link rel="preload" href="/images/icon-logo.png" as="image" />
-        <link rel="preload" href="/images/hayden-hero-1.webp" as="image" />
+        {/* Properly preload critical images with correct attributes */}
+        <link 
+          rel="preload" 
+          href="/images/text-logo.webp" 
+          as="image" 
+          type="image/webp" 
+          fetchPriority="high" 
+          crossOrigin="anonymous" 
+        />
+        <link 
+          rel="preload" 
+          href="/images/icon-logo.webp" 
+          as="image" 
+          type="image/webp" 
+          fetchPriority="high" 
+          crossOrigin="anonymous" 
+        />
+        <link 
+          rel="preload" 
+          href="/images/hayden-hero-1.webp" 
+          as="image" 
+          type="image/webp" 
+          fetchPriority="high" 
+          crossOrigin="anonymous" 
+        />
+        
+        {/* DebugBear RUM Analytics */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            var dbpr = 100;
+            if (Math.random() * 100 > 100 - dbpr) {
+              var d = "d bbRum";
+              var w = window;
+              var o = document;
+              var a = addEventListener;
+              var scr = o.createElement("script");
+              scr.async = true;
+              w[d] = w[d] || [];
+              w[d].push(["presampling", dbpr]);
+              ["error", "unhandledrejection"].forEach(function(t) {
+                a(t, function(e) {
+                  w[d].push([t, e]);
+                });
+              });
+              scr.src = "https://cdn.debugbear.com/bhE8e4HnfxsA.js";
+              o.head.appendChild(scr);
+            }
+          })();
+        `}} />
       </head>
       <body
         className="font-inter antialiased bg-black"

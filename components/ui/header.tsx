@@ -44,7 +44,7 @@ export default function Header() {
         >
           <div className="relative w-12 h-12 md:w-16 md:h-16">
             <Image
-              src="/images/icon-logo.png"
+              src="/images/icon-logo.webp"
               alt="Return to top"
               fill
               sizes={IMAGE_SIZES.THUMBNAIL}
@@ -55,7 +55,7 @@ export default function Header() {
           </div>
           <div className="relative h-8 w-[160px] md:h-10 md:w-[200px]">
             <Image
-              src="/images/text-logo.png"
+              src="/images/text-logo.webp"
               alt="Company Name"
               fill
               sizes={IMAGE_SIZES.THUMBNAIL}
@@ -77,7 +77,7 @@ export default function Header() {
       >
         <div className="relative w-12 h-12 md:w-16 md:h-16">
           <Image
-            src="/images/icon-logo.png"
+            src="/images/icon-logo.webp"
             alt="Return to homepage"
             fill
             sizes={IMAGE_SIZES.THUMBNAIL}
@@ -88,7 +88,7 @@ export default function Header() {
         </div>
         <div className="relative h-8 w-[160px] md:h-10 md:w-[200px]">
           <Image
-            src="/images/text-logo.png"
+            src="/images/text-logo.webp"
             alt="Company Name"
             fill
             sizes={IMAGE_SIZES.THUMBNAIL}

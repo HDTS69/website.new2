@@ -55,7 +55,7 @@ export function MobileHeader() {
           style={{ touchAction: 'none' }}
         >
           <Image
-            src="/images/icon-logo.png"
+            src="/images/icon-logo.webp"
             alt={isHomePage ? "Return to top" : "Return to homepage"}
             fill
             sizes="48px"
@@ -76,7 +76,7 @@ export function MobileHeader() {
         >
           <div className="relative h-10 w-[180px]">
             <Image
-              src="/images/text-logo.png"
+              src="/images/text-logo.webp"
               alt="HD Trade Services"
               fill
               sizes="180px"

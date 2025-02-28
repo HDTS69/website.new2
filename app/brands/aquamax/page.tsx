@@ -169,7 +169,6 @@ export default function AquamaxPage() {
         <BrandPageLayout
           brandName="AquaMAX"
           brandLogo="/images/brands/aquamax/logo.png"
-          vanImage="/images/van.png"
           expertImage="/images/expert.jpg"
           description="AquaMAX is a leading Australian manufacturer of high-quality hot water systems. With over 30 years of experience, AquaMAX delivers reliable, energy-efficient solutions for homes and businesses."
           features={features}
