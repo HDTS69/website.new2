@@ -35,8 +35,6 @@ export default function RootLayout({
             margin: 0;
             padding: 0;
             touch-action: pan-x pan-y;
-            -ms-content-zooming: none;
-            -ms-touch-action: pan-x pan-y;
           }
 
           body {
@@ -66,10 +64,8 @@ export default function RootLayout({
           textarea:-webkit-autofill {
             -webkit-text-fill-color: #f3f4f6 !important;
             -webkit-box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
-            box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
             background-color: rgb(0, 0, 0) !important;
             caret-color: #f3f4f6 !important;
-            transition: none !important;
           }
           
           /* Fix for DevTools mobile scrolling */
@@ -85,7 +81,11 @@ export default function RootLayout({
         `}</style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0, viewport-fit=cover" />
         
-        {/* Properly preload critical images with correct attributes */}
+        {/* 
+          Preload critical images used in the Hero components.
+          These images are intentionally preloaded for better performance
+          and are used immediately when the page loads.
+        */}
         <link 
           rel="preload" 
           href="/images/text-logo.webp" 
@@ -111,10 +111,10 @@ export default function RootLayout({
           crossOrigin="anonymous" 
         />
         
-        {/* DebugBear RUM Analytics */}
+        {/* DebugBear RUM Analytics - Reduced to 10% of users for better performance */}
         <script dangerouslySetInnerHTML={{ __html: `
           (function() {
-            var dbpr = 100;
+            var dbpr = 10; // Reduced from 100 to 10% of users
             if (Math.random() * 100 > 100 - dbpr) {
               var d = "d bbRum";
               var w = window;
@@ -139,7 +139,7 @@ export default function RootLayout({
         className="font-inter antialiased bg-black"
         suppressHydrationWarning
       >
-        <div className="flex min-h-screen flex-col bg-black">
+        <div className="flex min-h-screen flex-col">
           {children}
           <ScrollToTop />
         </div>

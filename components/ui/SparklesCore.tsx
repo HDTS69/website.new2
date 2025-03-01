@@ -72,11 +72,11 @@ export const SparklesCore = (props: ParticlesProps) => {
       enable: false,
       zIndex: 1,
     },
-    fpsLimit: 60,
+    fpsLimit: 30,
     interactivity: {
       events: {
         onClick: {
-          enable: true,
+          enable: false,
           mode: "push",
         },
         onHover: {
@@ -135,7 +135,7 @@ export const SparklesCore = (props: ParticlesProps) => {
         value: { min: minSize || 1, max: maxSize || 3 },
       },
     },
-    detectRetina: true,
+    detectRetina: false,
   }), [background, minSize, maxSize, speed, particleColor, particleDensity]);
   
   return (

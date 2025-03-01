@@ -13,18 +13,13 @@ interface AnimatedButtonProps {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
-// Predefined animation configurations
+// Reduced number of points for better performance
 const POINT_CONFIGS = [
   { left: '10%', opacity: 1, delay: 0.2, duration: 2.35 },
   { left: '30%', opacity: 0.7, delay: 0.5, duration: 2.5 },
-  { left: '25%', opacity: 0.8, delay: 0.1, duration: 2.2 },
-  { left: '44%', opacity: 0.6, delay: 0, duration: 2.05 },
   { left: '50%', opacity: 1, delay: 0, duration: 1.9 },
   { left: '75%', opacity: 0.5, delay: 1.5, duration: 1.5 },
-  { left: '88%', opacity: 0.9, delay: 0.2, duration: 2.2 },
-  { left: '58%', opacity: 0.8, delay: 0.2, duration: 2.25 },
-  { left: '98%', opacity: 0.6, delay: 0.1, duration: 2.6 },
-  { left: '65%', opacity: 1, delay: 0.2, duration: 2.5 }
+  { left: '90%', opacity: 0.9, delay: 0.2, duration: 2.2 }
 ];
 
 export function AnimatedButton({ 
@@ -47,13 +42,13 @@ export function AnimatedButton({
     primary: `
       bg-gradient-to-r from-[#00E6CA] via-[#00C7AE] to-[#00E6CA]
       bg-[length:200%_100%] hover:bg-[length:100%_100%]
-      text-white shadow-lg shadow-[#00E6CA]/20 [animation:glow_3s_ease-in-out_infinite]
+      text-white shadow-lg shadow-[#00E6CA]/20
       hover:animate-float
     `,
     secondary: `
       bg-white text-[#00E6CA] border border-[#00E6CA]/20
       hover:border-[#00E6CA]/40 hover:shadow-[#00E6CA]/20
-      hover:animate-float [animation:glow_3s_ease-in-out_infinite]
+      hover:animate-float
     `
   };
 

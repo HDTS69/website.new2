@@ -4,28 +4,21 @@ import { SparklesCore } from '../ui/SparklesCore';
 import { Cover } from '../ui/cover';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedButton } from '../ui/AnimatedButton';
-import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
+import { getImageLoadingProps, IMAGE_SIZES, ImagePriority } from '@/utils/imageLoading';
 
 export function Hero() {
-  const [isLoaded, setIsLoaded] = React.useState(false);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Remove unused state management
+  // const [isLoaded, setIsLoaded] = React.useState(true);
 
   return (
     <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24 pt-16 touch-auto">
-      {/* Sparkles Animation */}
+      {/* Sparkles Animation - Reduced particle density for better performance */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
         <SparklesCore
           background="transparent"
           minSize={0.8}
           maxSize={2}
-          particleDensity={150}
+          particleDensity={100} // Reduced from 150
           className="w-full h-full"
           particleColor="#00E6CA"
           speed={0.4}
@@ -37,43 +30,41 @@ export function Hero() {
         <div className="relative h-full w-full">
           {/* Main Hero Image */}
           <AnimatePresence mode="wait">
-            {isLoaded && (
-              <motion.div 
-                className="absolute bottom-0 left-0 w-[55%] h-[70%]"
-                initial={{ y: '100vh', opacity: 0 }}
-                animate={{ 
-                  y: 0,
-                  opacity: 1,
-                  transition: {
-                    type: "spring",
-                    damping: 20,
-                    mass: 0.75,
-                    stiffness: 100,
-                    delay: 0.2
-                  }
-                }}
-                key="hero-image"
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/images/hayden-hero-1.webp"
-                    alt="Professional Technician"
-                    fill
-                    sizes={IMAGE_SIZES.HERO}
-                    style={{ 
-                      objectFit: 'contain', 
-                      objectPosition: 'left bottom',
-                      transform: 'translateZ(0)',
-                      willChange: 'transform',
-                      filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
-                    }}
-                    className="select-none"
-                    draggable="false"
-                    {...getImageLoadingProps(true)}
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div 
+              className="absolute bottom-0 left-0 w-[55%] h-[70%]"
+              initial={{ y: '100vh', opacity: 0 }}
+              animate={{ 
+                y: 0,
+                opacity: 1,
+                transition: {
+                  type: "spring",
+                  damping: 20,
+                  mass: 0.75,
+                  stiffness: 100,
+                  delay: 0.2
+                }
+              }}
+              key="hero-image"
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src="/images/hayden-hero-1.webp"
+                  alt="Professional Technician"
+                  fill
+                  sizes="55vw"
+                  style={{ 
+                    objectFit: 'contain', 
+                    objectPosition: 'left bottom',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform',
+                    filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
+                  }}
+                  className="select-none"
+                  {...getImageLoadingProps(ImagePriority.HIGH)}
+                  draggable="false"
+                />
+              </div>
+            </motion.div>
           </AnimatePresence>
           
           {/* Bottom fade gradient only */}

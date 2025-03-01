@@ -1,27 +1,19 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AnimatedButton } from './ui/AnimatedButton';
 import { SparklesCore } from './ui/SparklesCore';
 import { Cover } from './ui/cover';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Hero as MobileHero } from './mobile';
+import { Hero as MobileHero } from './mobile/Hero';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
+import { getImageLoadingProps, IMAGE_SIZES, ImagePriority } from '@/utils/imageLoading';
 
 export function Hero() {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    // Small delay to ensure proper animation on initial load
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, []);
+  // No need for state since we're always showing the image immediately
+  // const [isLoaded, setIsLoaded] = useState(true);
 
   if (isMobile) {
     return <MobileHero />;
@@ -29,13 +21,13 @@ export function Hero() {
 
   return (
     <div className="relative min-h-[100dvh] flex items-center justify-center bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto">
-      {/* Sparkles Animation */}
+      {/* Sparkles Animation - Reduced particle density for better performance */}
       <div className="absolute inset-0 z-[2]">
         <SparklesCore
           background="transparent"
           minSize={0.8}
           maxSize={2}
-          particleDensity={150}
+          particleDensity={100} // Reduced from 150
           className="w-full h-full"
           particleColor="#00E6CA"
           speed={0.4}
@@ -47,43 +39,40 @@ export function Hero() {
         <div className="relative h-full w-full">
           {/* Main Hero Image */}
           <AnimatePresence mode="wait">
-            {isLoaded && (
-              <motion.div 
-                className="absolute inset-0 left-0 w-[45%] h-full"
-                initial={{ x: '-100vw', opacity: 0 }}
-                animate={{ 
-                  x: 0,
-                  opacity: 1,
-                  transition: {
-                    type: "spring",
-                    damping: 20,
-                    mass: 0.75,
-                    stiffness: 100,
-                    delay: 0.2
-                  }
-                }}
-                key="hero-image"
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/images/hayden-hero-1.webp"
-                    alt="Professional Technician"
-                    fill
-                    sizes={IMAGE_SIZES.HERO}
-                    style={{ 
-                      objectFit: 'contain', 
-                      objectPosition: 'left center',
-                      transform: 'translateZ(0)',
-                      willChange: 'transform',
-                      filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
-                    }}
-                    className="select-none"
-                    draggable="false"
-                    {...getImageLoadingProps(true)}
-                  />
-                </div>
-              </motion.div>
-            )}
+            <motion.div 
+              className="absolute inset-0 left-0 w-[45%] h-full"
+              initial={{ x: '-100vw', opacity: 0 }}
+              animate={{ 
+                x: 0,
+                opacity: 1,
+                transition: {
+                  type: "spring",
+                  damping: 20,
+                  mass: 0.75,
+                  stiffness: 100,
+                  delay: 0.2
+                }
+              }}
+              key="hero-image"
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src="/images/hayden-hero-1.webp"
+                  alt="Professional Technician"
+                  fill
+                  sizes={IMAGE_SIZES.HERO}
+                  style={{ 
+                    objectFit: 'contain', 
+                    objectPosition: 'left center',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform',
+                    filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
+                  }}
+                  className="select-none"
+                  {...getImageLoadingProps(ImagePriority.HIGH)}
+                />
+              </div>
+            </motion.div>
           </AnimatePresence>
           
           <div className="absolute inset-0 bg-gradient-to-b from-transparent from-70% via-black/70 via-85% to-black transform-gpu" />
