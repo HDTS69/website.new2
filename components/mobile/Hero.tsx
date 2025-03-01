@@ -5,10 +5,12 @@ import { Cover } from '../ui/cover';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AnimatedButton } from '../ui/AnimatedButton';
 import { getImageLoadingProps, IMAGE_SIZES, ImagePriority } from '@/utils/imageLoading';
+import { HeroBookingForm } from './HeroBookingForm';
 
 export function Hero() {
   // Remove unused state management
   // const [isLoaded, setIsLoaded] = React.useState(true);
+  const [showBookingForm, setShowBookingForm] = React.useState(false);
 
   return (
     <div className="relative min-h-[100dvh] flex flex-col bg-black opacity-0 animate-fade-in animation-delay-200 overflow-x-hidden overflow-y-auto pb-24 pt-16 touch-auto">
@@ -108,10 +110,13 @@ export function Hero() {
                 className="shadow-lg hover:shadow-xl hover:shadow-[#00E6CA]/20 text-white"
                 onClick={(e) => {
                   e.preventDefault();
-                  const bookingForm = document.getElementById('book');
-                  if (bookingForm) {
-                    bookingForm.scrollIntoView({ behavior: 'smooth' });
-                  }
+                  setShowBookingForm(true);
+                  setTimeout(() => {
+                    const bookingForm = document.getElementById('book');
+                    if (bookingForm) {
+                      bookingForm.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100);
                 }}
               >
                 Book Online
@@ -119,6 +124,21 @@ export function Hero() {
             </div>
           </div>
         </div>
+        
+        {/* Booking Form */}
+        <AnimatePresence>
+          {showBookingForm && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 50 }}
+              transition={{ duration: 0.3 }}
+              className="w-full max-w-md mx-auto mb-12"
+            >
+              <HeroBookingForm />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

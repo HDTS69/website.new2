@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Check, Copy, ChevronDown } from "lucide-react";
 import { AnimatedButton } from './AnimatedButton';
-import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
+import { getImageLoadingProps, IMAGE_SIZES, ImagePriority } from '@/utils/imageLoading';
 
 interface CopyButtonProps {
   text: string;
@@ -261,7 +261,7 @@ export default function Footer() {
                 fill
                 sizes={IMAGE_SIZES.THUMBNAIL}
                 className="object-contain"
-                {...getImageLoadingProps(false)}
+                {...getImageLoadingProps(ImagePriority.LOW)}
               />
             </div>
             

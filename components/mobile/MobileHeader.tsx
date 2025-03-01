@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
+import { getImageLoadingProps, ImagePriority } from '@/utils/imageLoading';
 
 export function MobileHeader() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -60,7 +61,7 @@ export function MobileHeader() {
             fill
             sizes="48px"
             className="object-contain"
-            priority
+            {...getImageLoadingProps(ImagePriority.HIGH)}
             draggable="false"
           />
         </motion.div>
@@ -81,7 +82,7 @@ export function MobileHeader() {
               fill
               sizes="180px"
               className="object-contain"
-              priority
+              {...getImageLoadingProps(ImagePriority.HIGH)}
               draggable="false"
             />
           </div>

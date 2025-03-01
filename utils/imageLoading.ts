@@ -3,15 +3,25 @@
  */
 
 /**
- * Returns the appropriate loading props for an image based on its position on the page
- * @param isAboveFold Whether the image is above the fold (visible on initial page load)
+ * Image priority levels
+ */
+export enum ImagePriority {
+  HIGH = 'high',
+  LOW = 'low',
+}
+
+/**
+ * Returns the appropriate loading props for an image based on its priority level
+ * @param priority The priority level of the image (HIGH for hero/header, LOW for everything else)
  * @returns Object with loading, priority, and fetchPriority props
  */
-export function getImageLoadingProps(isAboveFold: boolean) {
+export function getImageLoadingProps(priority: ImagePriority = ImagePriority.LOW) {
+  const isHighPriority = priority === ImagePriority.HIGH;
+  
   return {
-    loading: isAboveFold ? 'eager' as const : 'lazy' as const,
-    priority: isAboveFold,
-    fetchPriority: isAboveFold ? 'high' as 'high' : 'auto' as 'auto',
+    loading: isHighPriority ? 'eager' as const : 'lazy' as const,
+    priority: isHighPriority,
+    fetchPriority: isHighPriority ? 'high' as 'high' : 'low' as 'low',
   };
 }
 

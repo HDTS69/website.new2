@@ -51,9 +51,7 @@ The `netlify.toml` file in your repository should handle these settings automati
 
 Add the following environment variables in Netlify (Site settings > Environment variables):
 
-```
-NEXT_PUBLIC_SUPABASE_URL=https://mdfmjrcznydyyboergpx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kZm1qcmN6bnlkeXlib2VyZ3B4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0NTA4MTcsImV4cCI6MjA1MjAyNjgxN30.eza2os6UFN0oRwPnigDwxuNUT9Jl9jFHOVaB4I6fBRA
+
 ```
 
 Add any other environment variables your application needs.

@@ -10,6 +10,7 @@ import { NavBar } from '@/components/navigation/DesktopNavigation';
 import { Calendar, Phone, Home, Wrench, Info, Building2, MapPin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { navigationItems, actionItems } from '@/lib/navigation';
+import { getImageLoadingProps, ImagePriority } from '@/utils/imageLoading';
 
 interface Feature {
   title: string;
@@ -146,7 +147,7 @@ export function BrandPageLayout({
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover rounded-lg"
-                    priority
+                    {...getImageLoadingProps(ImagePriority.LOW)}
                   />
                 </div>
                 <div>
@@ -159,7 +160,7 @@ export function BrandPageLayout({
                         fill
                         sizes="(max-width: 768px) 33vw, 25vw"
                         className="object-contain p-4"
-                        priority
+                        {...getImageLoadingProps(ImagePriority.HIGH)}
                       />
                     )}
                   </div>
@@ -206,6 +207,7 @@ export function BrandPageLayout({
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover rounded-lg"
+                        {...getImageLoadingProps(ImagePriority.LOW)}
                       />
                     </div>
                   </div>

@@ -8,12 +8,32 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'scontent.cdninstagram.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent-syd2-1.cdninstagram.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.cdninstagram.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
-    unoptimized: true,
+    // Only use unoptimized images for static export
+    unoptimized: process.env.NODE_ENV === 'production',
   },
   reactStrictMode: true,
-  output: 'export',
-  distDir: 'out',
+  // Comment out the static export configuration for development
+  // output: 'export',
+  // distDir: 'out',
   experimental: {
     appDocumentPreloading: true,
   },

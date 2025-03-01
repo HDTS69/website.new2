@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
-import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
+import { getImageLoadingProps, IMAGE_SIZES, ImagePriority } from '@/utils/imageLoading';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -49,7 +49,7 @@ export default function Header() {
               fill
               sizes={IMAGE_SIZES.THUMBNAIL}
               className="object-contain"
-              {...getImageLoadingProps(true)}
+              {...getImageLoadingProps(ImagePriority.HIGH)}
               draggable="false"
             />
           </div>
@@ -60,7 +60,7 @@ export default function Header() {
               fill
               sizes={IMAGE_SIZES.THUMBNAIL}
               className="object-contain"
-              {...getImageLoadingProps(true)}
+              {...getImageLoadingProps(ImagePriority.HIGH)}
               draggable="false"
             />
           </div>
@@ -82,7 +82,7 @@ export default function Header() {
             fill
             sizes={IMAGE_SIZES.THUMBNAIL}
             className="object-contain"
-            {...getImageLoadingProps(true)}
+            {...getImageLoadingProps(ImagePriority.HIGH)}
             draggable="false"
           />
         </div>
@@ -93,7 +93,7 @@ export default function Header() {
             fill
             sizes={IMAGE_SIZES.THUMBNAIL}
             className="object-contain"
-            {...getImageLoadingProps(true)}
+            {...getImageLoadingProps(ImagePriority.HIGH)}
             draggable="false"
           />
         </div>

@@ -5,12 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SparklesCore } from './SparklesCore';
 import { motion } from 'framer-motion';
-import { getImageLoadingProps, IMAGE_SIZES } from '@/utils/imageLoading';
+import { getImageLoadingProps, IMAGE_SIZES, ImagePriority } from '@/utils/imageLoading';
 
 interface InstagramPost {
   id: string;
   media_url: string;
   permalink: string;
+  caption?: string;
 }
 
 // Mock data for static builds or fallback
@@ -41,7 +42,20 @@ export function InstagramFeed() {
     // Function to fetch Instagram posts
     async function fetchInstagramPosts() {
       try {
-        // First try to load from static JSON file (for static builds)
+        // First try to fetch from our API route
+        const response = await fetch('/api/instagram')
+          .catch(() => null);
+        
+        if (response && response.ok) {
+          const data = await response.json();
+          if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+            setPosts(data.data);
+            setLoading(false);
+            return;
+          }
+        }
+        
+        // If API route fails, try to load from static JSON file (for static builds)
         const staticDataResponse = await fetch('/data/instagram.json')
           .catch(() => null);
         
@@ -54,7 +68,7 @@ export function InstagramFeed() {
           }
         }
         
-        // If static data fails, use mock data
+        // If all else fails, use mock data
         setPosts(MOCK_INSTAGRAM_POSTS);
         setLoading(false);
       } catch (err) {
@@ -122,11 +136,11 @@ export function InstagramFeed() {
                     <div className="relative w-full h-full">
                       <Image 
                         src={post.media_url} 
-                        alt="Instagram post" 
+                        alt={post.caption || "Instagram post"} 
                         fill
-                        sizes={IMAGE_SIZES.THUMBNAIL}
+                        sizes={IMAGE_SIZES.CARD}
                         className="object-cover"
-                        {...getImageLoadingProps(false)}
+                        {...getImageLoadingProps(ImagePriority.LOW)}
                       />
                     </div>
                   </Link>
