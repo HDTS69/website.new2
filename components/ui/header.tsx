@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { getImageLoadingProps, IMAGE_SIZES, ImagePriority } from '@/utils/imageLoading';
+import { OpenNowIndicator } from './OpenNowIndicator';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -129,6 +130,9 @@ export default function Header() {
           >
             {/* Logo Section */}
             <LogoButton />
+            
+            {/* Open Now Indicator */}
+            <OpenNowIndicator className="ml-auto" />
           </motion.div>
         ) : (
           <div className="h-24 opacity-0"></div>

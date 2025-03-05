@@ -60,10 +60,13 @@ export function Navigation({ items, actionItems = [], className }: BaseNavigatio
   return (
     <nav
       className={cn(
-        "fixed bottom-0 left-0 right-0 z-[60] w-full px-4 pb-4 pt-2",
+        "fixed bottom-0 left-0 right-0 z-[60] w-full px-4",
         "md:hidden", // Hide on desktop since we're using NavBar.tsx
         className,
       )}
+      style={{
+        paddingBottom: 'calc(env(safe-area-inset-bottom) + 1rem)'
+      }}
     >
       <div className="mx-auto max-w-md border border-[#00E6CA]/20 bg-black/90 backdrop-blur-lg rounded-2xl shadow-lg shadow-[#00E6CA]/10">
         <div className="flex items-center justify-between gap-1 py-2 px-2">

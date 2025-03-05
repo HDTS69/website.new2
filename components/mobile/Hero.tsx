@@ -57,12 +57,12 @@ export function Hero() {
                   style={{ 
                     objectFit: 'contain', 
                     objectPosition: 'left bottom',
-                    transform: 'translateZ(0)',
-                    willChange: 'transform',
                     filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
                   }}
-                  className="select-none"
-                  {...getImageLoadingProps(ImagePriority.HIGH)}
+                  className="select-none optimize-performance"
+                  priority
+                  quality={90}
+                  fetchPriority="high"
                   draggable="false"
                 />
               </div>

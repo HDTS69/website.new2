@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { 
   Clock, Shield, Award, CreditCard, Zap, Wrench, 
-  Recycle, Users, Gift, Truck, HeartHandshake, ThumbsUp 
+  Recycle, Users, Gift, Truck, HeartHandshake 
 } from "lucide-react";
 import { SparklesCore } from "@/components/ui/SparklesCore";
 
@@ -24,67 +24,79 @@ const containerVariant = {
   }
 };
 
-// Combined all features into one array with 12 items
+// Combined all features into one array with consistent structure - matching desktop version
 const allFeatures = [
   {
     icon: Clock,
     title: "24/7 Service",
-    subheader: "Always Available"
+    highlight: "Always Available",
+    gradient: "from-cyan-500 to-blue-500"
   },
   {
     icon: Truck,
     title: "Same Day Service",
-    subheader: "Fast Turnaround"
+    highlight: "Fast Turnaround",
+    gradient: "from-indigo-500 to-purple-500"
   },
   {
     icon: Award,
     title: "Satisfaction Guarantee",
-    subheader: "Quality Assured"
+    highlight: "Quality Assured",
+    gradient: "from-amber-500 to-pink-500"
   },
   {
     icon: CreditCard,
     title: "Finance Options",
-    subheader: "Interest-Free"
+    highlight: "Interest-Free Available",
+    gradient: "from-emerald-500 to-teal-500"
   },
   {
     icon: Shield,
     title: "Licensed & Insured",
-    subheader: "100% Certified"
+    highlight: "100% Certified",
+    gradient: "from-blue-500 to-violet-500"
   },
   {
     icon: Zap,
     title: "Live Tracking",
-    subheader: "Real-Time Updates"
+    highlight: "Real-Time Updates",
+    gradient: "from-yellow-500 to-orange-500"
   },
   {
     icon: Wrench,
     title: "Premium Equipment",
-    subheader: "Top Quality"
+    highlight: "Top Quality",
+    gradient: "from-rose-500 to-red-500"
   },
   {
     icon: HeartHandshake,
     title: "Reliability & Trust",
-    subheader: "Trusted Service"
+    highlight: "Trusted Service",
+    gradient: "from-green-500 to-emerald-500"
   },
   {
-    icon: ThumbsUp,
+    icon: Award,
     title: "Fixed First Time",
-    subheader: "Guaranteed Results"
+    highlight: "Guaranteed results",
+    gradient: "from-sky-500 to-blue-600"
   },
   {
     icon: Users,
     title: "Expert Team",
-    subheader: "Licensed Pros"
+    highlight: "Licensed professionals",
+    gradient: "from-purple-500 to-indigo-600"
   },
   {
     icon: Gift,
     title: "Member Benefits",
-    subheader: "VIP Program"
+    highlight: "Join our VIP program",
+    gradient: "from-orange-500 to-amber-600"
   },
   {
     icon: Recycle,
-    title: "Eco-Friendly",
-    subheader: "Sustainable Options"
+    title: "Eco-Friendly Solutions",
+    highlight: "Environmental care",
+    gradient: "from-lime-500 to-green-600"
   }
 ];
 
@@ -138,12 +150,15 @@ export function WhyChooseUsMobile() {
                 variants={fadeInUpVariant}
                 className="flex flex-col items-center"
               >
-                <div className="w-full aspect-square flex flex-col items-center justify-center p-2 rounded-lg bg-gray-900/50 hover:bg-gray-900/70 transition-all duration-300 text-center">
-                  <div className="w-8 h-8 bg-[#00E6CA]/10 rounded-full flex items-center justify-center mb-2">
-                    <Icon className="w-4 h-4 text-[#00E6CA]" />
+                <div className="w-full aspect-square flex flex-col items-center justify-center p-2 rounded-lg bg-gray-900/50 hover:bg-gray-900/70 transition-all duration-300 text-center relative overflow-hidden">
+                  {/* Gradient background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 hover:opacity-10 transition-opacity duration-500 rounded-lg`}></div>
+                  
+                  <div className={`w-8 h-8 bg-gradient-to-br ${feature.gradient} rounded-full flex items-center justify-center mb-2`}>
+                    <Icon className="w-4 h-4 text-white" />
                   </div>
                   <h3 className="text-xs font-semibold text-white leading-tight line-clamp-2">{feature.title}</h3>
-                  <p className="text-[#00E6CA] font-medium text-[10px] mt-0.5 line-clamp-1">{feature.subheader}</p>
+                  <p className="text-[#00E6CA] font-medium text-[10px] mt-0.5 line-clamp-1">{feature.highlight}</p>
                 </div>
               </motion.div>
             );

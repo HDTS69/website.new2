@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Script from 'next/script';
 import { WaveInput } from './WaveInput';
+import { cn } from '@/lib/utils';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { MdEdit } from 'react-icons/md';
 
 // Define the Google Maps API key
 const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '';
@@ -52,14 +54,22 @@ export function AddressInput({
   const [initialized, setInitialized] = useState(false);
   const autocompleteRef = useRef<any>(null);
   const autocompleteListenerRef = useRef<any>(null);
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    setIsBrowser(true);
+  }, []);
 
   // Initialize Google Places Autocomplete
   const initializeAutocomplete = () => {
-    if (!addressRef.current || manualEntry || !window.google || !window.google.maps || !window.google.maps.places) {
+    if (!addressRef.current || manualEntry || !isBrowser || (isBrowser && (!window.google || !window.google.maps || !window.google.maps.places))) {
       return;
     }
 
     try {
+      // Clean up any existing autocomplete instance first
+      cleanup();
+      
       // Create the autocomplete instance
       autocompleteRef.current = new window.google.maps.places.Autocomplete(addressRef.current, {
         types: ['address'],
@@ -104,47 +114,84 @@ export function AddressInput({
 
   // Cleanup function
   const cleanup = () => {
-    if (autocompleteListenerRef.current && window.google && window.google.maps && window.google.maps.event) {
+    if (autocompleteListenerRef.current && isBrowser && window.google && window.google.maps && window.google.maps.event) {
       window.google.maps.event.removeListener(autocompleteListenerRef.current);
-      autocompleteRef.current = null;
-      setInitialized(false);
+      autocompleteListenerRef.current = null;
+    }
+    autocompleteRef.current = null;
+    setInitialized(false);
+    
+    // Force remove any existing pac-container elements when in manual entry mode
+    if (manualEntry && typeof document !== 'undefined') {
+      const pacContainers = document.querySelectorAll('.pac-container');
+      pacContainers.forEach(container => {
+        container.remove();
+      });
     }
   };
 
   // Initialize Google Places Autocomplete when the component mounts
   useEffect(() => {
-    // Define the global callback function for the Google Maps API
-    window.initGooglePlacesAutocomplete = () => {
-      if (!manualEntry) {
-        initializeAutocomplete();
-      }
-    };
-
-    // If Google Maps API is already loaded, initialize autocomplete
-    if (window.google && window.google.maps && window.google.maps.places && !initialized && !manualEntry) {
-      initializeAutocomplete();
+    // Only try to initialize if not in manual entry mode
+    if (manualEntry) {
+      cleanup();
+      return;
     }
-
-    return cleanup;
-  }, []);
+    
+    // Check if Google Maps API is already loaded
+    if (isBrowser && window.google && window.google.maps && window.google.maps.places && !initialized) {
+      // Add a small delay to ensure the API is fully loaded
+      setTimeout(() => {
+        initializeAutocomplete();
+      }, 100);
+    } else {
+      // Set up a polling mechanism to check for Google Maps API availability
+      const checkGoogleMapsInterval = setInterval(() => {
+        if (isBrowser && window.google && window.google.maps && window.google.maps.places && !initialized) {
+          clearInterval(checkGoogleMapsInterval);
+          initializeAutocomplete();
+        }
+      }, 500);
+      
+      // Clear interval on component unmount
+      return () => {
+        clearInterval(checkGoogleMapsInterval);
+        cleanup();
+      };
+    }
+  }, [manualEntry, isBrowser]); // Add manualEntry and isBrowser as dependencies
 
   // Re-initialize autocomplete when manual entry changes
   useEffect(() => {
     if (manualEntry) {
       cleanup();
-    } else if (window.google && window.google.maps && window.google.maps.places && !initialized) {
-      initializeAutocomplete();
+    } else if (isBrowser && window.google && window.google.maps && window.google.maps.places) {
+      // Add a small delay to ensure the API is fully loaded
+      setTimeout(() => {
+        initializeAutocomplete();
+      }, 100);
     }
-  }, [manualEntry]);
+  }, [manualEntry, isBrowser]);
+
+  // Handle Google Maps script load error
+  const handleGoogleMapsError = () => {
+    console.error('Error loading Google Maps API script');
+    // If script fails to load, enable manual entry as fallback
+    if (!manualEntry) {
+      // Create a synthetic event to match the expected type
+      const syntheticEvent = {
+        target: { checked: true },
+        currentTarget: { checked: true },
+        preventDefault: () => {},
+        stopPropagation: () => {},
+      } as unknown as React.ChangeEvent<HTMLInputElement>;
+      
+      onManualEntryChange?.(syntheticEvent);
+    }
+  };
 
   return (
     <>
-      {/* Load Google Maps API */}
-      <Script
-        src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initGooglePlacesAutocomplete`}
-        strategy="lazyOnload"
-      />
-
       {/* Custom styles for Google Places Autocomplete */}
       <style jsx global>{`
         .pac-container {
@@ -155,6 +202,7 @@ export function AddressInput({
           box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
           z-index: 9999;
           font-family: inherit;
+          ${manualEntry ? 'display: none !important;' : ''}
         }
         .pac-item {
           padding: 8px 12px;
@@ -199,6 +247,7 @@ export function AddressInput({
           label="Address"
           error={error}
           autoComplete={manualEntry ? "on" : "off"}
+          disabled={!manualEntry && (!isBrowser || (isBrowser && !window.google))}
         />
         {showManualEntry && (
           <motion.div 

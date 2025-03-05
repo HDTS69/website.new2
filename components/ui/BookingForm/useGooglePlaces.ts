@@ -2,25 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-// Define the Google Maps API types
-declare global {
-  interface Window {
-    google: {
-      maps: {
-        places: {
-          Autocomplete: new (input: HTMLInputElement, options?: any) => any;
-          AutocompleteService: any;
-          PlacesServiceStatus: any;
-        };
-        event: {
-          addListener: (instance: any, eventName: string, callback: Function) => void;
-          removeListener: (listener: any) => void;
-        };
-      };
-    };
-    initGooglePlacesAutocomplete: () => void;
-  }
-}
+// No global interface declaration to avoid conflicts
 
 interface UseGooglePlacesProps {
   inputRef: React.RefObject<HTMLInputElement>;
@@ -40,15 +22,18 @@ export function useGooglePlaces({ inputRef, onPlaceSelect, disabled = false }: U
     }
 
     try {
+      // Clean up any existing autocomplete instance first
+      cleanup();
+      
       // Create the autocomplete instance
-      autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, {
+      autocompleteRef.current = new (window.google.maps.places as any).Autocomplete(inputRef.current, {
         types: ['address'],
         componentRestrictions: { country: 'au' }, // Restrict to Australia
         fields: ['address_components', 'formatted_address'],
       });
 
       // Add listener for place selection
-      listenerRef.current = window.google.maps.event.addListener(
+      listenerRef.current = (window.google.maps as any).event.addListener(
         autocompleteRef.current,
         'place_changed',
         () => {
@@ -68,16 +53,25 @@ export function useGooglePlaces({ inputRef, onPlaceSelect, disabled = false }: U
   // Cleanup function
   const cleanup = () => {
     if (listenerRef.current && window.google && window.google.maps && window.google.maps.event) {
-      window.google.maps.event.removeListener(listenerRef.current);
-      autocompleteRef.current = null;
-      setInitialized(false);
+      (window.google.maps as any).event.removeListener(listenerRef.current);
+      listenerRef.current = null;
+    }
+    autocompleteRef.current = null;
+    setInitialized(false);
+    
+    // Force remove any existing pac-container elements when disabled
+    if (disabled && typeof document !== 'undefined') {
+      const pacContainers = document.querySelectorAll('.pac-container');
+      pacContainers.forEach(container => {
+        container.remove();
+      });
     }
   };
 
   // Initialize Google Places Autocomplete when the component mounts
   useEffect(() => {
     // Define the global callback function for the Google Maps API
-    window.initGooglePlacesAutocomplete = () => {
+    (window as any).initGooglePlacesAutocomplete = () => {
       if (!disabled) {
         initializeAutocomplete();
       }

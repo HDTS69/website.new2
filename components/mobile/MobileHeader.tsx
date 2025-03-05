@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import { getImageLoadingProps, ImagePriority } from '@/utils/imageLoading';
+import { OpenNowIndicator } from '../ui/OpenNowIndicator';
 
 export function MobileHeader() {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
@@ -138,10 +139,25 @@ export function MobileHeader() {
           delay: 0.1
         }
       }}
-      style={{ touchAction: 'pan-x pan-y' }}
+      style={{ 
+        touchAction: 'pan-x pan-y',
+        paddingTop: 'env(safe-area-inset-top)'
+      }}
     >
       <div className="px-4 py-3">
         <LogoButton />
+        
+        {/* Open Now Indicator - positioned below the logo */}
+        <motion.div
+          className="flex justify-center mt-2 mb-1"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: isVisible ? 1 : 0,
+            transition: { delay: 0.3, duration: 0.5 }
+          }}
+        >
+          <OpenNowIndicator />
+        </motion.div>
       </div>
     </motion.header>
   );

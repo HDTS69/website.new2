@@ -77,11 +77,10 @@ test.describe('Footer Component', () => {
 
   test('should have working social media links @smoke', async ({ page }) => {
     const socialLinks = page.locator('.flex.gap-4 a');
-    await expect(socialLinks).toHaveCount(3); // Facebook, Instagram, LinkedIn
+    await expect(socialLinks).toHaveCount(2); // Facebook, LinkedIn
     
     // Check each social link
     await expect(page.getByRole('link', { name: /facebook/i })).toHaveAttribute('href', 'https://facebook.com');
-    await expect(page.getByRole('link', { name: /instagram/i })).toHaveAttribute('href', 'https://instagram.com');
     await expect(page.getByRole('link', { name: /linkedin/i })).toHaveAttribute('href', 'https://linkedin.com');
   });
 

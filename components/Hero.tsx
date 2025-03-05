@@ -84,8 +84,9 @@ export function Hero() {
                     objectPosition: 'left center',
                     filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.5))'
                   }}
-                  className="select-none"
+                  className="select-none optimize-performance"
                   quality={90}
+                  fetchPriority="high"
                 />
               </div>
             </motion.div>

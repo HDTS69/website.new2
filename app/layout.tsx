@@ -2,6 +2,9 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
+import { Analytics } from "@/components/Analytics";
+import { GoogleMapsScript } from '@/components/ui/BookingForm/GoogleMapsScript';
+import { PullToRefresh } from '@/components/PullToRefresh';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,13 +38,15 @@ export default function RootLayout({
             margin: 0;
             padding: 0;
             touch-action: pan-x pan-y;
+            -ms-content-zooming: none;
+            -ms-touch-action: pan-x pan-y;
           }
 
           body {
             background-color: rgb(0, 0, 0);
             min-height: 100%;
             margin: 0;
-            padding: 0;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
             -webkit-overflow-scrolling: touch;
             touch-action: pan-x pan-y;
           }
@@ -64,11 +69,12 @@ export default function RootLayout({
           textarea:-webkit-autofill {
             -webkit-text-fill-color: #f3f4f6 !important;
             -webkit-box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
+            box-shadow: 0 0 0 30px rgb(0, 0, 0) inset !important;
             background-color: rgb(0, 0, 0) !important;
             caret-color: #f3f4f6 !important;
+            transition: none !important;
           }
           
-          /* Fix for DevTools mobile scrolling */
           @media (max-width: 767px) {
             html, body {
               position: relative;
@@ -76,73 +82,52 @@ export default function RootLayout({
               overflow-y: auto;
               overflow-x: hidden;
               overscroll-behavior: none;
+              padding-top: env(safe-area-inset-top);
+              padding-right: env(safe-area-inset-right);
+              padding-bottom: env(safe-area-inset-bottom);
+              padding-left: env(safe-area-inset-left);
+            }
+          }
+          
+          .content-visibility-auto {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 5000px;
+          }
+          
+          .optimize-performance {
+            backface-visibility: hidden;
+          }
+          
+          @media (prefers-reduced-motion: reduce) {
+            * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+              scroll-behavior: auto !important;
             }
           }
         `}</style>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0, viewport-fit=cover" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, minimum-scale=1.0, viewport-fit=cover" />
         
-        {/* 
-          Preload critical images used in the Hero components.
-          These images are intentionally preloaded for better performance
-          and are used immediately when the page loads.
-        */}
-        <link 
-          rel="preload" 
-          href="/images/text-logo.webp" 
-          as="image" 
-          type="image/webp" 
-          fetchPriority="high" 
-          crossOrigin="anonymous" 
-        />
-        <link 
-          rel="preload" 
-          href="/images/icon-logo.webp" 
-          as="image" 
-          type="image/webp" 
-          fetchPriority="high" 
-          crossOrigin="anonymous" 
-        />
-        <link 
-          rel="preload" 
-          href="/images/hayden-hero-1.webp" 
-          as="image" 
-          type="image/webp" 
-          fetchPriority="high" 
-          crossOrigin="anonymous" 
-        />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://maps.googleapis.com" />
         
-        {/* DebugBear RUM Analytics - Reduced to 10% of users for better performance */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function() {
-            var dbpr = 10; // Reduced from 100 to 10% of users
-            if (Math.random() * 100 > 100 - dbpr) {
-              var d = "d bbRum";
-              var w = window;
-              var o = document;
-              var a = addEventListener;
-              var scr = o.createElement("script");
-              scr.async = true;
-              w[d] = w[d] || [];
-              w[d].push(["presampling", dbpr]);
-              ["error", "unhandledrejection"].forEach(function(t) {
-                a(t, function(e) {
-                  w[d].push([t, e]);
-                });
-              });
-              scr.src = "https://cdn.debugbear.com/bhE8e4HnfxsA.js";
-              o.head.appendChild(scr);
-            }
-          })();
-        `}} />
+        <link rel="preconnect" href="https://maps.googleapis.com" />
+        <link rel="preconnect" href="https://maps.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
         className="font-inter antialiased bg-black"
         suppressHydrationWarning
       >
-        <div className="flex min-h-screen flex-col">
+        <PullToRefresh />
+        <div className="flex min-h-screen flex-col bg-black">
           {children}
           <ScrollToTop />
         </div>
+
+        <Analytics />
+        <GoogleMapsScript />
       </body>
     </html>
   );

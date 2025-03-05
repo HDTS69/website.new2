@@ -90,7 +90,7 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
     }
   }
 
-  const linkBaseClasses = "relative flex items-center gap-1.5 text-sm font-medium transition-all duration-300 text-gray-400 hover:text-[#00E6CA]"
+  const linkBaseClasses = "relative flex items-center gap-1.5 text-xs font-medium transition-all duration-300 text-gray-400 hover:text-[#00E6CA]"
   const linkActiveClasses = "text-[#00E6CA]"
   const linkHighlightedClasses = "text-gray-400 hover:text-[#00E6CA]"
 
@@ -100,22 +100,21 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
         isMobile 
           ? "fixed bottom-0 left-0 right-0 w-full !min-w-0 px-4 pb-4 md:hidden z-[60]" 
           : cn(
-              "w-full max-w-[800px] mx-auto z-[60]",
-              "fixed left-0 right-0", // Always fixed, but top position adjusts dynamically
-              "transition-none" // No transitions for natural movement
+              "w-full max-w-[700px] mx-auto z-[60]",
+              "fixed left-0 right-0",
+              "transition-none"
             ),
         className
       )}
       style={{
-        // Dynamically calculate top position for smooth movement
-        top: `${Math.max(96 - scrollPosition, 10)}px`, // Start at 96px (below header), move to 10px when scrolled past header
+        top: `${Math.max(96 - scrollPosition, 10)}px`,
       }}
     >
       <motion.div 
         className={cn(
           "border border-[#00E6CA]/20 bg-black/90 backdrop-blur-md pointer-events-auto",
           isMobile ? "rounded-2xl mx-auto max-w-md mb-0" : "rounded-full",
-          "transition-none" // No transitions for natural movement
+          "transition-none"
         )}
         initial={{ opacity: 0, scale: 0, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -127,13 +126,13 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
         }}
       >
         <div className={cn(
-          "flex items-center justify-center py-2",
-          isMobile ? "px-2 gap-1" : "px-2"
+          "flex items-center justify-between",
+          isMobile ? "px-2 gap-1 py-2" : "px-3 py-2"
         )}>
-          {/* All Navigation Items (Main Items with Dropdowns) */}
+          {/* Navigation Items */}
           <div className={cn(
             "flex items-center",
-            isMobile ? "gap-1" : "gap-4"
+            isMobile ? "gap-1" : "gap-3"
           )}>
             {items.map((item) => (
               <NavItem
@@ -154,12 +153,11 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
             ))}
           </div>
 
-          {/* Action Buttons (Call Now and Book Online) Restored with Consistent Styling and Debugging */}
-          {actionItems.length > 0 && ( // Debugging: Check if actionItems is empty
+          {/* Action Buttons */}
+          {actionItems.length > 0 && (
             <div className={cn(
               "flex items-center",
-              isMobile ? "gap-1" : "gap-4 ml-4 pl-4 border-l border-[#00E6CA]/20", // Increased gap to match main items, added border
-              "debug" // Optional: Add a debug class to inspect visibility
+              isMobile ? "gap-1" : "gap-3 ml-3 pl-3 border-l border-[#00E6CA]/20"
             )}>
               {actionItems.map((item) => (
                 <Link
@@ -173,18 +171,18 @@ export function NavBar({ items, actionItems = [], className }: NavBarProps) {
                     }
                   }}
                   className={cn(
-                    linkBaseClasses, // Use the same base classes as main nav items
+                    linkBaseClasses,
                     isMobile 
                       ? "flex-col items-center gap-0.5 px-2 py-1" 
-                      : "gap-1.5 px-3 py-1.5", // Match padding and gap of main items
-                    "text-gray-400 hover:text-[#00E6CA]", // Match hover behavior
-                    "[text-shadow:0_0_10px_rgba(0,230,202,0.5)] hover:[text-shadow:0_0_20px_rgba(0,230,202,0.8)]" // Match hover shadow
+                      : "gap-1.5 px-2 py-1.5",
+                    "text-gray-400 hover:text-[#00E6CA]",
+                    "[text-shadow:0_0_10px_rgba(0,230,202,0.5)] hover:[text-shadow:0_0_20px_rgba(0,230,202,0.8)]"
                   )}
                 >
-                  <item.icon size={isMobile ? 20 : 16} strokeWidth={2} className="flex-shrink-0" /> {/* Match icon size and stroke of main items */}
+                  <item.icon size={isMobile ? 20 : 14} strokeWidth={2} className="flex-shrink-0" />
                   <span className={cn(
-                    isMobile ? "text-[10px] leading-tight" : "hidden md:inline whitespace-nowrap", // Match text visibility and size
-                    "text-center font-medium" // Match font weight
+                    isMobile ? "text-[10px] leading-tight" : "text-xs whitespace-nowrap",
+                    "text-center font-medium"
                   )}>{item.name}</span>
                 </Link>
               ))}
@@ -227,29 +225,48 @@ function NavItem({
 }: NavItemProps) {
   const Icon = item.icon
   const hasDropdown = item.dropdownItems && item.dropdownItems.length > 0
+  const isHomeItem = item.name === "Home"
 
   return (
     <div className="relative nav-item group">
       <div className="flex items-center">
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            onItemClick(item, true) // Trigger dropdown toggle
-          }}
-          className={cn(
-            linkBaseClasses,
-            isActive && !item.isHighlighted && linkActiveClasses,
-            item.isHighlighted && linkHighlightedClasses,
-            isMobile && "flex-col items-center gap-0.5 px-2 py-1"
-          )}
-        >
-          <Icon size={isMobile ? 20 : 16} strokeWidth={2} className="flex-shrink-0" />
-          <span className={cn(
-            isMobile ? "text-[10px] leading-tight" : "hidden md:inline whitespace-nowrap",
-            "text-center"
-          )}>{item.name}</span>
-        </button>
+        {isHomeItem ? (
+          <Link
+            href="/"
+            className={cn(
+              linkBaseClasses,
+              isActive && !item.isHighlighted && linkActiveClasses,
+              item.isHighlighted && linkHighlightedClasses,
+              isMobile && "flex-col items-center gap-0.5 px-2 py-1"
+            )}
+          >
+            <Icon size={isMobile ? 20 : 16} strokeWidth={2} className="flex-shrink-0" />
+            <span className={cn(
+              isMobile ? "text-[10px] leading-tight" : "hidden md:inline whitespace-nowrap",
+              "text-center"
+            )}>{item.name}</span>
+          </Link>
+        ) : (
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              onItemClick(item, true) // Trigger dropdown toggle
+            }}
+            className={cn(
+              linkBaseClasses,
+              isActive && !item.isHighlighted && linkActiveClasses,
+              item.isHighlighted && linkHighlightedClasses,
+              isMobile && "flex-col items-center gap-0.5 px-2 py-1"
+            )}
+          >
+            <Icon size={isMobile ? 20 : 16} strokeWidth={2} className="flex-shrink-0" />
+            <span className={cn(
+              isMobile ? "text-[10px] leading-tight" : "hidden md:inline whitespace-nowrap",
+              "text-center"
+            )}>{item.name}</span>
+          </button>
+        )}
         {hasDropdown && (
           <button
             onClick={(e) => {

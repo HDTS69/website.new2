@@ -110,21 +110,25 @@ export function BrandCarousel() {
 
   return (
     <section className="relative py-12 md:py-16 lg:py-24 bg-black overflow-hidden">
-      <div className="absolute inset-0 opacity-50">
+      <div className="absolute inset-0">
         <SparklesCore
           background="transparent"
-          minSize={1}
-          maxSize={2}
+          minSize={0.4}
+          maxSize={1}
           particleDensity={100}
           className="w-full h-full"
           particleColor="#1CD4A7"
-          speed={0.3}
+          speed={0.2}
         />
       </div>
 
       <div className="text-center mb-12 relative z-20">
-        <h2 className="standard-header">Trusted by Leading Brands</h2>
-        <p className="standard-subheader">
+        <span className="text-sm font-semibold text-[#00E6CA] uppercase tracking-wider block text-center mb-2">TRUSTED PARTNERS</span>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 relative">
+          Brands We Trust
+          <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-[#00E6CA] to-transparent"></div>
+        </h2>
+        <p className="text-gray-300 text-lg max-w-3xl mx-auto mt-6">
           We partner with industry-leading manufacturers and suppliers to deliver excellence
         </p>
       </div>

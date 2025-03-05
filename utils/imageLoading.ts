@@ -13,7 +13,7 @@ export enum ImagePriority {
 /**
  * Returns the appropriate loading props for an image based on its priority level
  * @param priority The priority level of the image (HIGH for hero/header, LOW for everything else)
- * @returns Object with loading, priority, and fetchPriority props
+ * @returns Object with loading, priority, fetchPriority, and quality props
  */
 export function getImageLoadingProps(priority: ImagePriority = ImagePriority.LOW) {
   const isHighPriority = priority === ImagePriority.HIGH;
@@ -21,7 +21,8 @@ export function getImageLoadingProps(priority: ImagePriority = ImagePriority.LOW
   return {
     loading: isHighPriority ? 'eager' as const : 'lazy' as const,
     priority: isHighPriority,
-    fetchPriority: isHighPriority ? 'high' as 'high' : 'low' as 'low',
+    fetchPriority: isHighPriority ? 'high' as const : 'auto' as const,
+    quality: isHighPriority ? 90 : 75,
   };
 }
 
@@ -32,7 +33,7 @@ export const IMAGE_SIZES = {
   // Full width images
   FULL_WIDTH: '100vw',
   // Hero images
-  HERO: '45vw',
+  HERO: '(max-width: 768px) 100vw, 45vw',
   // Card images
   CARD: '(max-width: 768px) 100vw, 50vw',
   // Thumbnail images

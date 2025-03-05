@@ -8,6 +8,7 @@ import { WaveInput } from '../ui/BookingForm/WaveInput';
 import { Dropdown } from '../ui/BookingForm/Dropdown';
 import { DatePicker } from '../ui/DatePicker';
 import { AddressInput } from '../ui/BookingForm/AddressInput';
+import { GoogleMapsScript } from '../ui/BookingForm/GoogleMapsScript';
 import { SERVICE_CATEGORIES, PREFERRED_TIMES, URGENCY_OPTIONS } from '../ui/BookingForm/constants';
 import type { Service, ServiceCategory } from '../ui/BookingForm/types';
 
@@ -26,7 +27,7 @@ export function HeroBookingForm() {
     preferredDateRange: null as string | null,
     message: '',
     files: [] as File[],
-    newsletter: false,
+    newsletter: true,
     termsAccepted: false,
   });
   
@@ -185,7 +186,7 @@ export function HeroBookingForm() {
         preferredDateRange: null,
         message: '',
         files: [],
-        newsletter: false,
+        newsletter: true,
         termsAccepted: false,
       });
     } catch (error) {
@@ -250,6 +251,17 @@ export function HeroBookingForm() {
   return (
     <div id="book" className="w-full bg-black/80 backdrop-blur-sm border border-gray-800 rounded-xl p-5 shadow-xl">
       <h3 className="text-xl font-semibold text-white mb-4 text-center">Book Your Service</h3>
+      
+      <GoogleMapsScript onLoadError={() => {
+        console.error('Error loading Google Maps API script');
+        // Enable manual entry as fallback if script fails to load
+        if (!formData.manualEntry) {
+          setFormData(prev => ({
+            ...prev,
+            manualEntry: true
+          }));
+        }
+      }} />
       
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <WaveInput

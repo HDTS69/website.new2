@@ -8,6 +8,7 @@ import { WaveInput } from './ui/BookingForm/WaveInput';
 import { Dropdown } from './ui/BookingForm/Dropdown';
 import { DatePicker } from './ui/DatePicker';
 import { AddressInput } from './ui/BookingForm/AddressInput';
+import { GoogleMapsScript } from './ui/BookingForm/GoogleMapsScript';
 import { SERVICE_CATEGORIES, PREFERRED_TIMES, URGENCY_OPTIONS } from './ui/BookingForm/constants';
 import type { Service, ServiceCategory } from './ui/BookingForm/types';
 
@@ -26,7 +27,7 @@ export function HeroBookingForm() {
     preferredDateRange: null as string | null,
     message: '',
     files: [] as File[],
-    newsletter: false,
+    newsletter: true,
     termsAccepted: false,
   });
   
@@ -185,7 +186,7 @@ export function HeroBookingForm() {
         preferredDateRange: null,
         message: '',
         files: [],
-        newsletter: false,
+        newsletter: true,
         termsAccepted: false,
       });
     } catch (error) {
@@ -249,6 +250,18 @@ export function HeroBookingForm() {
     <div id="book" className="w-full bg-black/80 backdrop-blur-sm border border-gray-800 rounded-xl p-6 shadow-xl">
       <h3 className="text-2xl font-semibold text-white mb-4 text-center">Book Your Service</h3>
       
+      {/* Add Google Maps Script */}
+      <GoogleMapsScript onLoadError={() => {
+        console.error('Error loading Google Maps API script');
+        // Enable manual entry as fallback if script fails to load
+        if (!formData.manualEntry) {
+          setFormData(prev => ({
+            ...prev,
+            manualEntry: true
+          }));
+        }
+      }} />
+      
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <WaveInput
           required
@@ -256,9 +269,9 @@ export function HeroBookingForm() {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          onBlur={(e) => validateField('name', e.target.value)}
+          onBlur={() => {}}
           label="Name"
-          error={errors.name}
+          error={hasAttemptedSubmit ? errors.name : undefined}
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -269,9 +282,9 @@ export function HeroBookingForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            onBlur={(e) => validateField('phone', e.target.value)}
+            onBlur={() => {}}
             label="Phone"
-            error={errors.phone}
+            error={hasAttemptedSubmit ? errors.phone : undefined}
             pattern="^(?:\+61|0)[2-478](?:[ -]?\d{4}[ -]?\d{4}|\d{8})$"
           />
           
@@ -282,20 +295,20 @@ export function HeroBookingForm() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            onBlur={(e) => validateField('email', e.target.value)}
+            onBlur={() => {}}
             label="Email"
-            error={errors.email}
+            error={hasAttemptedSubmit ? errors.email : undefined}
             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
           />
         </div>
         
-        <div className="relative">
+        <div className="relative mb-6">
           <AddressInput
             value={formData.address}
             onChange={handleChange}
-            onBlur={(e) => validateField('address', e.target.value)}
+            onBlur={() => {}}
             onFocus={() => setShowManualEntry(true)}
-            error={errors.address}
+            error={hasAttemptedSubmit ? errors.address : undefined}
             manualEntry={formData.manualEntry}
             onManualEntryChange={handleChange}
             showManualEntry={showManualEntry}
@@ -480,7 +493,7 @@ export function HeroBookingForm() {
           </div>
         </div>
         
-        {/* Updated WaveInput for Message */}
+        {/* Updated WaveInput for Message with fixed SVG path */}
         <div className="relative mt-3">
             <WaveInput
               required
@@ -521,8 +534,7 @@ export function HeroBookingForm() {
                 strokeLinecap="round" 
                 strokeLinejoin="round" 
                 strokeWidth="2" 
-                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586
-                   a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
+                d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
               />
             </svg>
           </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { SparklesCore } from "./SparklesCore";
 
@@ -385,29 +385,95 @@ const TestimonialColumn = ({ reviews, direction = "up", duration }: {
 
 // Mobile Testimonials Component - Single Column with scrolling animation
 export const MobileTestimonials = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState<'left' | 'right' | null>(null);
+  
+  const handlePrev = () => {
+    setDirection('right');
+    setCurrentIndex((prev) => (prev === 0 ? reviews.length - 1 : prev - 1));
+  };
+  
+  const handleNext = () => {
+    setDirection('left');
+    setCurrentIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+  };
+  
   return (
-    <section className="py-16 bg-black relative overflow-hidden md:hidden" aria-label="Customer testimonials section">
-      <div className="container max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <header className="text-center mb-8 relative z-10">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            What Our Customers Say
+    <section className="relative py-16 bg-black overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <SparklesCore
+          background="transparent"
+          minSize={0.4}
+          maxSize={1}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#1CD4A7"
+          speed={0.2}
+        />
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-12">
+          <span className="text-sm font-semibold text-[#00E6CA] uppercase tracking-wider block text-center mb-2">CLIENT TESTIMONIALS</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-4 relative">
+            People Love HD Trade Services
+            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-[#00E6CA] to-transparent"></div>
           </h2>
-        </header>
-
-        {/* Single scrolling column of testimonials */}
-        <div className="relative z-10 h-[calc(100vh-250px)] max-h-[600px]">
-          <TestimonialColumn reviews={reviews} direction="up" duration={80} />
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto mt-6">
+            Real stories from real customers who experienced our exceptional service and craftsmanship firsthand.
+          </p>
         </div>
-
-        {/* Sparkles effect */}
-        <div className="absolute bottom-0 left-0 w-full h-32 z-0">
-          <SparklesCore
-            className="w-full h-full"
-            particleColor="#00E6CA"
-            particleDensity={100}
-            aria-hidden="true"
-          />
+        
+        <div className="relative overflow-hidden">
+          <AnimatePresence custom={direction} initial={false}>
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={{
+                enter: (direction) => ({
+                  x: direction === 'left' ? 300 : -300,
+                  opacity: 0
+                }),
+                center: {
+                  x: 0,
+                  opacity: 1
+                },
+                exit: (direction) => ({
+                  x: direction === 'left' ? -300 : 300,
+                  opacity: 0
+                })
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              <TestimonialCard review={reviews[currentIndex]} />
+            </motion.div>
+          </AnimatePresence>
+          
+          <div className="flex justify-between mt-6">
+            <button
+              onClick={handlePrev}
+              className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700 transition"
+              aria-label="Previous testimonial"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={handleNext}
+              className="p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700 transition"
+              aria-label="Next testimonial"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -440,7 +506,7 @@ export const Testimonials = () => {
     return <MobileTestimonials />;
   }
 
-  // Desktop version (existing code)
+  // Desktop version with animated columns
   // Split reviews into three roughly equal groups
   const columnSize = Math.ceil(reviews.length / 3);
   const column1 = reviews.slice(0, columnSize);
@@ -448,30 +514,36 @@ export const Testimonials = () => {
   const column3 = reviews.slice(columnSize * 2);
 
   return (
-    <section className="py-16 bg-black relative overflow-hidden hidden md:block" aria-label="Customer testimonials section">
-      <div className="container max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <header className="text-center mb-12 relative z-10">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            What Our Customers Say
-          </h2>
-        </header>
+    <section className="relative py-20 bg-black overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <SparklesCore
+          background="transparent"
+          minSize={0.4}
+          maxSize={1}
+          particleDensity={100}
+          className="w-full h-full"
+          particleColor="#1CD4A7"
+          speed={0.2}
+        />
+      </div>
 
-        {/* Testimonials grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-[600px] relative z-10">
-          <TestimonialColumn reviews={column1} direction="up" duration={50} />
-          <TestimonialColumn reviews={column2} direction="down" duration={50} />
-          <TestimonialColumn reviews={column3} direction="up" duration={50} />
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-12">
+          <span className="text-sm font-semibold text-[#00E6CA] uppercase tracking-wider block text-center mb-2">CLIENT TESTIMONIALS</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 relative">
+            People Love HD Trade Services
+            <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-transparent via-[#00E6CA] to-transparent"></div>
+          </h2>
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto mt-6">
+            Real stories from real customers who experienced our exceptional service and craftsmanship firsthand.
+          </p>
         </div>
 
-        {/* Sparkles effect */}
-        <div className="absolute bottom-0 left-0 w-full h-32 z-0">
-          <SparklesCore
-            className="w-full h-full"
-            particleColor="#00E6CA"
-            particleDensity={100}
-            aria-hidden="true"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto h-[800px]">
+          <TestimonialColumn reviews={column1} direction="up" duration={120} />
+          <TestimonialColumn reviews={column2} direction="down" duration={100} />
+          <TestimonialColumn reviews={column3} direction="up" duration={80} />
         </div>
       </div>
     </section>
