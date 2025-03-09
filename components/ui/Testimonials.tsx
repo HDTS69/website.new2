@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { SparklesCore } from "./SparklesCore";
 
 // Interfaces for type safety
 interface Review {
@@ -274,18 +273,27 @@ const StarRating = ({ rating }: { rating: number }) => (
 
 const TestimonialCard = ({ review }: { review: Review }) => (
   <motion.div
-    className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:border-gray-700 transition-all duration-300 hover:relative hover:z-10"
+    className="relative bg-black/60 p-6 rounded-xl shadow-lg border border-gray-800 hover:border-[#00E6CA]/20 transition-all duration-300 hover:relative hover:z-10 backdrop-blur-md overflow-hidden group"
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
-    whileHover={{ scale: 1.02, boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)" }}
+    whileHover={{ 
+      scale: 1.02,
+      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.4)",
+    }}
   >
-    <div className="flex items-center mb-4">
-      <div className="flex-1">
-        <h3 className="text-white font-medium text-lg mb-1">{review.name}</h3>
-        <StarRating rating={review.rating} />
+    {/* Gradient overlay */}
+    <div className="absolute inset-0 bg-gradient-to-br from-[#00E6CA]/5 via-transparent to-black/40 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+    
+    {/* Content with relative positioning */}
+    <div className="relative z-10">
+      <div className="flex items-center mb-4">
+        <div className="flex-1">
+          <h3 className="text-white font-medium text-lg mb-1">{review.name}</h3>
+          <StarRating rating={review.rating} />
+        </div>
       </div>
+      <p className="text-gray-300 text-sm leading-relaxed">{review.text}</p>
     </div>
-    <p className="text-gray-400 text-sm leading-relaxed">{review.text}</p>
   </motion.div>
 );
 
@@ -399,20 +407,7 @@ export const MobileTestimonials = () => {
   };
   
   return (
-    <section className="relative py-16 bg-black overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <SparklesCore
-          background="transparent"
-          minSize={0.4}
-          maxSize={1}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor="#1CD4A7"
-          speed={0.2}
-        />
-      </div>
-      
+    <section className="relative py-16">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <span className="text-sm font-semibold text-[#00E6CA] uppercase tracking-wider block text-center mb-2">CLIENT TESTIMONIALS</span>
@@ -514,20 +509,7 @@ export const Testimonials = () => {
   const column3 = reviews.slice(columnSize * 2);
 
   return (
-    <section className="relative py-20 bg-black overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <SparklesCore
-          background="transparent"
-          minSize={0.4}
-          maxSize={1}
-          particleDensity={100}
-          className="w-full h-full"
-          particleColor="#1CD4A7"
-          speed={0.2}
-        />
-      </div>
-
+    <section className="relative py-20">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <span className="text-sm font-semibold text-[#00E6CA] uppercase tracking-wider block text-center mb-2">CLIENT TESTIMONIALS</span>

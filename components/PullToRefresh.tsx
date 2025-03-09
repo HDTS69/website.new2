@@ -14,7 +14,7 @@ export function PullToRefresh() {
   
   // Function to trigger haptic feedback
   const triggerHapticFeedback = () => {
-    if (navigator.vibrate) {
+    if (navigator && navigator.vibrate) {
       // Vibration pattern: vibrate 15ms, pause 10ms, vibrate 15ms
       navigator.vibrate([15, 10, 15]);
     }
@@ -22,7 +22,7 @@ export function PullToRefresh() {
   
   // Function for subtle feedback during pull
   const triggerSubtleHapticFeedback = () => {
-    if (navigator.vibrate) {
+    if (navigator && navigator.vibrate) {
       navigator.vibrate(5); // Very short vibration
     }
   };

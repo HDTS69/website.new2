@@ -36,31 +36,13 @@ export const SparklesCore = (props: ParticlesProps) => {
   const generatedId = useId();
   
   useEffect(() => {
-    const initializeParticles = async () => {
-      try {
-        await initParticlesEngine(async (engine) => {
-          await loadSlim(engine);
-        });
-        setInit(true);
-        controls.start({ opacity: 1 });
-      } catch (error) {
-        console.error("Failed to initialize particles:", error);
-      }
-    };
-
-    initializeParticles();
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+      controls.start({ opacity: 1 });
+    });
   }, [controls]);
-
-  const particlesLoaded = async (container?: Container) => {
-    if (container) {
-      await controls.start({
-        opacity: 1,
-        transition: {
-          duration: 0.2,
-        },
-      });
-    }
-  };
 
   const options = useMemo(() => ({
     background: {
@@ -72,29 +54,18 @@ export const SparklesCore = (props: ParticlesProps) => {
       enable: false,
       zIndex: 1,
     },
-    fpsLimit: 30,
+    fpsLimit: 60,
     interactivity: {
       events: {
         onClick: {
           enable: false,
-          mode: "push",
         },
         onHover: {
           enable: false,
-          mode: "repulse",
         },
         resize: {
           enable: true,
           delay: 0.5,
-        },
-      },
-      modes: {
-        push: {
-          quantity: 4,
-        },
-        repulse: {
-          distance: 200,
-          duration: 0.4,
         },
       },
     },
@@ -106,9 +77,9 @@ export const SparklesCore = (props: ParticlesProps) => {
         direction: "none" as const,
         enable: true,
         outModes: {
-          default: "out" as const,
+          default: "bounce" as const,
         },
-        random: false,
+        random: true,
         speed: speed || 2,
         straight: false,
         warp: false,
@@ -121,7 +92,7 @@ export const SparklesCore = (props: ParticlesProps) => {
         }
       },
       opacity: {
-        value: 0.5,
+        value: { min: 0.1, max: 0.5 },
         animation: {
           enable: true,
           speed: 0.5,
@@ -135,14 +106,14 @@ export const SparklesCore = (props: ParticlesProps) => {
         value: { min: minSize || 1, max: maxSize || 3 },
       },
     },
-    detectRetina: false,
+    detectRetina: true,
   }), [background, minSize, maxSize, speed, particleColor, particleDensity]);
   
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={controls}
-      className={cn("opacity-0 transform-gpu", className)}
+      className={cn("w-full h-full", className)}
       style={{
         willChange: 'transform, opacity',
         backfaceVisibility: 'hidden'
@@ -152,7 +123,14 @@ export const SparklesCore = (props: ParticlesProps) => {
         <Particles
           id={id || generatedId}
           className={cn("h-full w-full")}
-          particlesLoaded={particlesLoaded}
+          particlesLoaded={async (container) => {
+            if (container) {
+              await controls.start({
+                opacity: 1,
+                transition: { duration: 0.2 }
+              });
+            }
+          }}
           options={options}
         />
       )}

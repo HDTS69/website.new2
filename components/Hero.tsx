@@ -14,6 +14,7 @@ import {
   ImagePriority
 } from '@/utils/imageLoading';
 import { HeroBookingForm } from '@/components/HeroBookingForm';
+import { GoogleReviews } from './ui/GoogleReviews';
 
 export function Hero() {
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -100,7 +101,7 @@ export function Hero() {
         <div
           className="
             grid grid-cols-12 gap-6
-            items-center  /* Vertically center text beside image */
+            items-center
           "
         >
           {/* Left Spacer (for the absolute-positioned image) */}
@@ -111,8 +112,8 @@ export function Hero() {
             className="
               col-span-12 md:col-span-5
               flex flex-col
-              items-center md:items-center   /* Center horizontally in its column */
-              text-center md:text-center     /* Center-align text */
+              items-center md:items-center
+              text-center md:text-center
               select-none transform-gpu
             "
           >
@@ -185,24 +186,14 @@ export function Hero() {
               </Cover>
             </div>
 
-            {/* Book Online Button - moved into the main text column */}
+            {/* Google Reviews Component */}
             <div
               className="
                 opacity-0 animate-scale-up animation-delay-700
-                transform-gpu mb-4
+                transform-gpu mb-4 w-full
               "
             >
-              <AnimatedButton 
-                href="#book"
-                variant="primary"
-                className="
-                  shadow-lg hover:shadow-xl
-                  hover:shadow-[#00E6CA]/20 text-white
-                "
-                onClick={handleBookClick}
-              >
-                Book Online
-              </AnimatedButton>
+              <GoogleReviews />
             </div>
           </div>
 
