@@ -44,15 +44,9 @@ const config = {
     // Puppeteer launch options
     puppeteerOptions: {
       headless: 'new',
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--disable-gpu',
-        '--window-size=1280,800'
-      ],
-      timeout: 60000 // Increased from 30000 to 60000
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+      // Only use if puppeteer is installed
+      ...(isPuppeteerInstalled() ? {} : { executablePath: 'chrome' })
     }
   },
   // URLs to generate critical CSS for
@@ -66,7 +60,10 @@ const config = {
 
 // Function to check for required dependencies
 function checkDependencies() {
-  const requiredPackages = ['critical', 'glob', 'puppeteer'];
+  const requiredPackages = ['critical', 'glob'];
+  if (isPuppeteerInstalled()) {
+    requiredPackages.push('puppeteer');
+  }
   const missingPackages = [];
   
   for (const pkg of requiredPackages) {
@@ -220,7 +217,9 @@ async function generateCriticalCss(url, baseUrl = 'http://localhost:3000') {
             timeout: config.criticalCss.timeout,
             renderWaitTime: 1000,
             puppeteer: {
-              ...config.criticalCss.puppeteerOptions
+              ...config.criticalCss.puppeteerOptions,
+              // Skip if puppeteer is not installed
+              ...(isPuppeteerInstalled() ? {} : { ignore: true })
             }
           },
           user: config.criticalCss.userAgent,
@@ -592,4 +591,14 @@ async function optimizeCriticalPath() {
 optimizeCriticalPath().catch(error => {
   console.error('Critical path optimization failed:', error);
   process.exit(1);
-}); 
+});
+
+// Check if puppeteer is installed
+const isPuppeteerInstalled = () => {
+  try {
+    require.resolve('puppeteer');
+    return true;
+  } catch (e) {
+    return false;
+  }
+}; 

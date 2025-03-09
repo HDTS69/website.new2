@@ -35,7 +35,7 @@ const config = {
       name: 'Optimize Critical Path',
       description: 'Extracts and inlines critical CSS for faster rendering',
       path: 'scripts/optimize-critical-path.js',
-      dependencies: ['critical', 'glob', 'puppeteer'],
+      dependencies: ['critical', 'glob', ...(isPuppeteerInstalled() ? ['puppeteer'] : [])],
     },
     {
       name: 'Optimize Framer Motion',
@@ -290,6 +290,16 @@ function parseArgs() {
   
   return options;
 }
+
+// Check if puppeteer is installed
+const isPuppeteerInstalled = () => {
+  try {
+    require.resolve('puppeteer');
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 
 // Main function
 function main() {
