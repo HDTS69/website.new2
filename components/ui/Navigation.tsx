@@ -55,6 +55,7 @@ const defaultNavigationItems: NavItem[] = [
           { name: 'Solar Hot Water', url: '/services/hot-water/solar' },
           { name: 'Hot Water Repairs', url: '/services/hot-water/repairs' },
           { name: 'Hot Water Replacement', url: '/services/hot-water/replacement' },
+          { name: 'Hot Water System Buyers Guide', url: '/services/hot-water/buyers-guide' },
         ],
       },
       {
