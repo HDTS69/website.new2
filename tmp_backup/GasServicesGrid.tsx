@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import LordIcon from '@/app/components/LordIcon';
 
 // Remove the type declaration since we're using a different approach
 // declare global {
@@ -130,6 +129,51 @@ const services: Service[] = [
   }
 ];
 
+interface LordIconProps {
+  src: string;
+  trigger?: "hover" | "click" | "loop" | "loop-on-hover" | "morph" | "boomerang";
+  colors?: { primary?: string; secondary?: string };
+  delay?: number;
+  size?: number;
+}
+
+function LordIcon({ src, trigger = "hover", delay = 0, size = 64, colors }: LordIconProps) {
+  const iconRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // This will run only on the client side
+    if (typeof window !== 'undefined' && iconRef.current) {
+      // Create a new lord-icon element
+      const lordIconElement = document.createElement('lord-icon');
+      
+      // Set attributes
+      lordIconElement.setAttribute('src', src);
+      lordIconElement.setAttribute('trigger', trigger);
+      lordIconElement.setAttribute('delay', delay.toString());
+      lordIconElement.style.width = `${size}px`;
+      lordIconElement.style.height = `${size}px`;
+      
+      if (colors?.primary) {
+        lordIconElement.setAttribute('colors', `primary:${colors.primary}${colors.secondary ? `,secondary:${colors.secondary}` : ''}`);
+      }
+      
+      // Clear the container and append the lord-icon element
+      if (iconRef.current.firstChild) {
+        iconRef.current.innerHTML = '';
+      }
+      iconRef.current.appendChild(lordIconElement);
+    }
+  }, [src, trigger, delay, size, colors]);
+
+  return (
+    <div 
+      ref={iconRef}
+      className="lord-icon-container"
+      style={{ width: `${size}px`, height: `${size}px` }}
+    />
+  );
+}
+
 // Placeholder icon component with emoji support
 function PlaceholderIcon({ size = 64, service }: { 
   size?: number;
@@ -153,7 +197,21 @@ function PlaceholderIcon({ size = 64, service }: {
 }
 
 export function GasServicesGrid() {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [activeAnimations, setActiveAnimations] = useState<Record<string, boolean>>({});
+  const animationTimeouts = useRef<Record<string, NodeJS.Timeout>>({});
+
+  const handleMouseEnter = (title: string) => {
+    if (animationTimeouts.current[title]) {
+      clearTimeout(animationTimeouts.current[title]);
+    }
+    setActiveAnimations(prev => ({ ...prev, [title]: true }));
+  };
+
+  const handleMouseLeave = (title: string) => {
+    animationTimeouts.current[title] = setTimeout(() => {
+      setActiveAnimations(prev => ({ ...prev, [title]: false }));
+    }, 2000); // Adjust based on animation duration
+  };
 
   return (
     <motion.div
@@ -162,48 +220,46 @@ export function GasServicesGrid() {
       transition={{ duration: 0.5 }}
       className="py-0"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {services.map((service, index) => (
-          <motion.div
-            key={service.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            onMouseEnter={() => setHoveredCard(service.title)}
-            onMouseLeave={() => setHoveredCard(null)}
-            className="group"
-          >
-            <Link
-              href={service.href}
-              className="block h-full p-6 bg-black/40 backdrop-blur-sm rounded-2xl border border-[#00E6CA]/20 hover:border-[#00E6CA]/40 transition-all duration-300 hover:shadow-lg hover:shadow-[#00E6CA]/20"
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              onMouseEnter={() => handleMouseEnter(service.title)}
+              onMouseLeave={() => handleMouseLeave(service.title)}
             >
-              <div className="flex flex-col items-center text-center h-full">
-                <div className="w-16 h-16 mb-3 flex-shrink-0">
-                  {service.lordIcon ? (
-                    <LordIcon
-                      src={service.lordIcon}
-                      forceTrigger={hoveredCard === service.title}
-                      size={64}
-                    />
-                  ) : service.emoji ? (
-                    <PlaceholderIcon service={service} />
-                  ) : (
-                    <img 
-                      src={service.icon} 
-                      alt={service.title}
-                      className="w-full h-full object-contain"
-                    />
-                  )}
+              <Link 
+                href={service.href}
+                className="block p-6 rounded-xl bg-gradient-to-br from-gray-900/50 to-black border border-[#00E6CA]/20 transition-all duration-300 hover:border-[#00E6CA]/40 hover:shadow-[0_0_15px_rgba(0,230,202,0.3)] h-[280px] flex flex-col"
+              >
+                <div className="flex flex-col items-center text-center h-full">
+                  <div className="w-16 h-16 mb-3 flex-shrink-0">
+                    {service.lordIcon ? (
+                      <LordIcon
+                        src={service.lordIcon}
+                        trigger={activeAnimations[service.title] ? "loop" : "hover"}
+                        size={64}
+                      />
+                    ) : (
+                      <img 
+                        src={service.icon} 
+                        alt={service.title}
+                        className="w-full h-full object-contain"
+                      />
+                    )}
+                  </div>
+                  <div className="flex flex-col flex-grow">
+                    <h3 className="text-lg font-semibold text-white mb-2">{service.title}</h3>
+                    <p className="text-sm text-gray-400 line-clamp-4">{service.description}</p>
+                  </div>
                 </div>
-                
-                <div className="flex flex-col flex-grow">
-                  <h3 className="text-lg font-semibold text-white mb-2">{service.title}</h3>
-                  <p className="text-gray-400 text-sm mb-auto">{service.description}</p>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
