@@ -78,7 +78,15 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         
-        <link rel="preload" href="/images/hayden-hero-1.webp" as="image" />
+        <link 
+          rel="preload" 
+          href="/images/hayden-hero-1.webp" 
+          as="image" 
+          type="image/webp"
+          fetchPriority="high"
+          imageSrcSet="/images/hayden-hero-1.webp 1x"
+          imageSizes="(max-width: 768px) 100vw, 45vw"
+        />
         
         <style dangerouslySetInnerHTML={{ __html: `
           :root {
